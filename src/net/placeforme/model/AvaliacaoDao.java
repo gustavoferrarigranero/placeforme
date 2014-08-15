@@ -28,6 +28,7 @@ public class AvaliacaoDao {
         values.put(DbHelper.TABLE_AVALIACAO_NOTA, avaliacao.getNota());
         values.put(DbHelper.TABLE_AVALIACAO_TEXTO, avaliacao.getTexto());
         values.put(DbHelper.TABLE_AVALIACAO_EVENTO_ID, avaliacao.getEventoId());
+        values.put(DbHelper.TABLE_AVALIACAO_USUARIO_ID, avaliacao.getUsuarioId());
         values.put(DbHelper.TABLE_AVALIACAO_STATUS, avaliacao.getStatus());
         database.insert(DbHelper.TABLE_AVALIACAO, null, values);
         dbHelper.close();
@@ -39,7 +40,7 @@ public class AvaliacaoDao {
         database = dbHelper.getReadableDatabase();
         Cursor cursor = database.query(DbHelper.TABLE_AVALIACAO, new String[]{DbHelper.TABLE_AVALIACAO_ID,
                         DbHelper.TABLE_AVALIACAO_NOTA, DbHelper.TABLE_AVALIACAO_TEXTO, DbHelper.TABLE_AVALIACAO_EVENTO_ID,
-                        DbHelper.TABLE_AVALIACAO_STATUS}, DbHelper.TABLE_AVALIACAO_ID + "=?",
+                        DbHelper.TABLE_AVALIACAO_USUARIO_ID, DbHelper.TABLE_AVALIACAO_STATUS}, DbHelper.TABLE_AVALIACAO_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
@@ -50,7 +51,8 @@ public class AvaliacaoDao {
         avaliacao.setNota(cursor.getInt(1));
         avaliacao.setTexto(cursor.getString(2));
         avaliacao.setEventoId(cursor.getInt(3));
-        avaliacao.setStatus(cursor.getInt(4));
+        avaliacao.setUsuarioId(cursor.getInt(4));
+        avaliacao.setStatus(cursor.getInt(5));
 
         dbHelper.close();
         return avaliacao;
@@ -64,12 +66,13 @@ public class AvaliacaoDao {
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                Avaliacao avaliacao = new Avaliacao();
+            	Avaliacao avaliacao = new Avaliacao();
                 avaliacao.setAvaliacaoId(cursor.getInt(0));
                 avaliacao.setNota(cursor.getInt(1));
                 avaliacao.setTexto(cursor.getString(2));
                 avaliacao.setEventoId(cursor.getInt(3));
-                avaliacao.setStatus(cursor.getInt(4));
+                avaliacao.setUsuarioId(cursor.getInt(4));
+                avaliacao.setStatus(cursor.getInt(5));
                 avaliacaoList.add(avaliacao);
             } while (cursor.moveToNext());
         }
@@ -84,6 +87,7 @@ public class AvaliacaoDao {
         values.put(DbHelper.TABLE_AVALIACAO_NOTA, avaliacao.getNota());
         values.put(DbHelper.TABLE_AVALIACAO_TEXTO, avaliacao.getTexto());
         values.put(DbHelper.TABLE_AVALIACAO_EVENTO_ID, avaliacao.getEventoId());
+        values.put(DbHelper.TABLE_AVALIACAO_USUARIO_ID, avaliacao.getUsuarioId());
         values.put(DbHelper.TABLE_AVALIACAO_STATUS, avaliacao.getStatus());
         int ret = database.update(DbHelper.TABLE_AVALIACAO, values, DbHelper.TABLE_AVALIACAO_ID + " = ?",
                 new String[]{String.valueOf(avaliacao.getAvaliacaoId())});

@@ -10,6 +10,7 @@ public class Foto {
     private int foto_id;
     private String legenda;
     private Bitmap foto;
+    private int evento_id;
     private int status;
 
 
@@ -37,7 +38,15 @@ public class Foto {
         this.foto = foto;
     }
 
-    public int getStatus() {
+    public int getEventoId() {
+		return evento_id;
+	}
+
+	public void setEventoId(int evento_id) {
+		this.evento_id = evento_id;
+	}
+
+	public int getStatus() {
         return status;
     }
 

@@ -1,0 +1,128 @@
+package net.placeforme.model;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Gustavo on 13/08/2014.
+ */
+public class UsuarioDao {
+
+    private SQLiteDatabase database;
+    private DbHelper dbHelper;
+
+
+    public UsuarioDao(Context ctx) {
+        this.dbHelper = new DbHelper(ctx);
+    }
+
+    /*private int usuario_id;
+    private String nome;
+    private String email;
+    private String senha;
+    private int tipo;
+    private int status;*/
+    
+    public void add(Usuario usuario) {
+
+        database = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.TABLE_USUARIO_NOME, usuario.getNome());
+        values.put(DbHelper.TABLE_USUARIO_EMAIL, usuario.getEmail());
+        values.put(DbHelper.TABLE_USUARIO_SENHA, usuario.getSenha());
+        values.put(DbHelper.TABLE_USUARIO_TIPO, usuario.getTipo());
+        values.put(DbHelper.TABLE_USUARIO_STATUS, usuario.getStatus());
+        database.insert(DbHelper.TABLE_USUARIO, null, values);
+        dbHelper.close();
+
+    }
+
+    public Usuario get(int id) {
+
+        database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.query(DbHelper.TABLE_USUARIO, new String[]{
+        		DbHelper.TABLE_USUARIO_ID,DbHelper.TABLE_USUARIO_NOME,DbHelper.TABLE_USUARIO_EMAIL,
+        		DbHelper.TABLE_USUARIO_SENHA,DbHelper.TABLE_USUARIO_TIPO,DbHelper.TABLE_USUARIO_STATUS}
+        		, DbHelper.TABLE_USUARIO_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Usuario usuario = new Usuario();
+        usuario.setUsuarioId(cursor.getInt(0));
+        usuario.setNome(cursor.getString(1));
+        usuario.setEmail(cursor.getString(2));
+        usuario.setSenha(cursor.getString(3));
+        usuario.setTipo(cursor.getInt(4));
+        usuario.setStatus(cursor.getInt(5));
+
+        dbHelper.close();
+        return usuario;
+    }
+
+
+    public List<Usuario> getAll() {
+        List<Usuario> usuarioList = new ArrayList<Usuario>();
+        String selectQuery = "SELECT  * FROM " + DbHelper.TABLE_USUARIO;
+        database = dbHelper.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+            	Usuario usuario = new Usuario();
+                usuario.setUsuarioId(cursor.getInt(0));
+                usuario.setNome(cursor.getString(1));
+                usuario.setEmail(cursor.getString(2));
+                usuario.setSenha(cursor.getString(3));
+                usuario.setTipo(cursor.getInt(4));
+                usuario.setStatus(cursor.getInt(5));
+                usuarioList.add(usuario);
+            } while (cursor.moveToNext());
+        }
+        dbHelper.close();
+        return usuarioList;
+    }
+
+
+    public int update(Usuario usuario) {
+        database = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.TABLE_USUARIO_NOME, usuario.getNome());
+        values.put(DbHelper.TABLE_USUARIO_EMAIL, usuario.getEmail());
+        values.put(DbHelper.TABLE_USUARIO_SENHA, usuario.getSenha());
+        values.put(DbHelper.TABLE_USUARIO_TIPO, usuario.getTipo());
+        values.put(DbHelper.TABLE_USUARIO_STATUS, usuario.getStatus());
+        int ret = database.update(DbHelper.TABLE_USUARIO, values, DbHelper.TABLE_USUARIO_ID + " = ?",
+                new String[]{String.valueOf(usuario.getUsuarioId())});
+
+        dbHelper.close();
+
+        return ret;
+    }
+
+
+    public void delete(Usuario usuario) {
+
+        database = dbHelper.getWritableDatabase();
+        database.delete(DbHelper.TABLE_USUARIO, DbHelper.TABLE_USUARIO_ID + " = ?",
+                new String[]{String.valueOf(usuario.getUsuarioId())});
+        dbHelper.close();
+    }
+
+
+    public int count() {
+        String countQuery = "SELECT " + DbHelper.TABLE_USUARIO_ID + " FROM " + DbHelper.TABLE_USUARIO;
+        database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.rawQuery(countQuery, null);
+        cursor.close();
+        dbHelper.close();
+        return cursor.getCount();
+    }
+
+
+}

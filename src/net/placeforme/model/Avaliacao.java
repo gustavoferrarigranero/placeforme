@@ -9,6 +9,7 @@ public class Avaliacao {
     private int nota;
     private String texto;
     private int evento_id;
+    private int usuario_id;
     private int status;
 
 
@@ -44,7 +45,15 @@ public class Avaliacao {
         this.evento_id = evento_id;
     }
 
-    public int getStatus() {
+    public int getUsuarioId() {
+		return usuario_id;
+	}
+
+	public void setUsuarioId(int usuario_id) {
+		this.usuario_id = usuario_id;
+	}
+
+	public int getStatus() {
         return status;
     }
 

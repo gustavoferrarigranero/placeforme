@@ -13,7 +13,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase database;
     private static final String DATABASE_NAME = "placeforme";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     //atributos
     public static final String TABLE_ATRIBUTO = "atributos";
@@ -35,12 +35,14 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String TABLE_AVALIACAO_NOTA = "nota";
     public static final String TABLE_AVALIACAO_TEXTO = "texto";
     public static final String TABLE_AVALIACAO_EVENTO_ID = "evento_id";
+    public static final String TABLE_AVALIACAO_USUARIO_ID = "usuario_id";
     public static final String TABLE_AVALIACAO_STATUS = "status";
     private static final String CREATE_TABLE_AVALIACAO = "create table " + TABLE_AVALIACAO + " ( "+
             TABLE_AVALIACAO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             TABLE_AVALIACAO_NOTA + " INTEGER," +
             TABLE_AVALIACAO_TEXTO + " TEXT," +
             TABLE_AVALIACAO_EVENTO_ID + " INTEGER," +
+            TABLE_AVALIACAO_USUARIO_ID + " INTEGER," +
             TABLE_AVALIACAO_STATUS + " INTEGER" +
             " ) ";
     private static final String DROP_TABLE_AVALIACAO = "DROP TABLE IF EXISTS " + TABLE_AVALIACAO ;
@@ -84,11 +86,13 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String TABLE_FOTO_ID = "foto_id";
     public static final String TABLE_FOTO_LEGENDA = "legenda";
     public static final String TABLE_FOTO_FOTO = "foto";
+    public static final String TABLE_FOTO_EVENTO_ID = "evento_id";
     public static final String TABLE_FOTO_STATUS = "status";
     private static final String CREATE_TABLE_FOTO = "create table " + TABLE_FOTO + " ( "+
             TABLE_FOTO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             TABLE_FOTO_LEGENDA + " TEXT," +
             TABLE_FOTO_FOTO + " TEXT," +
+            TABLE_FOTO_EVENTO_ID + " INTEGER," +
             TABLE_FOTO_STATUS + " INTEGER" +
             " ) ";
     private static final String DROP_TABLE_FOTO = "DROP TABLE IF EXISTS " + TABLE_FOTO ;
@@ -163,28 +167,6 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(DROP_TABLE_PRESENCA);
         db.execSQL(DROP_TABLE_USUARIO);
         onCreate(db);
-    }
-
-    public SQLiteDatabase getWritableDatabase() {
-
-        this.database = this.getWritableDatabase();
-
-        return this.database;
-
-    }
-
-    public SQLiteDatabase getReadableDatabase() {
-
-        this.database = this.getReadableDatabase();
-
-        return this.database;
-
-    }
-
-    public void close() {
-
-        this.database.close();
-
     }
 
 }

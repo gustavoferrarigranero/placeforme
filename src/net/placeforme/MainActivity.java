@@ -10,13 +10,12 @@ import android.app.FragmentTransaction;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.view.Window;
 
 
 public class MainActivity extends Activity implements ActionBar.TabListener {
@@ -42,7 +41,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         setContentView(R.layout.activity_main);
 
         // Set up the action bar.
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = this.getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         // Create the adapter that will return a fragment for each of the three
@@ -74,6 +73,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+        
+        actionBar.selectTab(actionBar.getTabAt(1));
     }
 
 
