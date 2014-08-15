@@ -35,10 +35,11 @@ public final class R {
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int fragment_tab_one=0x7f030001;
-        public static final int fragment_tab_tree=0x7f030002;
-        public static final int fragment_tab_two=0x7f030003;
-        public static final int list_eventos=0x7f030004;
+        public static final int background_actionbar=0x7f030001;
+        public static final int fragment_tab_one=0x7f030002;
+        public static final int fragment_tab_tree=0x7f030003;
+        public static final int fragment_tab_two=0x7f030004;
+        public static final int list_eventos=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f070000;
