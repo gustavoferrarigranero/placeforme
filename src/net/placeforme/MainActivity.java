@@ -7,9 +7,11 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +22,8 @@ import android.view.Window;
 
 public class MainActivity extends Activity implements ActionBar.TabListener {
 
+	public static int ACTIVE_TAB;
+	
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -102,6 +106,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         // When the given tab is selected, switch to the corresponding page in
         // the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
+        ACTIVE_TAB = tab.getPosition();
+        //Log.d("teste",String.valueOf(ACTIVE_TAB));
     }
 
     @Override
@@ -178,7 +184,23 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        	
+        	
+        	Bundle params = getArguments() ;
+        	
+        	int section_number = params.getInt(ARG_SECTION_NUMBER);
+        	
+        	View rootView = null;
+        	if(section_number == 1){
+        		TabOneActivity activity = new TabOneActivity();
+        		rootView = activity.onCreateView(inflater, container, savedInstanceState);        	
+        	}else if(section_number == 2){
+        		TabTwoActivity activity = new TabTwoActivity();
+        		rootView = activity.onCreateView(inflater, container, savedInstanceState);
+        	}else if(section_number == 3){
+        		TabTreeActivity activity = new TabTreeActivity();
+        		rootView = activity.onCreateView(inflater, container, savedInstanceState);
+        	}
             return rootView;
         }
     }
