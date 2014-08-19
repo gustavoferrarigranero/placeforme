@@ -1,18 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/linhaEscrita"
     android:padding="5sp">
+	
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:orientation="vertical"
+        android:gravity="left"
+        android:layout_weight="18">
+        
+        <TextView
+	        android:id="@+id/text"
+	        android:text=""
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:textSize="20sp"
+	    	android:textColor="#333333" />
+	        
+        <TextView
+	        android:id="@+id/datainicio"
+	        android:text=""
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:textSize="15sp"
+	        android:textColor="#888888"/>
+        
+    </LinearLayout> 
 
-    <TextView
-        android:id="@+id/text"
-        android:text="teste"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="5sp"
-        android:gravity="center_vertical"
-        android:textColor="#FF000000"
-        />
+    <ImageView android:id="@+id/imageUsuario" 
+        android:layout_gravity="right"
+        android:layout_width="60sp" 
+        android:layout_height="60sp"
+        android:contentDescription="@string/imagemUsuario"
+        android:src="@drawable/ic_launcher"
+        android:layout_weight="2" 
+        android:background="#0080C0"/>
+
 </LinearLayout> 

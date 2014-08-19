@@ -47,7 +47,10 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         
         // Set up the action bar.
         final ActionBar actionBar = this.getActionBar();
+
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        
+        
         
 
         // Create the adapter that will return a fragment for each of the three
@@ -81,6 +84,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         }
         
         actionBar.selectTab(actionBar.getTabAt(1));
+        
+        actionBar. setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_back));
     }
 
 
@@ -109,7 +114,6 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         // the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
         ACTIVE_TAB = tab.getPosition();
-        //Log.d("teste",String.valueOf(ACTIVE_TAB));
     }
 
     @Override

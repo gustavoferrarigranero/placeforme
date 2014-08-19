@@ -7,5 +7,6 @@
     <string name="title_section3">Meus Eventos</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Opções</string>
+    <string name="imagemUsuario">Imagem usuário</string>
 
 </resources>

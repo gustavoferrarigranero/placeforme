@@ -13,7 +13,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase database;
     private static final String DATABASE_NAME = "placeforme";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
 
     //atributos
     public static final String TABLE_ATRIBUTO = "atributos";
@@ -125,6 +125,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String TABLE_USUARIO = "usuarios";
     public static final String TABLE_USUARIO_ID = "usuario_id";
     public static final String TABLE_USUARIO_NOME = "nome";
+    public static final String TABLE_USUARIO_FOTO = "foto";
     public static final String TABLE_USUARIO_EMAIL = "email";
     public static final String TABLE_USUARIO_SENHA = "senha";
     public static final String TABLE_USUARIO_TIPO = "tipo";
@@ -132,6 +133,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_USUARIO = "create table " + TABLE_USUARIO + " ( "+
             TABLE_USUARIO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             TABLE_USUARIO_NOME + " TEXT," +
+            TABLE_USUARIO_FOTO + " TEXT," +
             TABLE_USUARIO_EMAIL + " TEXT," +
             TABLE_USUARIO_SENHA + " TEXT," +
             TABLE_USUARIO_TIPO + " INTEGER," +

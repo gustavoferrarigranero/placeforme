@@ -17,10 +17,28 @@ public class Conv {
 	 * @param encodedString
 	 * @return java.sql.Date (from given date string)
 	 */
-	public static java.sql.Date stringToSqlDate(String data)
-			throws ParseException {
-		return new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(data)
-				.getTime());
+	public static java.sql.Date stringToSqlDate(String data) {
+		java.sql.Date dataFinal = null;
+		try {
+			dataFinal = new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(data).getTime());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return dataFinal; 
+	}
+	
+	/**
+	 * @param java.sql.Date
+	 * @return String (from given java.sql.Date)
+	 */
+	public static String sqlDateToString(java.sql.Date data) {
+	  
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");  
+		String text = df.format(data);  
+		return text;
+	
 	}
 
 	/**

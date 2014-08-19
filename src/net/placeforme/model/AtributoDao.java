@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.placeforme.util.Conv;
+
 /**
  * Created by Gustavo on 13/08/2014.
  */
@@ -15,6 +17,8 @@ public class AtributoDao {
 
     private SQLiteDatabase database;
     private DbHelper dbHelper;
+    private String[] ALLCOLUMNS = new String[] { DbHelper.TABLE_ATRIBUTO_ID,
+            DbHelper.TABLE_ATRIBUTO_TITULO, DbHelper.TABLE_ATRIBUTO_PADRAO,DbHelper.TABLE_ATRIBUTO_STATUS };
 
 
     public void AtributoDao(Context ctx) {
@@ -53,23 +57,28 @@ public class AtributoDao {
         return atributo;
     }
 
+    
+    
 
     public List<Atributo> getAll() {
         List<Atributo> atributoList = new ArrayList<Atributo>();
-        String selectQuery = "SELECT  * FROM " + DbHelper.TABLE_ATRIBUTO;
-        database = dbHelper.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                Atributo atributo = new Atributo();
-                atributo.setAtributoId(cursor.getInt(0));
-                atributo.setTitulo(cursor.getString(1));
-                atributo.setPadrao(cursor.getInt(2));
-                atributo.setStatus(cursor.getInt(3));
-                atributoList.add(atributo);
-            } while (cursor.moveToNext());
+        database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.query(DbHelper.TABLE_ATRIBUTO,
+                ALLCOLUMNS, null, null, null, null, null);
+        
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Atributo atributo = new Atributo();
+            atributo.setAtributoId(cursor.getInt(0));
+            atributo.setTitulo(cursor.getString(1));
+            atributo.setPadrao(cursor.getInt(2));
+            atributo.setStatus(cursor.getInt(3));
+            atributoList.add(atributo);  
+            cursor.moveToNext();
         }
+        cursor.close();
         dbHelper.close();
+        
         return atributoList;
     }
 

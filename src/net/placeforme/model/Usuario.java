@@ -1,5 +1,7 @@
 package net.placeforme.model;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Gustavo on 13/08/2014.
  */
@@ -7,6 +9,7 @@ public class Usuario {
 
     private int usuario_id;
     private String nome;
+    private Bitmap foto;
     private String email;
     private String senha;
     private int tipo;
@@ -27,12 +30,20 @@ public class Usuario {
     public void setNome(String nome) {
         this.nome = nome;
     }
+    
+    public Bitmap getFoto() {
+		return foto;
+	}
+
+	public void setFoto(Bitmap foto) {
+		this.foto = foto;
+	}
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+	public void setEmail(String email) {
         this.email = email;
     }
 

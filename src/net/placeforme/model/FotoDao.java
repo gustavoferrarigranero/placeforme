@@ -18,6 +18,9 @@ public class FotoDao {
 
     private SQLiteDatabase database;
     private DbHelper dbHelper;
+    private String[] ALLCOLUMNS = new String[]{DbHelper.TABLE_FOTO_ID,
+    		DbHelper.TABLE_FOTO_LEGENDA,DbHelper.TABLE_FOTO_FOTO, DbHelper.TABLE_FOTO_EVENTO_ID,
+            DbHelper.TABLE_FOTO_STATUS};
 
 
     public FotoDao(Context ctx) {
@@ -41,9 +44,7 @@ public class FotoDao {
     public Foto get(int id) {
 
         database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.query(DbHelper.TABLE_FOTO, new String[]{DbHelper.TABLE_FOTO_ID,
-        		DbHelper.TABLE_FOTO_LEGENDA,DbHelper.TABLE_FOTO_FOTO, DbHelper.TABLE_FOTO_EVENTO_ID,
-                        DbHelper.TABLE_FOTO_STATUS}, DbHelper.TABLE_FOTO_ID + "=?",
+        Cursor cursor = database.query(DbHelper.TABLE_FOTO, ALLCOLUMNS, DbHelper.TABLE_FOTO_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
@@ -63,11 +64,12 @@ public class FotoDao {
 
     public List<Foto> getAll() {
         List<Foto> fotoList = new ArrayList<Foto>();
-        String selectQuery = "SELECT  * FROM " + DbHelper.TABLE_FOTO;
-        database = dbHelper.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
+        database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.query(DbHelper.TABLE_ATRIBUTO,
+                ALLCOLUMNS, null, null, null, null, null);
+        
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
             	Foto foto = new Foto();
                 foto.setFotoId(cursor.getInt(0));
                 foto.setLegenda(cursor.getString(1));
@@ -75,8 +77,9 @@ public class FotoDao {
                 foto.setEventoId(cursor.getInt(3));
                 foto.setStatus(cursor.getInt(4));
                 fotoList.add(foto);
-            } while (cursor.moveToNext());
+            	cursor.moveToNext();
         }
+        cursor.close();
         dbHelper.close();
         return fotoList;
     }

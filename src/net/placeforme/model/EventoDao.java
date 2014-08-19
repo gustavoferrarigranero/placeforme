@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor; 
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -18,6 +19,9 @@ public class EventoDao {
 
     private SQLiteDatabase database;
     private DbHelper dbHelper;
+    private String[] ALLCOLUMNS = { DbHelper.TABLE_EVENTO_ID,DbHelper.TABLE_EVENTO_TITULO,
+    		DbHelper.TABLE_EVENTO_DATA_INICIO,DbHelper.TABLE_EVENTO_DATA_FIM,DbHelper.TABLE_EVENTO_GRUPO_ID,
+    		DbHelper.TABLE_EVENTO_USUARIO_ID,DbHelper.TABLE_EVENTO_STATUS};
 
 
     public EventoDao(Context ctx) {
@@ -35,7 +39,8 @@ public class EventoDao {
         values.put(DbHelper.TABLE_EVENTO_GRUPO_ID, evento.getGrupoId());
         values.put(DbHelper.TABLE_EVENTO_USUARIO_ID, evento.getUsuarioId());
         values.put(DbHelper.TABLE_EVENTO_STATUS, evento.getStatus());
-        database.insert(DbHelper.TABLE_EVENTO, null, values);
+        long ret = database.insert(DbHelper.TABLE_EVENTO, null, values);
+
         dbHelper.close();
 
     }
@@ -44,9 +49,7 @@ public class EventoDao {
     public Evento get(int id) throws ParseException {
 
         database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.query(DbHelper.TABLE_EVENTO, new String[]{DbHelper.TABLE_EVENTO_TITULO, DbHelper.TABLE_EVENTO_DATA_INICIO,
-                        DbHelper.TABLE_EVENTO_DATA_FIM, DbHelper.TABLE_EVENTO_GRUPO_ID, DbHelper.TABLE_EVENTO_USUARIO_ID,
-                        DbHelper.TABLE_EVENTO_STATUS}, DbHelper.TABLE_EVENTO_ID + "=?",
+        Cursor cursor = database.query(DbHelper.TABLE_EVENTO, ALLCOLUMNS, DbHelper.TABLE_EVENTO_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
@@ -66,13 +69,14 @@ public class EventoDao {
     }
 
 
-    public List<Evento> getAll() throws ParseException {
+    public List<Evento> getAll() {
         List<Evento> eventoList = new ArrayList<Evento>();
-        String selectQuery = "SELECT  * FROM " + DbHelper.TABLE_EVENTO;
         database = dbHelper.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
+        Cursor cursor = database.query(DbHelper.TABLE_EVENTO,
+                ALLCOLUMNS, null, null, null, null, null);
+        
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
                 Evento evento = new Evento();
                 evento.setEventoId(cursor.getInt(0));
                 evento.setTitulo(cursor.getString(1));
@@ -82,8 +86,11 @@ public class EventoDao {
                 evento.setUsuarioId(cursor.getInt(5));
                 evento.setStatus(cursor.getInt(6));
                 eventoList.add(evento);
-            } while (cursor.moveToNext());
+                
+                cursor.moveToNext();
         }
+
+        cursor.close();
         dbHelper.close();
         return eventoList;
     }

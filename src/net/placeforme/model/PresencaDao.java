@@ -15,6 +15,9 @@ public class PresencaDao {
 
     private SQLiteDatabase database;
     private DbHelper dbHelper;
+    private String[] ALLCOLUMNS = new String[]{DbHelper.TABLE_PRESENCA_ID,
+            DbHelper.TABLE_PRESENCA_EVENTO_ID, DbHelper.TABLE_PRESENCA_USUARIO_ID, 
+            };
 
 
     public PresencaDao(Context ctx) {
@@ -35,9 +38,7 @@ public class PresencaDao {
     public Presenca get(int id) {
 
         database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.query(DbHelper.TABLE_PRESENCA, new String[]{DbHelper.TABLE_PRESENCA_ID,
-                        DbHelper.TABLE_PRESENCA_EVENTO_ID, DbHelper.TABLE_PRESENCA_USUARIO_ID, 
-                        }, DbHelper.TABLE_PRESENCA_ID + "=?",
+        Cursor cursor = database.query(DbHelper.TABLE_PRESENCA, ALLCOLUMNS, DbHelper.TABLE_PRESENCA_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
@@ -55,18 +56,20 @@ public class PresencaDao {
 
     public List<Presenca> getAll() {
         List<Presenca> presencaList = new ArrayList<Presenca>();
-        String selectQuery = "SELECT  * FROM " + DbHelper.TABLE_PRESENCA;
-        database = dbHelper.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
+        database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.query(DbHelper.TABLE_ATRIBUTO,
+                ALLCOLUMNS, null, null, null, null, null);
+        
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
             	Presenca presenca = new Presenca();
                 presenca.setPresencaId(cursor.getInt(0));
                 presenca.setEventoId(cursor.getInt(1));
                 presenca.setUsuarioId(cursor.getInt(2));
                 presencaList.add(presenca);
-            } while (cursor.moveToNext());
+            	cursor.moveToNext();
         }
+        cursor.close();
         dbHelper.close();
         return presencaList;
     }

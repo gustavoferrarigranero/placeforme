@@ -15,6 +15,9 @@ public class AvaliacaoDao {
 
     private SQLiteDatabase database;
     private DbHelper dbHelper;
+    private String[] ALLCOLUMNS = new String[]{DbHelper.TABLE_AVALIACAO_ID,
+            DbHelper.TABLE_AVALIACAO_NOTA, DbHelper.TABLE_AVALIACAO_TEXTO, DbHelper.TABLE_AVALIACAO_EVENTO_ID,
+            DbHelper.TABLE_AVALIACAO_USUARIO_ID, DbHelper.TABLE_AVALIACAO_STATUS};
 
 
     public AvaliacaoDao(Context ctx) {
@@ -38,9 +41,7 @@ public class AvaliacaoDao {
     public Avaliacao get(int id) {
 
         database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.query(DbHelper.TABLE_AVALIACAO, new String[]{DbHelper.TABLE_AVALIACAO_ID,
-                        DbHelper.TABLE_AVALIACAO_NOTA, DbHelper.TABLE_AVALIACAO_TEXTO, DbHelper.TABLE_AVALIACAO_EVENTO_ID,
-                        DbHelper.TABLE_AVALIACAO_USUARIO_ID, DbHelper.TABLE_AVALIACAO_STATUS}, DbHelper.TABLE_AVALIACAO_ID + "=?",
+        Cursor cursor = database.query(DbHelper.TABLE_AVALIACAO, ALLCOLUMNS, DbHelper.TABLE_AVALIACAO_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
@@ -61,11 +62,12 @@ public class AvaliacaoDao {
 
     public List<Avaliacao> getAll() {
         List<Avaliacao> avaliacaoList = new ArrayList<Avaliacao>();
-        String selectQuery = "SELECT  * FROM " + DbHelper.TABLE_AVALIACAO;
-        database = dbHelper.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
+        database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.query(DbHelper.TABLE_AVALIACAO,
+                ALLCOLUMNS, null, null, null, null, null);
+        
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
             	Avaliacao avaliacao = new Avaliacao();
                 avaliacao.setAvaliacaoId(cursor.getInt(0));
                 avaliacao.setNota(cursor.getInt(1));
@@ -74,8 +76,9 @@ public class AvaliacaoDao {
                 avaliacao.setUsuarioId(cursor.getInt(4));
                 avaliacao.setStatus(cursor.getInt(5));
                 avaliacaoList.add(avaliacao);
-            } while (cursor.moveToNext());
+                cursor.moveToNext();
         }
+        cursor.close();
         dbHelper.close();
         return avaliacaoList;
     }

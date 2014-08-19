@@ -15,6 +15,8 @@ public class GrupoDao {
 
     private SQLiteDatabase database;
     private DbHelper dbHelper;
+    private String[] ALLCOLUMNS = new String[]{DbHelper.TABLE_GRUPO_ID,
+            DbHelper.TABLE_GRUPO_TITULO,DbHelper.TABLE_GRUPO_STATUS};
 
 
     public GrupoDao(Context ctx) {
@@ -35,8 +37,7 @@ public class GrupoDao {
     public Grupo get(int id) {
 
         database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.query(DbHelper.TABLE_GRUPO, new String[]{DbHelper.TABLE_GRUPO_ID,
-                        DbHelper.TABLE_GRUPO_TITULO,DbHelper.TABLE_GRUPO_STATUS}, 
+        Cursor cursor = database.query(DbHelper.TABLE_GRUPO, ALLCOLUMNS, 
                         DbHelper.TABLE_GRUPO_ID + "=?",new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
@@ -54,18 +55,20 @@ public class GrupoDao {
 
     public List<Grupo> getAll() {
         List<Grupo> grupoList = new ArrayList<Grupo>();
-        String selectQuery = "SELECT  * FROM " + DbHelper.TABLE_GRUPO;
-        database = dbHelper.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
+        database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.query(DbHelper.TABLE_ATRIBUTO,
+                ALLCOLUMNS, null, null, null, null, null);
+        
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
             	Grupo grupo = new Grupo();
                 grupo.setGrupoId(cursor.getInt(0));
                 grupo.setTitulo(cursor.getString(1));
                 grupo.setStatus(cursor.getInt(2));
                 grupoList.add(grupo);
-            } while (cursor.moveToNext());
+            	cursor.moveToNext();
         }
+        cursor.close();
         dbHelper.close();
         return grupoList;
     }

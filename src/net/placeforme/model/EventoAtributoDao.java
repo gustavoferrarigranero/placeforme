@@ -15,14 +15,9 @@ public class EventoAtributoDao {
 
     private SQLiteDatabase database;
     private DbHelper dbHelper;
-
-
-    /*
-    * private int evento_atributo_id;
-    private String texto;
-    private int evento_id;
-    private int atributo_id;
-    * */
+    private String[] ALLCOLUMNS = new String[]{DbHelper.TABLE_EVENTOATRIBUTO_ID,
+            DbHelper.TABLE_EVENTOATRIBUTO_TEXTO, DbHelper.TABLE_EVENTOATRIBUTO_EVENTO_ID,
+            DbHelper.TABLE_EVENTOATRIBUTO_ATRIBUTO_ID};
 
 
     public EventoAtributoDao(Context ctx) {
@@ -44,9 +39,7 @@ public class EventoAtributoDao {
     public EventoAtributo get(int id) {
 
         database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.query(DbHelper.TABLE_EVENTOATRIBUTO, new String[]{DbHelper.TABLE_EVENTOATRIBUTO_ID,
-                        DbHelper.TABLE_EVENTOATRIBUTO_TEXTO, DbHelper.TABLE_EVENTOATRIBUTO_EVENTO_ID,
-                        DbHelper.TABLE_EVENTOATRIBUTO_ATRIBUTO_ID}, DbHelper.TABLE_EVENTOATRIBUTO_ID + "=?",
+        Cursor cursor = database.query(DbHelper.TABLE_EVENTOATRIBUTO, ALLCOLUMNS, DbHelper.TABLE_EVENTOATRIBUTO_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
@@ -65,19 +58,21 @@ public class EventoAtributoDao {
 
     public List<EventoAtributo> getAll() {
         List<EventoAtributo> eventoAtributoList = new ArrayList<EventoAtributo>();
-        String selectQuery = "SELECT  * FROM " + DbHelper.TABLE_EVENTOATRIBUTO;
-        database = dbHelper.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
+        database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.query(DbHelper.TABLE_EVENTOATRIBUTO,
+                ALLCOLUMNS, null, null, null, null, null);
+        
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
                 EventoAtributo eventoAtributo = new EventoAtributo();
                 eventoAtributo.setEventoAtributoId(cursor.getInt(0));
                 eventoAtributo.setTexto(cursor.getString(1));
                 eventoAtributo.setEventoId(cursor.getInt(2));
                 eventoAtributo.setAtributoId(cursor.getInt(3));
                 eventoAtributoList.add(eventoAtributo);
-            } while (cursor.moveToNext());
+            	cursor.moveToNext();
         }
+        cursor.close();
         dbHelper.close();
         return eventoAtributoList;
     }
