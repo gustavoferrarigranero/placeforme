@@ -29,7 +29,7 @@
     <!-- ActionBar styles -->
     <style name="MyActionBar"
            parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/action_bar_back</item>
+        <item name="android:background">@color/actionBarColor</item>
     </style>
     
     <!-- ActionBar color text styles -->

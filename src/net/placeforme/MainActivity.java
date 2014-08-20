@@ -8,6 +8,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -44,15 +45,15 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        //close login
+        
+        LoginActivity.loginActivity.finish();
         
         // Set up the action bar.
         final ActionBar actionBar = this.getActionBar();
 
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         
-        
-        
-
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
@@ -84,8 +85,6 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         }
         
         actionBar.selectTab(actionBar.getTabAt(1));
-        
-        actionBar. setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_back));
     }
 
 
@@ -103,6 +102,25 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.action_logout) {
+        	
+        	String PREF_NAME = "PlaceforMePreferences";
+
+    	    SharedPreferences settings = getSharedPreferences(PREF_NAME, 0);
+        	
+        	SharedPreferences.Editor editor = settings.edit();
+        	editor.remove("Email");
+        	editor.remove("Senha");
+
+		    editor.commit();
+		    
+		    Intent login = new Intent(getBaseContext(),LoginActivity.class);
+		    startActivity(login);
+		    
+		    this.finish();
+        	
             return true;
         }
         return super.onOptionsItemSelected(item);

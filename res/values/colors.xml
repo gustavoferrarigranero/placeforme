@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="transparent">#00000000</color>
-	<color name="tab_highlight">#ff9ecfbf</color>
+    <color name="actionBarColor">#33b5e5<!-- #1BA7A2  --></color>
 	<color name="actionBarTabTextColor">#FFFFFF</color>
 </resources>
