@@ -27,8 +27,8 @@ public class UsuarioDao {
     }
 
     
-    public void add(Usuario usuario) {
-
+    public Usuario add(Usuario usuario) {
+    	Usuario userReturn = null;
         database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DbHelper.TABLE_USUARIO_NOME, usuario.getNome());
@@ -37,9 +37,12 @@ public class UsuarioDao {
         values.put(DbHelper.TABLE_USUARIO_SENHA, usuario.getSenha());
         values.put(DbHelper.TABLE_USUARIO_TIPO, usuario.getTipo());
         values.put(DbHelper.TABLE_USUARIO_STATUS, usuario.getStatus());
-        database.insert(DbHelper.TABLE_USUARIO, null, values);
+        long ret = database.insert(DbHelper.TABLE_USUARIO, null, values);
         dbHelper.close();
-
+        if(ret>0){
+        	userReturn = this.get(Integer.parseInt(String.valueOf(ret)));
+        }
+        return userReturn;
     }
 
     public Usuario get(int id) {
@@ -124,6 +127,32 @@ public class UsuarioDao {
         cursor.close();
         dbHelper.close();
         return cursor.getCount();
+    }
+    
+    public Usuario login(String email,String senha) {
+
+        database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.query(DbHelper.TABLE_USUARIO, ALLCOLUMNS, DbHelper.TABLE_USUARIO_EMAIL + " =? AND "+DbHelper.TABLE_USUARIO_SENHA + " =? ",
+                new String[]{email,senha}, null, null, null, null);
+
+        Usuario usuario = null;
+        
+        if (cursor.getCount()>0){
+            cursor.moveToFirst();
+            usuario = new Usuario();
+	        usuario.setUsuarioId(cursor.getInt(0));
+	        usuario.setNome(cursor.getString(1));
+	        usuario.setFoto(Conv.StringToBitMap(cursor.getString(2)));
+	        usuario.setEmail(cursor.getString(3));
+	        usuario.setSenha(cursor.getString(4));
+	        usuario.setTipo(cursor.getInt(5));
+	        usuario.setStatus(cursor.getInt(6));
+        }
+
+        cursor.close();
+        dbHelper.close();
+        
+        return usuario;
     }
 
 

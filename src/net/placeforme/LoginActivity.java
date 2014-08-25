@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -31,6 +33,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.placeforme.model.Usuario;
+import net.placeforme.model.UsuarioDao;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -44,6 +49,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	
 	private String email = null;
     private String senha = null;
+    
+    private Usuario usuario;
+    private UsuarioDao usuarioDao;
     
 	
 	/**
@@ -70,6 +78,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
+		this.usuarioDao = new UsuarioDao(this);
+		
 		loginActivity = this;
 		
 		settings = getSharedPreferences(PREF_NAME, 0);
@@ -83,7 +93,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 		// Set up the login form.
 		mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-		populateAutoComplete();
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
@@ -91,7 +100,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 					@Override
 					public boolean onEditorAction(TextView textView, int id,
 							KeyEvent keyEvent) {
-						if (id == R.id.login || id == EditorInfo.IME_NULL) {
+						if (id == R.id.login) {
+							attemptLogin();
+							return true;
+						}else if(id == R.id.prox){
+							AutoCompleteTextView pass = (AutoCompleteTextView) findViewById(R.id.login);
+							pass.requestFocus();
+							return true;					
+						}else if(id == EditorInfo.IME_NULL){
 							attemptLogin();
 							return true;
 						}
@@ -106,13 +122,18 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 				attemptLogin();
 			}
 		});
+		
+		Button mCadastrarButton = (Button) findViewById(R.id.cadastrar);
+		mCadastrarButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent register = new Intent(loginActivity, RegisterActivity.class);
+				startActivity(register);
+			}
+		});
 
 		mLoginFormView = findViewById(R.id.login_form);
 		mProgressView = findViewById(R.id.login_progress);
-	}
-
-	private void populateAutoComplete() {
-		getLoaderManager().initLoader(0, null, this);
 	}
 
 	/**
@@ -138,6 +159,17 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 		// Check for a valid password, if the user entered one.
 		if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+			mPasswordView.setError(getString(R.string.error_invalid_password));
+			focusView = mPasswordView;
+			cancel = true;
+		}
+		
+		// Check for a valid password address.
+		if (TextUtils.isEmpty(password)) {
+			mPasswordView.setError(getString(R.string.error_field_required));
+			focusView = mPasswordView;
+			cancel = true;
+		} else if (!isPasswordValid(password)) {
 			mPasswordView.setError(getString(R.string.error_invalid_password));
 			focusView = mPasswordView;
 			cancel = true;
@@ -295,13 +327,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			} catch (InterruptedException e) {
 				return false;
 			}
+			
+			if(null==mEmail||null==mPassword){return false;}
+			
+			usuario = usuarioDao.login(mEmail, mPassword);
 
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
+			if (null!=usuario) {
+				MainActivity.usuarioLogado = usuario;
+				// Account exists, return true if the password matches.
+				return true;
 			}
 
 			// TODO: register the new account here.
@@ -355,13 +389,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
+			
+			if(null==mEmail||null==mPassword){return false;}
+			
+			usuario = usuarioDao.login(mEmail, mPassword);
 
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
+			if (null!=usuario) {
+				MainActivity.usuarioLogado = usuario;
+				// Account exists, return true if the password matches.
+				return true;
 			}
 
 			// TODO: register the new account here.

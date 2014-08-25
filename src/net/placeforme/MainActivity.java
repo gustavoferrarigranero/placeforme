@@ -2,6 +2,8 @@ package net.placeforme;
 
 import java.util.Locale;
 
+import net.placeforme.model.Usuario;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -22,6 +24,8 @@ import android.view.Window;
 
 
 public class MainActivity extends Activity implements ActionBar.TabListener {
+	
+	public static Usuario usuarioLogado;
 
 	public static int ACTIVE_TAB;
 	
