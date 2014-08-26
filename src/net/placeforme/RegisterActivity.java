@@ -13,6 +13,11 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Shader.TileMode;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -37,6 +42,7 @@ import java.util.List;
 
 import net.placeforme.model.Usuario;
 import net.placeforme.model.UsuarioDao;
+import net.placeforme.util.Conv;
 
 /**
  * A login screen that offers login via email/password.
@@ -44,6 +50,10 @@ import net.placeforme.model.UsuarioDao;
 public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 	public static RegisterActivity registerActivity;
+	
+	public String PREF_NAME = "PlaceforMePreferences";
+	
+	public static SharedPreferences settings;
 	
     private Usuario usuario;
     private UsuarioDao usuarioDao;
@@ -59,6 +69,7 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
     private ImageView fotoImageView;
     private EditText emailText;
     private EditText senhaText;
+    private Button cadastrar;
 	
 
 	@Override
@@ -69,6 +80,8 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
 		this.usuarioDao = new UsuarioDao(this);
 		
 		registerActivity = this;
+		
+		settings = getSharedPreferences(PREF_NAME, 0);
 		
 		mLoginFormView = findViewById(R.id.register_form);
 		mProgressView = findViewById(R.id.register_progress);
@@ -84,9 +97,45 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
 		
 		nomeText = (EditText) findViewById(R.id.nome);
 	    fotoImageView = (ImageView) findViewById(R.id.foto);
+	    fotoImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.no_image));
 	    emailText = (EditText) findViewById(R.id.email);
 	    senhaText = (EditText) findViewById(R.id.password);
+	    senhaText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+					@Override
+					public boolean onEditorAction(TextView textView, int id,
+							KeyEvent keyEvent) {
+						if (id == R.id.cadastrar) {
+							cadastra();
+							return true;
+						}
+						return true;
+					}
+				});
+	    cadastrar = (Button) findViewById(R.id.cadastrar);
 		
+	    cadastrar.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				cadastra();
+			}
+		});
+	    
+	}
+	
+	private void cadastra(){
+		usuario = new Usuario();
+		usuario.setNome(nomeText.getText().toString());
+		usuario.setFoto(((BitmapDrawable)fotoImageView.getDrawable()).getBitmap());
+		usuario.setEmail(emailText.getText().toString());
+		usuario.setSenha(senhaText.getText().toString());
+		usuario.setStatus(1);
+		usuario.setTipo(1);
+		
+		showProgress(true);
+		mRegisterTask = new UserRegisterTask();
+		mRegisterTask.execute((Void) null);
 	}
 	
 	//take photo
@@ -125,22 +174,15 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
             //MEDIA GALLERY
             String selectedImagePath = getPath(selectedImageUri);
 
-            //DEBUG PURPOSE - you can delete this if you want
-            if(selectedImagePath!=null)
-                System.out.println(selectedImagePath);
-            else System.out.println("selectedImagePath is null");
-            if(filemanagerstring!=null)
-                System.out.println(filemanagerstring);
-            else System.out.println("filemanagerstring is null");
-
-            //NOW WE HAVE OUR WANTED STRING
+            Bitmap image = null;
+            
             if(selectedImagePath!=null){
-            	fotoImageView.setImageBitmap(BitmapFactory.decodeFile(selectedImagePath));
-                System.out.println("selectedImagePath is the right one for you!"+selectedImagePath);
+            	image = Conv.ShrinkBitmap(selectedImagePath,300,300);
             }else{
-            	fotoImageView.setImageBitmap(BitmapFactory.decodeFile(filemanagerstring));
-                System.out.println("filemanagerstring is the right one for you!"+filemanagerstring);
+            	image = Conv.ShrinkBitmap(filemanagerstring,300,300);
             }
+                        
+            fotoImageView.setImageBitmap(image);
         }
 		
 	}	
@@ -168,39 +210,8 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
             // this is our fallback here
             return uri.getPath();
     }
+
 	
-
-	/**
-	 * Attempts to sign in or register the account specified by the login form.
-	 * If there are form errors (invalid email, missing fields, etc.), the
-	 * errors are presented and no actual login attempt is made.
-	 */
-	public void attemptLogin() {
-		if (mRegisterTask != null) {
-			return;
-		}
-		
-		usuario = new Usuario();
-
-
-		boolean cancel = false;
-
-		// Check for a valid password, if the user entered one.
-		/*if (!TextUtils.isEmpty(textview) ) {
-			cancel = true;
-		}*/
-
-		if (cancel) {
-			// There was an error; don't attempt login and focus the first
-			// form field with an error.
-		} else {
-			// Show a progress spinner, and kick off a background task to
-			// perform the user login attempt.
-			showProgress(true);
-			mRegisterTask = new UserRegisterTask(usuario);
-			mRegisterTask.execute((Void) null);
-		}
-	}
 
 	/**
 	 * Shows the progress UI and hides the login form.
@@ -292,8 +303,8 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
 
 		private final Usuario user;
 
-		UserRegisterTask(Usuario user) {
-			this.user = user;
+		UserRegisterTask() {
+			this.user = usuario;
 		}
 
 		@Override
@@ -306,8 +317,12 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
 			} catch (InterruptedException e) {
 				return false;
 			}
-						
-			usuario = usuarioDao.add(user);
+			
+			
+			
+			long usuario_id = usuarioDao.add(user);
+			
+			usuario = usuarioDao.get(usuario_id);
 
 			if (null!=usuario) {
 				MainActivity.usuarioLogado = usuario;
@@ -325,6 +340,14 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
 			showProgress(false);
 
 			if (success) {
+				
+				SharedPreferences.Editor editor = settings.edit();
+			      
+			    editor.putString("Email", usuario.getEmail());
+			    editor.putString("Senha", usuario.getSenha());
+
+			    editor.commit();
+				
 				Intent main = new Intent(getApplicationContext(),MainActivity.class);
 				startActivity(main);
 			} else {

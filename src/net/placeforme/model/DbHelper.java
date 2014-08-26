@@ -13,7 +13,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase database;
     private static final String DATABASE_NAME = "placeforme";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 1;
 
     //atributos
     public static final String TABLE_ATRIBUTO = "atributos";

@@ -9,14 +9,4 @@
     android:orientation="vertical"
     tools:context="net.placeforme.TabOneActivity" >
 
-    <TextView
-        android:id="@+id/section_label_1"
-        android:text="1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    
-    <Button android:id="@+id/button_tela_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
 </LinearLayout>

@@ -4,20 +4,35 @@ import java.util.List;
 
 import net.placeforme.R;
 import net.placeforme.model.Evento;
+import net.placeforme.model.Usuario;
+import net.placeforme.model.UsuarioDao;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MeuAdapter extends BaseAdapter {
 
     private Context context;
+    private View view;
+    private LayoutInflater inflater;
+    
     private List<Evento> eventos;
+    private Evento evento;
+    private UsuarioDao usuarioDao;
+    private Usuario usuarioEvento;
+    
+    private TextView campotitulo ;
+    private TextView campoData;
+    private ImageView campoFoto;
+    
 
     public MeuAdapter(Context context, List<Evento> eventos){
 
@@ -52,27 +67,38 @@ public class MeuAdapter extends BaseAdapter {
 
     }
 
- 
-
     @Override
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.list_eventos, null);
+        view = inflater.inflate(R.layout.list_eventos, null);
 
-        Evento evento = eventos.get(position);
+        evento = eventos.get(position);
         
-        TextView campotitulo = (TextView) view.findViewById(R.id.text);
+        usuarioDao = new UsuarioDao(parent.getContext());
+        usuarioEvento = new Usuario();
+        usuarioEvento = usuarioDao.get(evento.getUsuarioId());
+        
+        Log.d("NOME USUARIO",usuarioEvento.getNome());
+        
+        Log.d("FOTO",String.valueOf(usuarioEvento.getFoto()));
+        
+        campotitulo = (TextView) view.findViewById(R.id.text);
+        campoFoto = (ImageView) view.findViewById(R.id.imageUsuario);
 
         campotitulo.setText(evento.getTitulo());
         
-        TextView campoDataInicio = (TextView) view.findViewById(R.id.datainicio);
+        campoData = (TextView) view.findViewById(R.id.datainicio);
 
-        campoDataInicio.setText("Início: "+Conv.sqlDateToString(evento.getDataInicio()) + 
+        campoData.setText("Início: "+Conv.sqlDateToString(evento.getDataInicio()) + 
         		" - Fim: "+Conv.sqlDateToString(evento.getDataFim()));
 
+        if(null!=usuarioEvento.getFoto()){
+        	campoFoto.setImageBitmap(usuarioEvento.getFoto());
+        }
+        
         return view;
         
     }

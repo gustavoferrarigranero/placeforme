@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class UsuarioDao {
     }
 
     
-    public Usuario add(Usuario usuario) {
+    public long add(Usuario usuario) {
     	Usuario userReturn = null;
         database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -38,30 +39,29 @@ public class UsuarioDao {
         values.put(DbHelper.TABLE_USUARIO_TIPO, usuario.getTipo());
         values.put(DbHelper.TABLE_USUARIO_STATUS, usuario.getStatus());
         long ret = database.insert(DbHelper.TABLE_USUARIO, null, values);
-        dbHelper.close();
-        if(ret>0){
-        	userReturn = this.get(Integer.parseInt(String.valueOf(ret)));
-        }
-        return userReturn;
+
+        return ret;
     }
 
-    public Usuario get(int id) {
+    public Usuario get(long id) {
 
         database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.query(DbHelper.TABLE_USUARIO, ALLCOLUMNS, DbHelper.TABLE_USUARIO_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
+        
+        Cursor cursor = database.rawQuery("SELECT * FROM "+DbHelper.TABLE_USUARIO+" WHERE "+DbHelper.TABLE_USUARIO_ID+" = "+id, null);
+        
+        Usuario usuario = null;
+               
+        if (cursor.moveToFirst()){
 
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        Usuario usuario = new Usuario();
-        usuario.setUsuarioId(cursor.getInt(0));
-        usuario.setNome(cursor.getString(1));
-        usuario.setFoto(Conv.StringToBitMap(cursor.getString(2)));
-        usuario.setEmail(cursor.getString(3));
-        usuario.setSenha(cursor.getString(4));
-        usuario.setTipo(cursor.getInt(5));
-        usuario.setStatus(cursor.getInt(6));
+        	usuario = new Usuario();
+	        usuario.setUsuarioId(cursor.getInt(0));
+	        usuario.setNome(cursor.getString(1));
+	        usuario.setFoto(Conv.StringToBitMap(cursor.getString(2)));
+	        usuario.setEmail(cursor.getString(3));
+	        usuario.setSenha(cursor.getString(4));
+	        usuario.setTipo(cursor.getInt(5));
+	        usuario.setStatus(cursor.getInt(6));
+        }
 
         dbHelper.close();
         return usuario;
@@ -138,7 +138,7 @@ public class UsuarioDao {
         Usuario usuario = null;
         
         if (cursor.getCount()>0){
-            cursor.moveToFirst();
+            cursor.moveToNext();
             usuario = new Usuario();
 	        usuario.setUsuarioId(cursor.getInt(0));
 	        usuario.setNome(cursor.getString(1));

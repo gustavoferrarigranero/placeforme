@@ -38,7 +38,7 @@ public class TabTwoActivity extends Fragment {
 		evento.setDataInicio(Conv.stringToSqlDate("20/08/2014"));
 		evento.setDataFim(Conv.stringToSqlDate("20/08/2014"));
 		evento.setGrupoId(1);
-		evento.setUsuarioId(1);
+		evento.setUsuarioId(MainActivity.usuarioLogado.getUsuarioId());
 		evento.setStatus(1);
 		
 		Evento evento2 = new Evento();
@@ -47,7 +47,7 @@ public class TabTwoActivity extends Fragment {
 		evento2.setDataInicio(Conv.stringToSqlDate("25/08/2014"));
 		evento2.setDataFim(Conv.stringToSqlDate("26/08/2014"));
 		evento2.setGrupoId(1);
-		evento2.setUsuarioId(1);
+		evento2.setUsuarioId(MainActivity.usuarioLogado.getUsuarioId());
 		evento2.setStatus(1);
 		
 		eventos.add(evento);

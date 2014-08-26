@@ -50,8 +50,11 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         setContentView(R.layout.activity_main);
         
         //close login
-        
-        LoginActivity.loginActivity.finish();
+        if(null!=LoginActivity.loginActivity)
+        	LoginActivity.loginActivity.finish();
+        //close register
+        if(null!=RegisterActivity.registerActivity)
+        RegisterActivity.registerActivity.finish();
         
         // Set up the action bar.
         final ActionBar actionBar = this.getActionBar();

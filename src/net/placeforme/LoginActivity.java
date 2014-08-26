@@ -1,5 +1,6 @@
 package net.placeforme;
 
+import android.R.bool;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -64,8 +65,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
 	private UserLoginTask mAuthTask = null;
-	
-	private UserLoginSavedTask mAuthSavedTask = null;
 
 	// UI references.
 	private AutoCompleteTextView mEmailView;
@@ -76,20 +75,19 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.activity_login);
 		
 		this.usuarioDao = new UsuarioDao(this);
 		
-		loginActivity = this;
-		
 		settings = getSharedPreferences(PREF_NAME, 0);
-	      		
+  		
 	    email = settings.getString("Email",null);
 	    senha = settings.getString("Senha",null);
 	    
-		mAuthSavedTask = new UserLoginSavedTask(email, senha);
-		mAuthSavedTask.execute((Void) null);
+	    logged();
 		
+		loginActivity = this;
 
 		// Set up the login form.
 		mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -134,6 +132,21 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 		mLoginFormView = findViewById(R.id.login_form);
 		mProgressView = findViewById(R.id.login_progress);
+	}
+
+	private boolean logged() {
+		
+		if(null==email||null==senha){return false;}
+		
+		usuario = usuarioDao.login(email, senha);
+
+		if (null!=usuario) {
+			MainActivity.usuarioLogado = usuario;
+			Intent main = new Intent(getApplicationContext(),MainActivity.class);
+			startActivity(main);
+			return true;
+		}
+		return true;
 	}
 
 	/**
@@ -372,53 +385,4 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 		}
 	}
 	
-	/**
-	 * Represents an asynchronous login/registration task used to authenticate
-	 * the user.
-	 */
-	public class UserLoginSavedTask extends AsyncTask<Void, Void, Boolean> {
-
-		private final String mEmail;
-		private final String mPassword;
-
-		UserLoginSavedTask(String email, String password) {
-			mEmail = email;
-			mPassword = password;
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
-			
-			if(null==mEmail||null==mPassword){return false;}
-			
-			usuario = usuarioDao.login(mEmail, mPassword);
-
-			if (null!=usuario) {
-				MainActivity.usuarioLogado = usuario;
-				// Account exists, return true if the password matches.
-				return true;
-			}
-
-			// TODO: register the new account here.
-			return false;
-		}
-
-		@Override
-		protected void onPostExecute(final Boolean success) {
-			mAuthSavedTask = null;
-
-			if (success) {
-				Intent main = new Intent(getApplicationContext(),MainActivity.class);
-				startActivity(main);
-			}
-			
-			this.cancel(true);
-		}
-
-		@Override
-		protected void onCancelled() {
-			mAuthSavedTask = null;
-		}
-	}
 }

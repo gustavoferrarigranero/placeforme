@@ -8,8 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="net.placeforme.LoginActivity" 
-    android:background="@drawable/login_back_xml">
+    tools:context="net.placeforme.LoginActivity" >
 	
 	    <!-- Login progress -->
 	
@@ -35,7 +34,8 @@
 
             <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/prompt_nome"/>
+                android:text="@string/prompt_nome"
+                android:layout_marginTop="20sp"/>
             <EditText
                 android:id="@+id/nome"
                 android:layout_width="match_parent"
@@ -50,19 +50,21 @@
             
             <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/prompt_foto"/>
+                android:text="@string/prompt_foto"
+                android:layout_marginTop="20sp"/>
             
             <ImageView android:id="@+id/foto"
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:src="@drawable/ic_launcher"
+                android:layout_width="130sp"
+                android:layout_height="130sp"
+                android:src="@drawable/no_image"
                 android:contentDescription="@string/prompt_foto"
                 android:clickable="true"/>
             
             
             <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/prompt_email"/>
+                android:text="@string/prompt_email"
+                android:layout_marginTop="20sp"/>
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
@@ -77,13 +79,14 @@
 
             <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/prompt_password"/>
+                android:text="@string/prompt_password"
+                android:layout_marginTop="20sp"/>
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeActionId="@+id/login"
-                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeActionId="@+id/cadastrar"
+                android:imeActionLabel="@string/cadastrar"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
@@ -93,14 +96,13 @@
                 android:textColorHint="#FFFFFF" />
             
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/cadastrar"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/action_sign_in"
-                android:textStyle="bold"
-                android:background="#FFF" />
+                android:text="@string/cadastrar"
+                android:textStyle="bold"/>
             
             
         </LinearLayout>

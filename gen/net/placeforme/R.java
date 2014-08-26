@@ -34,20 +34,20 @@ public final class R {
         public static final int login_back_green=0x7f020003;
         public static final int login_back_orange=0x7f020004;
         public static final int login_back_xml=0x7f020005;
+        public static final int no_image=0x7f020006;
     }
     public static final class id {
-        public static final int action_logout=0x7f090017;
-        public static final int action_settings=0x7f090016;
-        public static final int button_tela_1=0x7f09000f;
+        public static final int action_logout=0x7f090015;
+        public static final int action_settings=0x7f090014;
         public static final int cadastrar=0x7f090008;
-        public static final int datainicio=0x7f090014;
+        public static final int datainicio=0x7f090012;
         public static final int email=0x7f090003;
         public static final int email_login_form=0x7f090002;
         public static final int email_sign_in_button=0x7f090007;
         public static final int foto=0x7f09000d;
-        public static final int imageUsuario=0x7f090015;
-        public static final int linhaEscrita=0x7f090012;
-        public static final int lista=0x7f090011;
+        public static final int imageUsuario=0x7f090013;
+        public static final int linhaEscrita=0x7f090010;
+        public static final int lista=0x7f09000f;
         public static final int login=0x7f090006;
         public static final int login_form=0x7f090001;
         public static final int login_progress=0x7f090000;
@@ -57,9 +57,8 @@ public final class R {
         public static final int prox=0x7f090004;
         public static final int register_form=0x7f09000b;
         public static final int register_progress=0x7f09000a;
-        public static final int section_label_1=0x7f09000e;
-        public static final int section_label_3=0x7f090010;
-        public static final int text=0x7f090013;
+        public static final int section_label_3=0x7f09000e;
+        public static final int text=0x7f090011;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;

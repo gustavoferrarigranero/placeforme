@@ -6,6 +6,10 @@ import java.text.SimpleDateFormat;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Shader.TileMode;
 import android.util.Base64;
 
 /**
@@ -20,25 +24,27 @@ public class Conv {
 	public static java.sql.Date stringToSqlDate(String data) {
 		java.sql.Date dataFinal = null;
 		try {
-			dataFinal = new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(data).getTime());
+			dataFinal = new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy")
+					.parse(data).getTime());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return dataFinal; 
+
+		return dataFinal;
 	}
-	
+
 	/**
-	 * @param java.sql.Date
+	 * @param java
+	 *            .sql.Date
 	 * @return String (from given java.sql.Date)
 	 */
 	public static String sqlDateToString(java.sql.Date data) {
-	  
-		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");  
-		String text = df.format(data);  
+
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		String text = df.format(data);
 		return text;
-	
+
 	}
 
 	/**
@@ -67,5 +73,44 @@ public class Conv {
 			e.getMessage();
 			return null;
 		}
+	}
+
+	public static Bitmap ShrinkBitmap(String file, int width, int height) {
+
+		BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+		bmpFactoryOptions.inJustDecodeBounds = true;
+		Bitmap bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
+
+		int heightRatio = (int) Math.ceil(bmpFactoryOptions.outHeight
+				/ (float) height);
+		int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth
+				/ (float) width);
+
+		if (heightRatio > 1 || widthRatio > 1) {
+			if (heightRatio > widthRatio) {
+				bmpFactoryOptions.inSampleSize = heightRatio;
+			} else {
+				bmpFactoryOptions.inSampleSize = widthRatio;
+			}
+		}
+
+		bmpFactoryOptions.inJustDecodeBounds = false;
+		bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
+		return bitmap;
+	}
+	
+	public static Bitmap circleImage(Bitmap image){
+		
+		 Bitmap circleBitmap = Bitmap.createBitmap(image.getWidth(), image.getHeight(), Bitmap.Config.ARGB_8888);
+         
+         BitmapShader shader = new BitmapShader (image,  TileMode.CLAMP, TileMode.CLAMP);
+         Paint paint = new Paint();
+         paint.setShader(shader);
+         
+         Canvas c = new Canvas(circleBitmap);
+         c.drawCircle(image.getWidth()/2, image.getHeight()/2, image.getWidth()/2, paint);
+
+		return circleBitmap;
+	
 	}
 }
