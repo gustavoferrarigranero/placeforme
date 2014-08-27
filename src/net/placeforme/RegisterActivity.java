@@ -100,17 +100,6 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
 	    fotoImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.no_image));
 	    emailText = (EditText) findViewById(R.id.email);
 	    senhaText = (EditText) findViewById(R.id.password);
-	    senhaText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-					@Override
-					public boolean onEditorAction(TextView textView, int id,
-							KeyEvent keyEvent) {
-						if (id == R.id.cadastrar) {
-							cadastra();
-							return true;
-						}
-						return true;
-					}
-				});
 	    cadastrar = (Button) findViewById(R.id.cadastrar);
 		
 	    cadastrar.setOnClickListener(new OnClickListener() {
@@ -125,6 +114,9 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
 	}
 	
 	private void cadastra(){
+		if (mRegisterTask != null) {
+			return;
+		}
 		usuario = new Usuario();
 		usuario.setNome(nomeText.getText().toString());
 		usuario.setFoto(((BitmapDrawable)fotoImageView.getDrawable()).getBitmap());

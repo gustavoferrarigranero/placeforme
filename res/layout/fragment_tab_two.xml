@@ -9,13 +9,15 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
    
-   <Button
+   <ImageView
+       android:id="@+id/add_evento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/add_evento"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="15dp"
-        android:text="Button" />
+        android:layout_marginBottom="10sp"
+        android:clickable="true"
+        android:contentDescription="Adicionar Evento" />
 
 </RelativeLayout>

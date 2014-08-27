@@ -21,7 +21,7 @@ public class AtributoDao {
             DbHelper.TABLE_ATRIBUTO_TITULO, DbHelper.TABLE_ATRIBUTO_PADRAO,DbHelper.TABLE_ATRIBUTO_STATUS };
 
 
-    public void AtributoDao(Context ctx) {
+    public AtributoDao(Context ctx) {
         this.dbHelper = new DbHelper(ctx);
     }
 

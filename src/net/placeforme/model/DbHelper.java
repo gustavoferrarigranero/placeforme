@@ -3,6 +3,8 @@ package net.placeforme.model;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.location.Address;
+import android.util.Log;
 
 /**
  * Created by Gustavo on 13/08/2014.
@@ -13,7 +15,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase database;
     private static final String DATABASE_NAME = "placeforme";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
 
     //atributos
     public static final String TABLE_ATRIBUTO = "atributos";
@@ -141,7 +143,26 @@ public class DbHelper extends SQLiteOpenHelper {
             " ) ";
     private static final String DROP_TABLE_USUARIO = "DROP TABLE IF EXISTS " + TABLE_USUARIO ;
 
-
+    private static final String INITIAL_ADD_GRUPO = " INSERT INTO " + TABLE_GRUPO  + 
+    		" (" + TABLE_GRUPO_TITULO + ", " + TABLE_GRUPO_STATUS + ") VALUES " +
+    		"('Festa', 1),"+ 
+    		"('Show', 1)," +
+    		"('Encontro', 1)," +
+    		"('Bar', 1)";
+    
+    private static final String INITIAL_ADD_ATRIBUTO = " INSERT INTO " + TABLE_ATRIBUTO  + 
+    		" (" + TABLE_ATRIBUTO_TITULO + ", " + TABLE_ATRIBUTO_PADRAO + ", " + TABLE_ATRIBUTO_STATUS + ") VALUES " +
+    		"('Endereço', 1, 1)," +
+    		"('Bairro', 1, 1)," +
+    		"('Cidade', 1, 1)," +
+    		"('Local', 1, 1)," +
+    		"('Ambiente', 1, 1)," +
+    		"('Buffet', 1, 1)," +
+    		"('Bebidas', 1, 1)," +
+       		"('Estacionamento', 1, 1)";
+    
+    
+    
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -156,6 +177,9 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_GRUPO);
         db.execSQL(CREATE_TABLE_PRESENCA);
         db.execSQL(CREATE_TABLE_USUARIO);
+        //add initial itens
+        db.execSQL(INITIAL_ADD_GRUPO);
+        db.execSQL(INITIAL_ADD_ATRIBUTO);
     }
 
     @Override

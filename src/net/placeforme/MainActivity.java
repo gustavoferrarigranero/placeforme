@@ -1,7 +1,12 @@
 package net.placeforme;
 
+import java.util.List;
 import java.util.Locale;
 
+import net.placeforme.model.Atributo;
+import net.placeforme.model.AtributoDao;
+import net.placeforme.model.Grupo;
+import net.placeforme.model.GrupoDao;
 import net.placeforme.model.Usuario;
 
 import android.app.Activity;
@@ -24,6 +29,8 @@ import android.view.Window;
 
 
 public class MainActivity extends Activity implements ActionBar.TabListener {
+	
+	public static MainActivity mainActivity;
 	
 	public static Usuario usuarioLogado;
 
@@ -48,6 +55,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        mainActivity = this;
         
         //close login
         if(null!=LoginActivity.loginActivity)

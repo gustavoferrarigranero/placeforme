@@ -56,7 +56,7 @@ public class GrupoDao {
     public List<Grupo> getAll() {
         List<Grupo> grupoList = new ArrayList<Grupo>();
         database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.query(DbHelper.TABLE_ATRIBUTO,
+        Cursor cursor = database.query(DbHelper.TABLE_GRUPO,
                 ALLCOLUMNS, null, null, null, null, null);
         
         cursor.moveToFirst();

@@ -80,11 +80,7 @@ public class MeuAdapter extends BaseAdapter {
         usuarioDao = new UsuarioDao(parent.getContext());
         usuarioEvento = new Usuario();
         usuarioEvento = usuarioDao.get(evento.getUsuarioId());
-        
-        Log.d("NOME USUARIO",usuarioEvento.getNome());
-        
-        Log.d("FOTO",String.valueOf(usuarioEvento.getFoto()));
-        
+                
         campotitulo = (TextView) view.findViewById(R.id.text);
         campoFoto = (ImageView) view.findViewById(R.id.imageUsuario);
 

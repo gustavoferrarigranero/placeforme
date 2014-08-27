@@ -40,13 +40,12 @@
                 android:id="@+id/nome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:imeActionId="@+id/prox"
+                android:inputType="textCapWords"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="#EEEEEE"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF" />
+                android:textColor="#000"
+                android:textColorHighlight="#000"
+                android:textColorHint="#000" />
             
             <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,12 +69,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:imeActionId="@+id/prox"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="#EEEEEE"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF" />
+                android:textColor="#000"
+                android:textColorHighlight="#000"
+                android:textColorHint="#000" />
 
             <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,15 +83,13 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeActionId="@+id/cadastrar"
-                android:imeActionLabel="@string/cadastrar"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="#EEEEEE"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF" />
+                android:textColor="#000"
+                android:textColorHighlight="#000"
+                android:textColorHint="#000" />
             
             <Button
                 android:id="@+id/cadastrar"
