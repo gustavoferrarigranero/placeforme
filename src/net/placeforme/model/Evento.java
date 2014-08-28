@@ -1,6 +1,7 @@
 package net.placeforme.model;
 
 import java.sql.Date;
+import java.sql.Time;
 
 /**
  * Created by Gustavo on 13/08/2014.
@@ -10,7 +11,7 @@ public class Evento {
     private int evento_id;
     private String titulo;
     private Date data_inicio;
-    private Date data_fim;
+    private Time horario;
     private int grupo_id;
     private int usuario_id;
     private int status;
@@ -39,12 +40,12 @@ public class Evento {
         this.data_inicio = data_inicio;
     }
 
-    public Date getDataFim() {
-        return data_fim;
+    public Time getHorario() {
+        return horario;
     }
 
-    public void setDataFim(Date data_fim) {
-        this.data_fim = data_fim;
+    public void setHorario(Time horario) {
+        this.horario = horario;
     }
 
     public int getGrupoId() {

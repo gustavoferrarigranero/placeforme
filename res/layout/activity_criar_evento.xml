@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,11 +6,45 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="net.placeforme.CriarEventoActivity" >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="Título do Evento" />
+    
+    <EditText android:id="@+id/evento_titulo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapWords"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:imeActionId="@+id/ime_evento_titulo"
+        android:imeActionLabel="Próx."/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data de Início" />
+    
+    <EditText android:id="@+id/evento_data_inicio"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:maxLines="1"
+        android:singleLine="true"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data de Fim(opcional)" />
+    
+    <EditText android:id="@+id/evento_horario"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:maxLines="1"
+        android:singleLine="true"/>
 
-</RelativeLayout>
+</LinearLayout>

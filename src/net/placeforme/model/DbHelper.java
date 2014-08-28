@@ -54,7 +54,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String TABLE_EVENTO_ID = "evento_id";
     public static final String TABLE_EVENTO_TITULO = "titulo";
     public static final String TABLE_EVENTO_DATA_INICIO = "data_inicio";
-    public static final String TABLE_EVENTO_DATA_FIM = "data_fim";
+    public static final String TABLE_EVENTO_HORARIO = "horario";
     public static final String TABLE_EVENTO_GRUPO_ID = "grupo_id";
     public static final String TABLE_EVENTO_USUARIO_ID = "usuario_id";
     public static final String TABLE_EVENTO_STATUS = "status";
@@ -62,7 +62,7 @@ public class DbHelper extends SQLiteOpenHelper {
             TABLE_EVENTO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             TABLE_EVENTO_TITULO + " TEXT," +
             TABLE_EVENTO_DATA_INICIO + " DATE," +
-            TABLE_EVENTO_DATA_FIM + " DATE," +
+            TABLE_EVENTO_HORARIO + " TIME," +
             TABLE_EVENTO_GRUPO_ID + " INTEGER," +
             TABLE_EVENTO_USUARIO_ID + " INTEGER," +
             TABLE_AVALIACAO_STATUS + " INTEGER" +
@@ -159,6 +159,8 @@ public class DbHelper extends SQLiteOpenHelper {
     		"('Ambiente', 1, 1)," +
     		"('Buffet', 1, 1)," +
     		"('Bebidas', 1, 1)," +
+    		"('Duração', 1, 1)," +
+    		"('Atração', 1, 1)," +
        		"('Estacionamento', 1, 1)";
     
     

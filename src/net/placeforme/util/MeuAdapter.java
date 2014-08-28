@@ -89,7 +89,7 @@ public class MeuAdapter extends BaseAdapter {
         campoData = (TextView) view.findViewById(R.id.datainicio);
 
         campoData.setText("Início: "+Conv.sqlDateToString(evento.getDataInicio()) + 
-        		" - Fim: "+Conv.sqlDateToString(evento.getDataFim()));
+        		" - Fim: "+Conv.sqlTimeToString(evento.getHorario())+"hs");
 
         if(null!=usuarioEvento.getFoto()){
         	campoFoto.setImageBitmap(usuarioEvento.getFoto());

@@ -46,6 +46,37 @@ public class Conv {
 		return text;
 
 	}
+	
+	/**
+	 * @param encodedString
+	 * @return java.sql.Time (from given time string)
+	 */
+	public static java.sql.Time stringToSqlTime(String hora) {
+		java.sql.Time horaFinal = null;
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+			horaFinal = new java.sql.Time(formatter.parse(hora).getTime());
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return horaFinal;
+	}
+
+	/**
+	 * @param java
+	 *            .sql.Date
+	 * @return String (from given java.sql.Date)
+	 */
+	public static String sqlTimeToString(java.sql.Time hora) {
+
+		SimpleDateFormat df = new SimpleDateFormat("H:mm");
+		String text = df.format(hora);
+		return text;
+
+	}
 
 	/**
 	 * @param bitmap

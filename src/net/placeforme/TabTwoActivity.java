@@ -27,10 +27,14 @@ public class TabTwoActivity extends Fragment {
 	private static Evento evento;
 	private ImageView add_evento;
 	private static ViewGroup container;
+	private Intent criarEvento;
 
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+		
+		if(!isAdded()) {
+		}
 		
 		this.container = container;
 		
@@ -47,8 +51,8 @@ public class TabTwoActivity extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent criarEvento = new Intent(getActivity(),CriarEventoActivity.class);
-				startActivity(criarEvento);
+				criarEvento = new Intent(MainActivity.mainActivity,CriarEventoActivity.class);
+				MainActivity.mainActivity.startActivity(criarEvento);
 			}
 		});
 				
@@ -68,7 +72,7 @@ public class TabTwoActivity extends Fragment {
 		evento.setEventoId(1);
 		evento.setTitulo("Festa Top 1");
 		evento.setDataInicio(Conv.stringToSqlDate("20/08/2014"));
-		evento.setDataFim(Conv.stringToSqlDate("20/08/2014"));
+		evento.setHorario(Conv.stringToSqlTime("20:30"));
 		evento.setGrupoId(1);
 		evento.setUsuarioId(MainActivity.usuarioLogado.getUsuarioId());
 		evento.setStatus(1);
@@ -94,7 +98,7 @@ public class TabTwoActivity extends Fragment {
 		evento.setEventoId(1);
 		evento.setTitulo("Festa Top 1");
 		evento.setDataInicio(Conv.stringToSqlDate("20/08/2014"));
-		evento.setDataFim(Conv.stringToSqlDate("20/08/2014"));
+		evento.setHorario(Conv.stringToSqlTime("20:30"));
 		evento.setGrupoId(1);
 		evento.setUsuarioId(MainActivity.usuarioLogado.getUsuarioId());
 		evento.setStatus(1);
