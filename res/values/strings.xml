@@ -11,4 +11,17 @@
     <string name="imagemUsuario">Imagem usuário</string>
     <string name="title_activity_criar_evento">Criar Evento</string>
 
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
+    <string name="title_activity_edit_evento">EditEventoActivity</string>
+
 </resources>

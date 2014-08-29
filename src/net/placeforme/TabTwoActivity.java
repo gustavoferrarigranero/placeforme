@@ -51,7 +51,7 @@ public class TabTwoActivity extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				criarEvento = new Intent(MainActivity.mainActivity,CriarEventoActivity.class);
+				criarEvento = new Intent(MainActivity.mainActivity,AddEventoActivity.class);
 				MainActivity.mainActivity.startActivity(criarEvento);
 			}
 		});

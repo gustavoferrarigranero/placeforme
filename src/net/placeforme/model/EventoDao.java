@@ -29,7 +29,7 @@ public class EventoDao {
     }
 
 
-    public void add(Evento evento) {
+    public long add(Evento evento) {
 
         database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -42,6 +42,8 @@ public class EventoDao {
         long ret = database.insert(DbHelper.TABLE_EVENTO, null, values);
 
         dbHelper.close();
+        
+        return ret;
 
     }
 

@@ -8,6 +8,9 @@
 package net.placeforme;
 
 public final class R {
+    public static final class array {
+        public static final int planets_array=0x7f070000;
+    }
     public static final class attr {
     }
     public static final class color {
@@ -38,69 +41,74 @@ public final class R {
         public static final int no_image=0x7f020007;
     }
     public static final class id {
-        public static final int action_logout=0x7f09001a;
-        public static final int action_settings=0x7f090019;
-        public static final int add_evento=0x7f090014;
-        public static final int cadastrar=0x7f09000c;
-        public static final int datainicio=0x7f090017;
-        public static final int email=0x7f090007;
-        public static final int email_login_form=0x7f090006;
-        public static final int email_sign_in_button=0x7f09000b;
-        public static final int evento_data_inicio=0x7f090002;
-        public static final int evento_horario=0x7f090003;
-        public static final int evento_titulo=0x7f090000;
-        public static final int foto=0x7f090011;
-        public static final int imageUsuario=0x7f090018;
-        public static final int ime_evento_titulo=0x7f090001;
-        public static final int linhaEscrita=0x7f090015;
-        public static final int lista=0x7f090013;
-        public static final int login=0x7f09000a;
-        public static final int login_form=0x7f090005;
-        public static final int login_progress=0x7f090004;
-        public static final int nome=0x7f090010;
-        public static final int pager=0x7f09000d;
-        public static final int password=0x7f090009;
-        public static final int prox=0x7f090008;
-        public static final int register_form=0x7f09000f;
-        public static final int register_progress=0x7f09000e;
-        public static final int section_label_3=0x7f090012;
-        public static final int text=0x7f090016;
+        public static final int action_logout=0x7f0a001c;
+        public static final int action_settings=0x7f0a001b;
+        public static final int add_evento=0x7f0a0016;
+        public static final int button_save_evento=0x7f0a0005;
+        public static final int cadastrar=0x7f0a000e;
+        public static final int datainicio=0x7f0a0019;
+        public static final int email=0x7f0a0009;
+        public static final int email_login_form=0x7f0a0008;
+        public static final int email_sign_in_button=0x7f0a000d;
+        public static final int evento_data_inicio=0x7f0a0002;
+        public static final int evento_grupo=0x7f0a0004;
+        public static final int evento_horario=0x7f0a0003;
+        public static final int evento_titulo=0x7f0a0000;
+        public static final int foto=0x7f0a0013;
+        public static final int imageUsuario=0x7f0a001a;
+        public static final int ime_evento_titulo=0x7f0a0001;
+        public static final int linhaEscrita=0x7f0a0017;
+        public static final int lista=0x7f0a0015;
+        public static final int login=0x7f0a000c;
+        public static final int login_form=0x7f0a0007;
+        public static final int login_progress=0x7f0a0006;
+        public static final int nome=0x7f0a0012;
+        public static final int pager=0x7f0a000f;
+        public static final int password=0x7f0a000b;
+        public static final int prox=0x7f0a000a;
+        public static final int register_form=0x7f0a0011;
+        public static final int register_progress=0x7f0a0010;
+        public static final int section_label_3=0x7f0a0014;
+        public static final int text=0x7f0a0018;
     }
     public static final class layout {
         public static final int activity_criar_evento=0x7f030000;
-        public static final int activity_login=0x7f030001;
-        public static final int activity_main=0x7f030002;
-        public static final int activity_register=0x7f030003;
-        public static final int fragment_tab_one=0x7f030004;
-        public static final int fragment_tab_tree=0x7f030005;
-        public static final int fragment_tab_two=0x7f030006;
-        public static final int list_eventos=0x7f030007;
+        public static final int activity_edit_evento=0x7f030001;
+        public static final int activity_login=0x7f030002;
+        public static final int activity_main=0x7f030003;
+        public static final int activity_register=0x7f030004;
+        public static final int fragment_tab_one=0x7f030005;
+        public static final int fragment_tab_tree=0x7f030006;
+        public static final int fragment_tab_two=0x7f030007;
+        public static final int list_eventos=0x7f030008;
     }
     public static final class menu {
-        public static final int criar_evento=0x7f080000;
-        public static final int main=0x7f080001;
+        public static final int criar_evento=0x7f090000;
+        public static final int edit_evento=0x7f090001;
+        public static final int main=0x7f090002;
     }
     public static final class string {
         public static final int action_logoff=0x7f060006;
         public static final int action_settings=0x7f060005;
-        public static final int action_sign_in=0x7f06000e;
-        public static final int action_sign_in_short=0x7f06000f;
+        public static final int action_sign_in=0x7f06000f;
+        public static final int action_sign_in_short=0x7f060010;
         public static final int app_name=0x7f060000;
-        public static final int cadastrar=0x7f060010;
-        public static final int error_field_required=0x7f060014;
-        public static final int error_incorrect_password=0x7f060013;
-        public static final int error_invalid_email=0x7f060011;
-        public static final int error_invalid_password=0x7f060012;
+        public static final int cadastrar=0x7f060011;
+        public static final int error_field_required=0x7f060015;
+        public static final int error_incorrect_password=0x7f060014;
+        public static final int error_invalid_email=0x7f060012;
+        public static final int error_invalid_password=0x7f060013;
         public static final int hello_world=0x7f060004;
         public static final int imagemUsuario=0x7f060007;
-        public static final int prompt_email=0x7f06000c;
-        public static final int prompt_foto=0x7f06000b;
+        public static final int prompt_email=0x7f06000d;
+        public static final int prompt_foto=0x7f06000c;
         /**  Strings related to login 
          */
-        public static final int prompt_nome=0x7f06000a;
-        public static final int prompt_password=0x7f06000d;
+        public static final int prompt_nome=0x7f06000b;
+        public static final int prompt_password=0x7f06000e;
         public static final int title_activity_criar_evento=0x7f060008;
-        public static final int title_activity_login=0x7f060009;
+        public static final int title_activity_edit_evento=0x7f060009;
+        public static final int title_activity_login=0x7f06000a;
         public static final int title_section1=0x7f060001;
         public static final int title_section2=0x7f060002;
         public static final int title_section3=0x7f060003;
@@ -127,19 +135,19 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f080001;
         /**  the theme applied to the application or activity 
          */
-        public static final int CustomActionBarTheme=0x7f070002;
+        public static final int CustomActionBarTheme=0x7f080002;
         /**  ActionBar styles 
          */
-        public static final int MyActionBar=0x7f070003;
+        public static final int MyActionBar=0x7f080003;
         /**  ActionBar color text styles 
          */
-        public static final int MyActionBarTabTextSyle=0x7f070004;
+        public static final int MyActionBarTabTextSyle=0x7f080004;
     }
 }

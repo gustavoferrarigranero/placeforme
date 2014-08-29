@@ -7,44 +7,75 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="net.placeforme.CriarEventoActivity" >
+    tools:context="net.placeforme.AddEventoActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Título do Evento" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
     
-    <EditText android:id="@+id/evento_titulo"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textCapWords"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:imeActionId="@+id/ime_evento_titulo"
-        android:imeActionLabel="Próx."/>
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Data de Início" />
-    
-    <EditText android:id="@+id/evento_data_inicio"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:maxLines="1"
-        android:singleLine="true"/>
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Data de Fim(opcional)" />
-    
-    <EditText android:id="@+id/evento_horario"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:maxLines="1"
-        android:singleLine="true"/>
-
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Título do Evento"
+		        android:layout_marginTop="20sp" />
+		    
+		    <EditText android:id="@+id/evento_titulo"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:inputType="textCapWords"
+		        android:maxLines="1"
+		        android:singleLine="true"
+		        android:imeActionId="@+id/ime_evento_titulo"
+		        android:imeActionLabel="Próx."/>
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Data de Início"
+		        android:layout_marginTop="20sp" />
+		    
+		    <EditText android:id="@+id/evento_data_inicio"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:inputType="date"
+		        android:maxLines="1"
+		        android:singleLine="true"/>
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Horário"
+		        android:layout_marginTop="20sp" />
+		    
+		    <EditText android:id="@+id/evento_horario"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:inputType="date"
+		        android:maxLines="1"
+		        android:singleLine="true"/>
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Grupo do Evento"
+		        android:layout_marginTop="20sp" />
+		    
+		    <Spinner
+		    android:id="@+id/evento_grupo"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content" />
+		    
+		    <Button android:id="@+id/button_save_evento"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="35sp"
+		        android:text="Salvar e Continuar"/>
+		    
+		</LinearLayout>
+	</ScrollView>
 </LinearLayout>

@@ -33,8 +33,12 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
-            android:name=".CriarEventoActivity"
+            android:name=".AddEventoActivity"
             android:label="@string/title_activity_criar_evento" >
+        </activity>
+        <activity
+            android:name=".EditEventoActivity"
+            android:label="@string/title_activity_edit_evento" >
         </activity>
     </application>
 
