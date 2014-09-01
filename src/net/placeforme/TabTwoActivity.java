@@ -5,8 +5,8 @@ import java.util.List;
 
 import net.placeforme.model.Evento;
 import net.placeforme.model.EventoDao;
-import net.placeforme.util.Conv;
-import net.placeforme.util.MeuAdapter;
+import net.placeforme.util.Utils;
+import net.placeforme.util.AdapterListEventos;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -66,49 +66,21 @@ public class TabTwoActivity extends Fragment {
 		
 		eventos = new ArrayList<Evento>();
 		
-		//eventos = eventoDao.getAll();
-		
-		evento = new Evento();
-		evento.setEventoId(1);
-		evento.setTitulo("Festa Top 1");
-		evento.setDataInicio(Conv.stringToSqlDate("20/08/2014"));
-		evento.setHorario(Conv.stringToSqlTime("20:30"));
-		evento.setGrupoId(1);
-		evento.setUsuarioId(MainActivity.usuarioLogado.getUsuarioId());
-		evento.setStatus(1);
-		
-		eventos.add(evento);
-		eventos.add(evento);
-		eventos.add(evento);
-		eventos.add(evento);
+		eventos = eventoDao.getAll();
 
-		MeuAdapter adapter = new MeuAdapter(getActivity(), eventos);
+		AdapterListEventos adapter = new AdapterListEventos(getActivity(), eventos);
 		
 		lista.setAdapter(adapter);
 		
 	}
 	
-	public static void populaListaFiltros(){
+	public static void populaListaStatic(){
 		
 		eventos = new ArrayList<Evento>();
 		
-		//eventos = eventoDao.getAll();
-		
-		evento = new Evento();
-		evento.setEventoId(1);
-		evento.setTitulo("Festa Top 1");
-		evento.setDataInicio(Conv.stringToSqlDate("20/08/2014"));
-		evento.setHorario(Conv.stringToSqlTime("20:30"));
-		evento.setGrupoId(1);
-		evento.setUsuarioId(MainActivity.usuarioLogado.getUsuarioId());
-		evento.setStatus(1);
-		
-		eventos.add(evento);
-		eventos.add(evento);
-		eventos.add(evento);
-		eventos.add(evento);
+		eventos = eventoDao.getAll();
 
-		MeuAdapter adapter = new MeuAdapter(MainActivity.mainActivity, eventos);
+		AdapterListEventos adapter = new AdapterListEventos(MainActivity.mainActivity, eventos);
 		
 		lista.setAdapter(adapter);
 		

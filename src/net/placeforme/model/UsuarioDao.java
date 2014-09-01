@@ -9,7 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.placeforme.util.Conv;
+import net.placeforme.util.Utils;
 
 /**
  * Created by Gustavo on 13/08/2014.
@@ -33,7 +33,7 @@ public class UsuarioDao {
         database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DbHelper.TABLE_USUARIO_NOME, usuario.getNome());
-        values.put(DbHelper.TABLE_USUARIO_FOTO, Conv.BitMapToString(usuario.getFoto()));
+        values.put(DbHelper.TABLE_USUARIO_FOTO, Utils.BitMapToString(usuario.getFoto()));
         values.put(DbHelper.TABLE_USUARIO_EMAIL, usuario.getEmail());
         values.put(DbHelper.TABLE_USUARIO_SENHA, usuario.getSenha());
         values.put(DbHelper.TABLE_USUARIO_TIPO, usuario.getTipo());
@@ -56,7 +56,7 @@ public class UsuarioDao {
         	usuario = new Usuario();
 	        usuario.setUsuarioId(cursor.getInt(0));
 	        usuario.setNome(cursor.getString(1));
-	        usuario.setFoto(Conv.StringToBitMap(cursor.getString(2)));
+	        usuario.setFoto(Utils.StringToBitMap(cursor.getString(2)));
 	        usuario.setEmail(cursor.getString(3));
 	        usuario.setSenha(cursor.getString(4));
 	        usuario.setTipo(cursor.getInt(5));
@@ -79,7 +79,7 @@ public class UsuarioDao {
             	Usuario usuario = new Usuario();
                 usuario.setUsuarioId(cursor.getInt(0));
                 usuario.setNome(cursor.getString(1));
-                usuario.setFoto(Conv.StringToBitMap(cursor.getString(2)));
+                usuario.setFoto(Utils.StringToBitMap(cursor.getString(2)));
                 usuario.setEmail(cursor.getString(3));
                 usuario.setSenha(cursor.getString(4));
                 usuario.setTipo(cursor.getInt(5));
@@ -97,7 +97,7 @@ public class UsuarioDao {
         database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DbHelper.TABLE_USUARIO_NOME, usuario.getNome());
-        values.put(DbHelper.TABLE_USUARIO_FOTO, Conv.BitMapToString(usuario.getFoto()));
+        values.put(DbHelper.TABLE_USUARIO_FOTO, Utils.BitMapToString(usuario.getFoto()));
         values.put(DbHelper.TABLE_USUARIO_EMAIL, usuario.getEmail());
         values.put(DbHelper.TABLE_USUARIO_SENHA, usuario.getSenha());
         values.put(DbHelper.TABLE_USUARIO_TIPO, usuario.getTipo());
@@ -142,7 +142,7 @@ public class UsuarioDao {
             usuario = new Usuario();
 	        usuario.setUsuarioId(cursor.getInt(0));
 	        usuario.setNome(cursor.getString(1));
-	        usuario.setFoto(Conv.StringToBitMap(cursor.getString(2)));
+	        usuario.setFoto(Utils.StringToBitMap(cursor.getString(2)));
 	        usuario.setEmail(cursor.getString(3));
 	        usuario.setSenha(cursor.getString(4));
 	        usuario.setTipo(cursor.getInt(5));

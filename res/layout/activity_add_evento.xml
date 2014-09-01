@@ -11,7 +11,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
         
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,7 +21,7 @@
 		    <TextView
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="Título do Evento"
+		        android:text="Título do Evento:"
 		        android:layout_marginTop="20sp" />
 		    
 		    <EditText android:id="@+id/evento_titulo"
@@ -36,7 +36,7 @@
 		    <TextView
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="Data de Início"
+		        android:text="Data de Início:"
 		        android:layout_marginTop="20sp" />
 		    
 		    <EditText android:id="@+id/evento_data_inicio"
@@ -49,7 +49,7 @@
 		    <TextView
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="Horário"
+		        android:text="Horário:"
 		        android:layout_marginTop="20sp" />
 		    
 		    <EditText android:id="@+id/evento_horario"
@@ -62,19 +62,36 @@
 		    <TextView
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="Grupo do Evento"
+		        android:text="Grupo do Evento:"
 		        android:layout_marginTop="20sp" />
 		    
 		    <Spinner
-		    android:id="@+id/evento_grupo"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content" />
+			    android:id="@+id/evento_grupo"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content" />
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Atributos(quanto mais atributos você adicionar, mais completo fica seu evento):"
+		        android:layout_marginTop="20sp" />
+		    
+		    <ListView android:id="@+id/list_evento_atributos_screen"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"/>
+		    
+		    <Button android:id="@+id/button_add_atributo"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="35sp"
+		        android:textSize="12sp"
+		        android:text="Add atributo"/>
 		    
 		    <Button android:id="@+id/button_save_evento"
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_marginTop="35sp"
-		        android:text="Salvar e Continuar"/>
+		        android:text="Salvar evento"/>
 		    
 		</LinearLayout>
 	</ScrollView>

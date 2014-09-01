@@ -18,7 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MeuAdapter extends BaseAdapter {
+public class AdapterListEventos extends BaseAdapter {
 
     private Context context;
     private View view;
@@ -34,7 +34,7 @@ public class MeuAdapter extends BaseAdapter {
     private ImageView campoFoto;
     
 
-    public MeuAdapter(Context context, List<Evento> eventos){
+    public AdapterListEventos(Context context, List<Evento> eventos){
 
         this.context = context;
 
@@ -88,11 +88,11 @@ public class MeuAdapter extends BaseAdapter {
         
         campoData = (TextView) view.findViewById(R.id.datainicio);
 
-        campoData.setText("Início: "+Conv.sqlDateToString(evento.getDataInicio()) + 
-        		" - Fim: "+Conv.sqlTimeToString(evento.getHorario())+"hs");
+        campoData.setText("Data: "+Utils.sqlDateToString(evento.getDataInicio()) + 
+        		" - Horário: "+Utils.sqlTimeToString(evento.getHorario())+"hs");
 
         if(null!=usuarioEvento.getFoto()){
-        	campoFoto.setImageBitmap(usuarioEvento.getFoto());
+        	campoFoto.setImageBitmap(Utils.circleImage(usuarioEvento.getFoto()));
         }
         
         return view;

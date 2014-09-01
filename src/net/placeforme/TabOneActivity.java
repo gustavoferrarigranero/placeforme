@@ -1,6 +1,6 @@
 package net.placeforme;
 
-import net.placeforme.util.Conv;
+import net.placeforme.util.Utils;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;

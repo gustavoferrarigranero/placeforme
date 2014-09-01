@@ -10,7 +10,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.placeforme.util.Conv;
+import net.placeforme.util.Utils;
 
 /**
  * Created by Gustavo on 13/08/2014.
@@ -34,8 +34,8 @@ public class EventoDao {
         database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DbHelper.TABLE_EVENTO_TITULO, evento.getTitulo());
-        values.put(DbHelper.TABLE_EVENTO_DATA_INICIO, Conv.sqlDateToString(evento.getDataInicio()));
-        values.put(DbHelper.TABLE_EVENTO_HORARIO, Conv.sqlTimeToString(evento.getHorario()));
+        values.put(DbHelper.TABLE_EVENTO_DATA_INICIO, Utils.sqlDateToString(evento.getDataInicio()));
+        values.put(DbHelper.TABLE_EVENTO_HORARIO, Utils.sqlTimeToString(evento.getHorario()));
         values.put(DbHelper.TABLE_EVENTO_GRUPO_ID, evento.getGrupoId());
         values.put(DbHelper.TABLE_EVENTO_USUARIO_ID, evento.getUsuarioId());
         values.put(DbHelper.TABLE_EVENTO_STATUS, evento.getStatus());
@@ -60,8 +60,8 @@ public class EventoDao {
         Evento evento = new Evento();
         evento.setEventoId(cursor.getInt(0));
         evento.setTitulo(cursor.getString(1));
-        evento.setDataInicio(Conv.stringToSqlDate(cursor.getString(2)));
-        evento.setHorario(Conv.stringToSqlTime(cursor.getString(3)));
+        evento.setDataInicio(Utils.stringToSqlDate(cursor.getString(2)));
+        evento.setHorario(Utils.stringToSqlTime(cursor.getString(3)));
         evento.setGrupoId(cursor.getInt(4));
         evento.setUsuarioId(cursor.getInt(5));
         evento.setStatus(cursor.getInt(6));
@@ -82,8 +82,8 @@ public class EventoDao {
                 Evento evento = new Evento();
                 evento.setEventoId(cursor.getInt(0));
                 evento.setTitulo(cursor.getString(1));
-                evento.setDataInicio(Conv.stringToSqlDate(cursor.getString(2)));
-                evento.setHorario(Conv.stringToSqlTime(cursor.getString(3)));
+                evento.setDataInicio(Utils.stringToSqlDate(cursor.getString(2)));
+                evento.setHorario(Utils.stringToSqlTime(cursor.getString(3)));
                 evento.setGrupoId(cursor.getInt(4));
                 evento.setUsuarioId(cursor.getInt(5));
                 evento.setStatus(cursor.getInt(6));
@@ -103,7 +103,7 @@ public class EventoDao {
         ContentValues values = new ContentValues();
         values.put(DbHelper.TABLE_EVENTO_TITULO, evento.getTitulo());
         values.put(DbHelper.TABLE_EVENTO_DATA_INICIO, String.valueOf(evento.getDataInicio()));
-        values.put(DbHelper.TABLE_EVENTO_HORARIO, Conv.sqlTimeToString(evento.getHorario()));
+        values.put(DbHelper.TABLE_EVENTO_HORARIO, Utils.sqlTimeToString(evento.getHorario()));
         values.put(DbHelper.TABLE_EVENTO_GRUPO_ID, evento.getGrupoId());
         values.put(DbHelper.TABLE_EVENTO_USUARIO_ID, evento.getUsuarioId());
         values.put(DbHelper.TABLE_EVENTO_STATUS, evento.getStatus());

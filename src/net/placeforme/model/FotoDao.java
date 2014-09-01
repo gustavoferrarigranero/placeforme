@@ -9,7 +9,7 @@ import android.graphics.Bitmap;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.placeforme.util.Conv;
+import net.placeforme.util.Utils;
 
 /**
  * Created by Gustavo on 13/08/2014.
@@ -33,7 +33,7 @@ public class FotoDao {
         database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DbHelper.TABLE_FOTO_LEGENDA, foto.getLegenda());
-        values.put(DbHelper.TABLE_FOTO_FOTO, Conv.BitMapToString(foto.getFoto()));
+        values.put(DbHelper.TABLE_FOTO_FOTO, Utils.BitMapToString(foto.getFoto()));
         values.put(DbHelper.TABLE_FOTO_EVENTO_ID, foto.getEventoId());
         values.put(DbHelper.TABLE_FOTO_STATUS, foto.getStatus());
         database.insert(DbHelper.TABLE_FOTO, null, values);
@@ -53,7 +53,7 @@ public class FotoDao {
         Foto foto = new Foto();
         foto.setFotoId(cursor.getInt(0));
         foto.setLegenda(cursor.getString(1));
-        foto.setFoto(Conv.StringToBitMap(cursor.getString(2)));
+        foto.setFoto(Utils.StringToBitMap(cursor.getString(2)));
         foto.setEventoId(cursor.getInt(3));
         foto.setStatus(cursor.getInt(4));
 
@@ -73,7 +73,7 @@ public class FotoDao {
             	Foto foto = new Foto();
                 foto.setFotoId(cursor.getInt(0));
                 foto.setLegenda(cursor.getString(1));
-                foto.setFoto(Conv.StringToBitMap(cursor.getString(2)));
+                foto.setFoto(Utils.StringToBitMap(cursor.getString(2)));
                 foto.setEventoId(cursor.getInt(3));
                 foto.setStatus(cursor.getInt(4));
                 fotoList.add(foto);
@@ -89,7 +89,7 @@ public class FotoDao {
         database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DbHelper.TABLE_FOTO_LEGENDA, foto.getLegenda());
-        values.put(DbHelper.TABLE_FOTO_FOTO, Conv.BitMapToString(foto.getFoto()));
+        values.put(DbHelper.TABLE_FOTO_FOTO, Utils.BitMapToString(foto.getFoto()));
         values.put(DbHelper.TABLE_FOTO_EVENTO_ID, foto.getEventoId());
         values.put(DbHelper.TABLE_FOTO_STATUS, foto.getStatus());
         int ret = database.update(DbHelper.TABLE_FOTO, values, DbHelper.TABLE_FOTO_ID + " = ?",

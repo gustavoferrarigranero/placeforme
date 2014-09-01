@@ -14,8 +14,8 @@ public class EditEventoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_evento);
 		
-		if(null!=AddEventoActivity.criarEventoActivity)
-			AddEventoActivity.criarEventoActivity.finish();
+		if(null!=AddEventoActivity.addEventoActivity)
+			AddEventoActivity.addEventoActivity.finish();
 		
 		Bundle b = getIntent().getExtras();
 		

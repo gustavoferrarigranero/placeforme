@@ -42,7 +42,7 @@ import java.util.List;
 
 import net.placeforme.model.Usuario;
 import net.placeforme.model.UsuarioDao;
-import net.placeforme.util.Conv;
+import net.placeforme.util.Utils;
 
 /**
  * A login screen that offers login via email/password.
@@ -169,9 +169,30 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
             Bitmap image = null;
             
             if(selectedImagePath!=null){
-            	image = Conv.ShrinkBitmap(selectedImagePath,300,300);
+            	image = Utils.ShrinkBitmap(selectedImagePath,300,300);
             }else{
-            	image = Conv.ShrinkBitmap(filemanagerstring,300,300);
+            	image = Utils.ShrinkBitmap(filemanagerstring,300,300);
+            }
+            
+            if(image.getWidth() != image.getHeight()){
+            	if(image.getWidth()>image.getHeight()){
+            		image = Bitmap.createBitmap(
+						image, 
+						image.getHeight()/2 ,
+						0,
+						image.getHeight(), 
+						image.getHeight()
+					);
+
+            	}else{
+            		image = Bitmap.createBitmap(
+    						image, 
+    						0 ,
+    						image.getWidth()/2,
+    						image.getWidth(), 
+    						image.getWidth()
+    					);
+            	}
             }
                         
             fotoImageView.setImageBitmap(image);
