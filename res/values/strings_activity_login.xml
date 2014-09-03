@@ -7,7 +7,7 @@
     <string name="prompt_foto">Foto</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Senha</string>
-    <string name="action_sign_in">Login no Place for Me</string>
+    <string name="action_sign_in">Logar no Place for Me</string>
     <string name="action_sign_in_short">Login</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="error_invalid_email">E-mail inválido!</string>

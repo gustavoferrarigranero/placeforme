@@ -11,31 +11,27 @@ import net.placeforme.model.EventoDao;
 import net.placeforme.model.Grupo;
 import net.placeforme.model.GrupoDao;
 import net.placeforme.util.AdapterListAtributos;
-import net.placeforme.util.Utils;
 import net.placeforme.util.DatePickerFragment;
 import net.placeforme.util.TimePickerFragment;
+import net.placeforme.util.Utils;
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -73,6 +69,10 @@ public class AddEventoActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_evento);
 
+		// Set up the action bar.
+        final ActionBar actionBar = this.getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+		
 		addEventoActivity = this;
 
 		newEvento = new Evento();
@@ -240,12 +240,6 @@ public class AddEventoActivity extends FragmentActivity implements
 		// Another interface callback
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.criar_evento, menu);
-		return true;
-	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -255,7 +249,11 @@ public class AddEventoActivity extends FragmentActivity implements
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		}else if(id == android.R.id.home){
+			this.finish();
+	        return true;
 		}
+			
 		return super.onOptionsItemSelected(item);
 	}
 

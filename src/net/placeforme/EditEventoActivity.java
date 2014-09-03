@@ -1,6 +1,5 @@
 package net.placeforme;
 
-import net.placeforme.model.Evento;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,4 +41,5 @@ public class EditEventoActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 }

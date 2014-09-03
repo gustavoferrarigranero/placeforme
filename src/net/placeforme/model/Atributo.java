@@ -1,6 +1,5 @@
 package net.placeforme.model;
 
-import java.util.Date;
 
 /**
  * Created by Gustavo on 13/08/2014.

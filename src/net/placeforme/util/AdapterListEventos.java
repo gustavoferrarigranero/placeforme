@@ -2,30 +2,30 @@ package net.placeforme.util;
 
 import java.util.List;
 
+import net.placeforme.MainActivity;
 import net.placeforme.R;
+import net.placeforme.ShowEventoActivity;
 import net.placeforme.model.Evento;
 import net.placeforme.model.Usuario;
 import net.placeforme.model.UsuarioDao;
-
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.util.Log;
+import android.content.Intent;
+import android.os.Bundle;
+import android.sax.StartElementListener;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class AdapterListEventos extends BaseAdapter {
 
-    private Context context;
-    private View view;
     private LayoutInflater inflater;
     
     private List<Evento> eventos;
-    private Evento evento;
     private UsuarioDao usuarioDao;
     private Usuario usuarioEvento;
     
@@ -35,8 +35,6 @@ public class AdapterListEventos extends BaseAdapter {
     
 
     public AdapterListEventos(Context context, List<Evento> eventos){
-
-        this.context = context;
 
         this.eventos = eventos;
 
@@ -69,24 +67,24 @@ public class AdapterListEventos extends BaseAdapter {
 
     @Override
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, final ViewGroup parent) {
 
         inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        view = inflater.inflate(R.layout.list_eventos, null);
+        convertView = inflater.inflate(R.layout.list_eventos, null);
 
-        evento = eventos.get(position);
+        final Evento evento = eventos.get(position);
         
         usuarioDao = new UsuarioDao(parent.getContext());
         usuarioEvento = new Usuario();
         usuarioEvento = usuarioDao.get(evento.getUsuarioId());
                 
-        campotitulo = (TextView) view.findViewById(R.id.text);
-        campoFoto = (ImageView) view.findViewById(R.id.imageUsuario);
+        campotitulo = (TextView) convertView.findViewById(R.id.text);
+        campoFoto = (ImageView) convertView.findViewById(R.id.imageUsuario);
 
         campotitulo.setText(evento.getTitulo());
         
-        campoData = (TextView) view.findViewById(R.id.datainicio);
+        campoData = (TextView) convertView.findViewById(R.id.datainicio);
 
         campoData.setText("Data: "+Utils.sqlDateToString(evento.getDataInicio()) + 
         		" - Horário: "+Utils.sqlTimeToString(evento.getHorario())+"hs");
@@ -95,7 +93,20 @@ public class AdapterListEventos extends BaseAdapter {
         	campoFoto.setImageBitmap(Utils.circleImage(usuarioEvento.getFoto()));
         }
         
-        return view;
+        convertView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent show = new Intent(parent.getContext(), ShowEventoActivity.class);
+				Bundle params = new Bundle();
+				params.putInt("evento_id",evento.getEventoId());
+				show.putExtras(params);
+				parent.getContext().startActivity(show);
+			}
+		});
+        
+        return convertView;
         
     }
 

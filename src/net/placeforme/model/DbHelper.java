@@ -3,8 +3,6 @@ package net.placeforme.model;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.location.Address;
-import android.util.Log;
 
 /**
  * Created by Gustavo on 13/08/2014.

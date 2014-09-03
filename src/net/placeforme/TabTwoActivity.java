@@ -5,12 +5,10 @@ import java.util.List;
 
 import net.placeforme.model.Evento;
 import net.placeforme.model.EventoDao;
-import net.placeforme.util.Utils;
 import net.placeforme.util.AdapterListEventos;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

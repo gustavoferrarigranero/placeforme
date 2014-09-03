@@ -23,5 +23,6 @@
     </string-array>
 
     <string name="title_activity_edit_evento">EditEventoActivity</string>
+    <string name="title_activity_show_evento">Evento</string>
 
 </resources>

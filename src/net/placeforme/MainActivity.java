@@ -1,31 +1,23 @@
 package net.placeforme;
 
-import java.util.List;
 import java.util.Locale;
 
-import net.placeforme.model.Atributo;
-import net.placeforme.model.AtributoDao;
-import net.placeforme.model.Grupo;
-import net.placeforme.model.GrupoDao;
 import net.placeforme.model.Usuario;
-
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 
 
 public class MainActivity extends Activity implements ActionBar.TabListener {

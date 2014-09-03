@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="actionBarColor">#33b5e5<!-- #1BA7A2  --></color>
+    <color name="actionBarColor">#33b5e5</color>
 	<color name="actionBarTabTextColor">#FFFFFF</color>
+	<color name="buttons_back_default">#69c9ec</color>
+	<color name="buttons_back_hover">#F5B937</color>
+	<color name="buttons_back_stroke_default">#7bb5f0</color>
+	<color name="buttons_back_stroke_hover">#e59c33</color>
+	<color name="buttons_text_color">#FFFFFF</color>
+	
 </resources>

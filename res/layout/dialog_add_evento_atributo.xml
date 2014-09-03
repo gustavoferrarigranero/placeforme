@@ -35,7 +35,9 @@
 	        android:layout_gravity="center_horizontal"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="35sp"
-	        android:text="Salvar atributo"/>
+	        android:text="Salvar atributo"
+		    android:background="@drawable/buttons"
+		        android:textColor="@color/buttons_text_color"/>
     
 </LinearLayout>
 

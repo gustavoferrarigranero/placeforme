@@ -1,12 +1,12 @@
 package net.placeforme.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Gustavo on 13/08/2014.
@@ -110,6 +110,27 @@ public class EventoAtributoDao {
         dbHelper.close();
         return cursor.getCount();
     }
+
+	public ArrayList<EventoAtributo> getAllByEvento(Evento evento) {
+		ArrayList<EventoAtributo> eventoAtributoList = new ArrayList<EventoAtributo>();
+        database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.query(DbHelper.TABLE_EVENTOATRIBUTO, ALLCOLUMNS, DbHelper.TABLE_EVENTOATRIBUTO_EVENTO_ID + "=?",
+                new String[]{String.valueOf(evento.getEventoId())}, null, null, null, null);
+        
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+                EventoAtributo eventoAtributo = new EventoAtributo();
+                eventoAtributo.setEventoAtributoId(cursor.getInt(0));
+                eventoAtributo.setTexto(cursor.getString(1));
+                eventoAtributo.setEventoId(cursor.getInt(2));
+                eventoAtributo.setAtributoId(cursor.getInt(3));
+                eventoAtributoList.add(eventoAtributo);
+            	cursor.moveToNext();
+        }
+        cursor.close();
+        dbHelper.close();
+        return eventoAtributoList;
+	}
 
 
 }

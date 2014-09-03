@@ -1,11 +1,17 @@
 package net.placeforme;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.placeforme.model.Usuario;
+import net.placeforme.model.UsuarioDao;
+import net.placeforme.util.Utils;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -13,36 +19,19 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Shader.TileMode;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.List;
-
-import net.placeforme.model.Usuario;
-import net.placeforme.model.UsuarioDao;
-import net.placeforme.util.Utils;
 
 /**
  * A login screen that offers login via email/password.
@@ -76,6 +65,10 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+		
+		// Set up the action bar.
+        final ActionBar actionBar = this.getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		this.usuarioDao = new UsuarioDao(this);
 		
@@ -200,7 +193,6 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
 		
 	}	
 	
-	//pra galeria
 	/**
      * helper to retrieve the path of an image URI
      */
@@ -373,6 +365,17 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
 			mRegisterTask = null;
 			showProgress(false);
 		}
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    // Respond to the action bar's Up/Home button
+	    case android.R.id.home:
+	        this.finish();
+	        return true;
+	    }
+	    return super.onOptionsItemSelected(item);
 	}
 
 }
