@@ -83,6 +83,18 @@ public class TabTwoActivity extends Fragment {
 		lista.setAdapter(adapter);
 		
 	}
+	
+public static void populaListaStaticFiltros(String titulo, String data, int grupo_id){
+		
+		eventos = new ArrayList<Evento>();
+		
+		eventos = eventoDao.getAllFiltros(titulo, data, grupo_id);
+
+		AdapterListEventos adapter = new AdapterListEventos(MainActivity.mainActivity, eventos);
+		
+		lista.setAdapter(adapter);
+		
+	}
 
 
 }

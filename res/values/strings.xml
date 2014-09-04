@@ -4,7 +4,7 @@
     <string name="app_name">Place for Me</string>
     <string name="title_section1">Busca</string>
     <string name="title_section2">Eventos</string>
-    <string name="title_section3">Meus Eventos</string>
+    <string name="title_section3">Minha Conta</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Opções</string>
     <string name="action_logoff">Sair da conta</string>

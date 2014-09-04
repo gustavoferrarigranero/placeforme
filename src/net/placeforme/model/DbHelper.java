@@ -1,5 +1,6 @@
 package net.placeforme.model;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -10,6 +11,19 @@ import android.database.sqlite.SQLiteOpenHelper;
  * refs: http://tutsandroid.weebly.com/tutorial-7---base-de-dados-sqlite-fonte--androidhiveinfo.html#/
  */
 public class DbHelper extends SQLiteOpenHelper {
+	
+	/* como percorrer ContentValues
+	 * ContentValues values = new ContentValues();
+        values.put("campo1","1");
+        values.put("campo2","2");
+        values.put("campo3","3");
+        
+        for (String key : values.keySet()) { 
+        	//Capturamos o valor a partir da chave 
+        	String value = (String) values.get(key); 
+        	System.out.println(key + " = " + value);
+        }
+	 * */
 
     private SQLiteDatabase database;
     private static final String DATABASE_NAME = "placeforme";

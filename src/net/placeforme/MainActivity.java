@@ -1,13 +1,17 @@
 package net.placeforme;
 
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
+import net.placeforme.model.DbHelper;
 import net.placeforme.model.Usuario;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,6 +31,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 	public static Usuario usuarioLogado;
 
 	public static int ACTIVE_TAB;
+	
+	public static ActionBar actionBarStatic;
 	
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -59,6 +65,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         
         // Set up the action bar.
         final ActionBar actionBar = this.getActionBar();
+        
+        actionBarStatic = this.getActionBar();
 
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         
@@ -236,5 +244,11 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             return rootView;
         }
     }
-
+    
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+       super.onActivityResult(requestCode, resultCode, data);
+       TabTreeActivity.result(requestCode, resultCode, data);
+    }
+    
 }

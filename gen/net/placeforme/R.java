@@ -50,16 +50,20 @@ public final class R {
         public static final int no_image=0x7f02000d;
     }
     public static final class id {
-        public static final int action_logout=0x7f0a0027;
-        public static final int action_settings=0x7f0a0026;
-        public static final int add_evento=0x7f0a001f;
-        public static final int atributo_titulo=0x7f0a0020;
-        public static final int atributo_valor=0x7f0a0021;
+        public static final int action_logout=0x7f0a002a;
+        public static final int action_settings=0x7f0a0029;
+        public static final int add_evento=0x7f0a0022;
+        public static final int atributo_titulo=0x7f0a0023;
+        public static final int atributo_valor=0x7f0a0024;
+        public static final int busca_data=0x7f0a001e;
+        public static final int busca_grupo=0x7f0a001f;
+        public static final int busca_titulo=0x7f0a001d;
         public static final int button_add_atributo=0x7f0a0006;
         public static final int button_dialog_add_atributo=0x7f0a001c;
+        public static final int button_filtro=0x7f0a0020;
         public static final int button_save_evento=0x7f0a0007;
         public static final int cadastrar=0x7f0a0010;
-        public static final int datainicio=0x7f0a0024;
+        public static final int datainicio=0x7f0a0027;
         public static final int email=0x7f0a000b;
         public static final int email_login_form=0x7f0a000a;
         public static final int email_sign_in_button=0x7f0a000f;
@@ -73,11 +77,11 @@ public final class R {
         public static final int evento_titulo=0x7f0a0000;
         public static final int evento_usuario=0x7f0a0016;
         public static final int foto=0x7f0a0015;
-        public static final int imageUsuario=0x7f0a0025;
+        public static final int imageUsuario=0x7f0a0028;
         public static final int ime_evento_titulo=0x7f0a0001;
-        public static final int linhaEscrita=0x7f0a0022;
+        public static final int linhaEscrita=0x7f0a0025;
         public static final int list_evento_atributos_screen=0x7f0a0005;
-        public static final int lista=0x7f0a001e;
+        public static final int lista=0x7f0a0021;
         public static final int login=0x7f0a000e;
         public static final int login_form=0x7f0a0009;
         public static final int login_progress=0x7f0a0008;
@@ -87,9 +91,8 @@ public final class R {
         public static final int prox=0x7f0a000c;
         public static final int register_form=0x7f0a0013;
         public static final int register_progress=0x7f0a0012;
-        public static final int section_label_3=0x7f0a001d;
         public static final int teste=0x7f0a001a;
-        public static final int text=0x7f0a0023;
+        public static final int text=0x7f0a0026;
     }
     public static final class layout {
         public static final int activity_add_evento=0x7f030000;

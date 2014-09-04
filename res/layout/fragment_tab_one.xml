@@ -8,5 +8,56 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="net.placeforme.TabOneActivity" >
-
+    
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="Aqui você escolhe como quer buscar um evento!"/>
+    
+    <ScrollView android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        
+        <LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical">
+	    
+		    <TextView android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="30sp"
+		        android:text="pelo título:"/>
+		    
+		    <EditText  android:id="@+id/busca_titulo"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"/>
+		    
+		    <TextView android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="30sp"
+		        android:text="pela data:"/>
+		    
+		    <EditText  android:id="@+id/busca_data"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"/>
+		    
+		    <TextView android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="30sp"
+		        android:text="por atributos:"/>
+		    
+		    <Spinner
+				    android:id="@+id/busca_grupo"
+				    android:layout_width="fill_parent"
+				    android:layout_height="wrap_content" />
+		    
+		    <Button android:id="@+id/button_filtro"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="35sp"
+		        android:text="Filtrar"
+		        android:textColor="@color/buttons_text_color"
+		        android:background="@drawable/buttons"/>
+		    
+		</LinearLayout>
+	</ScrollView>
 </LinearLayout>

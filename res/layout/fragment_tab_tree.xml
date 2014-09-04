@@ -1,17 +1,109 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="#FFF"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="net.placeforme.TabTreeActivity" >
-
-    <TextView
-        android:id="@+id/section_label_3"
-        android:text="3"
+    tools:context="net.placeforme.LoginActivity" >
+	
+	    <!-- Login progress -->
+	
+    <ProgressBar
+        android:id="@+id/register_progress"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
 
-</RelativeLayout>
+    <ScrollView
+        android:id="@+id/register_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        
+        <LinearLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:focusable="true" >
+
+            <TextView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prompt_nome"
+                android:layout_marginTop="20sp"/>
+            <EditText
+                android:id="@+id/nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textColorHighlight="#000"
+                android:textColorHint="#000" />
+            
+            <TextView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prompt_foto"
+                android:layout_marginTop="20sp"/>
+            
+            <ImageView android:id="@+id/foto"
+                android:layout_width="130sp"
+                android:layout_height="130sp"
+                android:src="@drawable/no_image"
+                android:contentDescription="@string/prompt_foto"
+                android:clickable="true"/>
+            
+            
+            <TextView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prompt_email"
+                android:layout_marginTop="20sp"/>
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textColorHighlight="#000"
+                android:textColorHint="#000" />
+
+            <TextView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prompt_password"
+                android:layout_marginTop="20sp"/>
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textColorHighlight="#000"
+                android:textColorHint="#000" />
+            
+            <Button
+                android:id="@+id/cadastrar"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Alterar cadastro"
+                android:textStyle="bold"
+		        android:background="@drawable/buttons"
+		        android:textColor="@color/buttons_text_color"/>
+            
+            
+        </LinearLayout>
+	</ScrollView>
+</LinearLayout>
