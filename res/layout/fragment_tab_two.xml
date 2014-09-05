@@ -19,5 +19,19 @@
         android:layout_marginBottom="10sp"
         android:clickable="true"
         android:contentDescription="Adicionar Evento" />
+   
+   <Button
+       android:id="@+id/button_remove_filtros"
+        android:layout_width="wrap_content"
+        android:layout_height="35sp"
+        android:layout_alignParentLeft="True"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20sp"
+        android:layout_marginLeft="10sp"
+        android:text="filtros"
+        android:drawableLeft="@drawable/button_rem_filtros"
+        android:textColor="@color/buttons_text_color"
+        android:background="@drawable/buttons_shape_hover"
+        android:visibility="gone" />
 
 </RelativeLayout>

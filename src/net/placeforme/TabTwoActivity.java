@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -26,6 +27,7 @@ public class TabTwoActivity extends Fragment {
 	private ImageView add_evento;
 	private static ViewGroup container;
 	private Intent criarEvento;
+	public static Button buttonRemFiltrosStatic;
 
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +39,18 @@ public class TabTwoActivity extends Fragment {
 		this.container = container;
 		
 		View view = inflater.inflate(R.layout.fragment_tab_two, container, false);
+		
+
+	    buttonRemFiltrosStatic = (Button) view.findViewById(R.id.button_remove_filtros);
+	    
+	    buttonRemFiltrosStatic.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				populaLista();
+			}
+		});
 		
 		lista = (ListView) view.findViewById(R.id.lista);
 		
@@ -70,6 +84,8 @@ public class TabTwoActivity extends Fragment {
 		
 		lista.setAdapter(adapter);
 		
+		buttonRemFiltrosStatic.setVisibility(View.GONE);
+		
 	}
 	
 	public static void populaListaStatic(){
@@ -82,9 +98,11 @@ public class TabTwoActivity extends Fragment {
 		
 		lista.setAdapter(adapter);
 		
+		buttonRemFiltrosStatic.setVisibility(View.GONE);
+		
 	}
 	
-public static void populaListaStaticFiltros(String titulo, String data, int grupo_id){
+	public static void populaListaStaticFiltros(String titulo, String data, int grupo_id){
 		
 		eventos = new ArrayList<Evento>();
 		
@@ -93,6 +111,8 @@ public static void populaListaStaticFiltros(String titulo, String data, int grup
 		AdapterListEventos adapter = new AdapterListEventos(MainActivity.mainActivity, eventos);
 		
 		lista.setAdapter(adapter);
+		
+		buttonRemFiltrosStatic.setVisibility(View.VISIBLE);
 		
 	}
 

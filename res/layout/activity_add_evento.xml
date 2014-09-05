@@ -77,7 +77,7 @@
 		        android:text="Atributos(quanto mais atributos você adicionar, mais completo fica seu evento):"
 		        android:layout_marginTop="20sp" />
 		    
-		    <ListView android:id="@+id/list_evento_atributos_screen"
+		    <net.placeforme.util.ExpandableHeightListView android:id="@+id/list_evento_atributos_screen"
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"/>
 		    

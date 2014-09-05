@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 /**
  * Created by Gustavo on 13/08/2014.
@@ -100,11 +101,11 @@ public class EventoDao {
         
         String countQuery = "SELECT * FROM " + DbHelper.TABLE_EVENTO + " WHERE "+DbHelper.TABLE_EVENTO_ID+" != 0";
                 
-        if(titulo!=""){
+        if(titulo.length()>0){
         	countQuery += " AND "+DbHelper.TABLE_EVENTO_TITULO+" like '%"+titulo+"%' ";
         }
         
-        if(data!=""){
+        if(data.length()>0){
         	countQuery += " AND "+DbHelper.TABLE_EVENTO_DATA_INICIO+" = '"+data+"' ";
         }
         
@@ -113,8 +114,9 @@ public class EventoDao {
         }
         
         database = dbHelper.getWritableDatabase();
-        Cursor cursor = database.rawQuery(countQuery, null);
         
+        Cursor cursor = database.rawQuery(countQuery, null);
+
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
                 Evento evento = new Evento();

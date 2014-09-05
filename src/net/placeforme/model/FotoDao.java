@@ -81,6 +81,29 @@ public class FotoDao {
         dbHelper.close();
         return fotoList;
     }
+    
+    public ArrayList<Foto> getAllByEvento(int evento_id) {
+    	ArrayList<Foto> fotoList = new ArrayList<Foto>();
+        database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.query(DbHelper.TABLE_ATRIBUTO,
+                ALLCOLUMNS, DbHelper.TABLE_FOTO_EVENTO_ID + "=?",
+                new String[]{String.valueOf(evento_id)}, null, null, null, null);
+        
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            	Foto foto = new Foto();
+                foto.setFotoId(cursor.getInt(0));
+                foto.setLegenda(cursor.getString(1));
+                foto.setFoto(Utils.StringToBitMap(cursor.getString(2)));
+                foto.setEventoId(cursor.getInt(3));
+                foto.setStatus(cursor.getInt(4));
+                fotoList.add(foto);
+            	cursor.moveToNext();
+        }
+        cursor.close();
+        dbHelper.close();
+        return fotoList;
+    }
 
 
     public int update(Foto foto) {

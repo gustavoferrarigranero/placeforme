@@ -12,6 +12,7 @@ import net.placeforme.model.Grupo;
 import net.placeforme.model.GrupoDao;
 import net.placeforme.util.AdapterListAtributos;
 import net.placeforme.util.DatePickerFragment;
+import net.placeforme.util.ExpandableHeightListView;
 import net.placeforme.util.TimePickerFragment;
 import net.placeforme.util.Utils;
 import android.app.ActionBar;
@@ -54,7 +55,7 @@ public class AddEventoActivity extends FragmentActivity implements
 	private Button buttonSaveEvento;
 	private Button buttonAddAtributo;
 	private Button buttonDialogAddAtributo;
-	private ListView listaAtributosScreen;
+	private ExpandableHeightListView listaAtributosScreen;
 
 	private ArrayAdapter<String> arrayAdapterGrupo;
 	private ArrayAdapter<String> arrayAdapterAtributo;
@@ -82,7 +83,7 @@ public class AddEventoActivity extends FragmentActivity implements
 		atributoDao = new AtributoDao(this);
 
 		arrayListEventoAtributos = new ArrayList<EventoAtributo>();
-		listaAtributosScreen = (ListView) findViewById(R.id.list_evento_atributos_screen);
+		listaAtributosScreen = (ExpandableHeightListView) findViewById(R.id.list_evento_atributos_screen);
 
 		tituloText = (EditText) findViewById(R.id.evento_titulo);
 
@@ -225,7 +226,7 @@ public class AddEventoActivity extends FragmentActivity implements
 	private void populaAtributosList(){
 		AdapterListAtributos adapter = new AdapterListAtributos(this, arrayListEventoAtributos);
 		listaAtributosScreen.setAdapter(adapter);
-		Utils.setListViewHeightBasedOnChildren(listaAtributosScreen);
+		listaAtributosScreen.setExpanded(true);
 	}
 
 	// metodos do spinner do grupo
