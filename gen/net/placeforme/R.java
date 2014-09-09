@@ -52,21 +52,21 @@ public final class R {
         public static final int no_image=0x7f02000f;
     }
     public static final class id {
-        public static final int action_logout=0x7f0a002c;
-        public static final int action_settings=0x7f0a002b;
-        public static final int add_evento=0x7f0a0023;
-        public static final int atributo_titulo=0x7f0a0025;
-        public static final int atributo_valor=0x7f0a0026;
-        public static final int busca_data=0x7f0a001f;
-        public static final int busca_grupo=0x7f0a0020;
-        public static final int busca_titulo=0x7f0a001e;
+        public static final int action_logout=0x7f0a002d;
+        public static final int action_settings=0x7f0a002c;
+        public static final int add_evento=0x7f0a0024;
+        public static final int atributo_titulo=0x7f0a0026;
+        public static final int atributo_valor=0x7f0a0027;
+        public static final int busca_data=0x7f0a0020;
+        public static final int busca_grupo=0x7f0a0021;
+        public static final int busca_titulo=0x7f0a001f;
         public static final int button_add_atributo=0x7f0a0006;
         public static final int button_dialog_add_atributo=0x7f0a001d;
-        public static final int button_filtro=0x7f0a0021;
-        public static final int button_remove_filtros=0x7f0a0024;
+        public static final int button_filtro=0x7f0a0022;
+        public static final int button_remove_filtros=0x7f0a0025;
         public static final int button_save_evento=0x7f0a0007;
         public static final int cadastrar=0x7f0a0010;
-        public static final int datainicio=0x7f0a0029;
+        public static final int datainicio=0x7f0a002a;
         public static final int email=0x7f0a000b;
         public static final int email_login_form=0x7f0a000a;
         public static final int email_sign_in_button=0x7f0a000f;
@@ -80,12 +80,13 @@ public final class R {
         public static final int evento_titulo=0x7f0a0000;
         public static final int evento_usuario=0x7f0a0016;
         public static final int foto=0x7f0a0015;
+        public static final int fotoEvento=0x7f0a001e;
         public static final int gridview_fotos=0x7f0a0019;
-        public static final int imageUsuario=0x7f0a002a;
+        public static final int imageUsuario=0x7f0a002b;
         public static final int ime_evento_titulo=0x7f0a0001;
-        public static final int linhaEscrita=0x7f0a0027;
+        public static final int linhaEscrita=0x7f0a0028;
         public static final int list_evento_atributos_screen=0x7f0a0005;
-        public static final int lista=0x7f0a0022;
+        public static final int lista=0x7f0a0023;
         public static final int login=0x7f0a000e;
         public static final int login_form=0x7f0a0009;
         public static final int login_progress=0x7f0a0008;
@@ -96,7 +97,7 @@ public final class R {
         public static final int register_form=0x7f0a0013;
         public static final int register_progress=0x7f0a0012;
         public static final int teste=0x7f0a001b;
-        public static final int text=0x7f0a0028;
+        public static final int text=0x7f0a0029;
     }
     public static final class layout {
         public static final int activity_add_evento=0x7f030000;
@@ -105,13 +106,14 @@ public final class R {
         public static final int activity_main=0x7f030003;
         public static final int activity_register=0x7f030004;
         public static final int activity_show_evento=0x7f030005;
-        public static final int dialog_add_evento_atributo=0x7f030006;
-        public static final int fragment_tab_one=0x7f030007;
-        public static final int fragment_tab_tree=0x7f030008;
-        public static final int fragment_tab_two=0x7f030009;
-        public static final int list_atributos=0x7f03000a;
-        public static final int list_eventos=0x7f03000b;
-        public static final int start_screen=0x7f03000c;
+        public static final int dialog_evento_add_atributo=0x7f030006;
+        public static final int dialog_evento_foto=0x7f030007;
+        public static final int fragment_tab_one=0x7f030008;
+        public static final int fragment_tab_tree=0x7f030009;
+        public static final int fragment_tab_two=0x7f03000a;
+        public static final int list_atributos=0x7f03000b;
+        public static final int list_eventos=0x7f03000c;
+        public static final int start_screen=0x7f03000d;
     }
     public static final class menu {
         public static final int criar_evento=0x7f090000;

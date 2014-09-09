@@ -27,7 +27,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase database;
     private static final String DATABASE_NAME = "placeforme";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     //atributos
     public static final String TABLE_ATRIBUTO = "atributos";
@@ -98,13 +98,11 @@ public class DbHelper extends SQLiteOpenHelper {
     //foto
     public static final String TABLE_FOTO = "fotos";
     public static final String TABLE_FOTO_ID = "foto_id";
-    public static final String TABLE_FOTO_LEGENDA = "legenda";
     public static final String TABLE_FOTO_FOTO = "foto";
     public static final String TABLE_FOTO_EVENTO_ID = "evento_id";
     public static final String TABLE_FOTO_STATUS = "status";
     private static final String CREATE_TABLE_FOTO = "create table " + TABLE_FOTO + " ( "+
             TABLE_FOTO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            TABLE_FOTO_LEGENDA + " TEXT," +
             TABLE_FOTO_FOTO + " TEXT," +
             TABLE_FOTO_EVENTO_ID + " INTEGER," +
             TABLE_FOTO_STATUS + " INTEGER" +

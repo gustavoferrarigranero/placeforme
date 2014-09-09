@@ -157,7 +157,7 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
             String filemanagerstring = selectedImageUri.getPath();
 
             //MEDIA GALLERY
-            String selectedImagePath = getPath(selectedImageUri);
+            String selectedImagePath = Utils.getPathImage(selectedImageUri);
 
             Bitmap image = null;
             
@@ -167,55 +167,12 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
             	image = Utils.ShrinkBitmap(filemanagerstring,300,300);
             }
             
-            if(image.getWidth() != image.getHeight()){
-            	if(image.getWidth()>image.getHeight()){
-            		image = Bitmap.createBitmap(
-						image, 
-						image.getHeight()/2 ,
-						0,
-						image.getHeight(), 
-						image.getHeight()
-					);
-
-            	}else{
-            		image = Bitmap.createBitmap(
-    						image, 
-    						0 ,
-    						image.getWidth()/2,
-    						image.getWidth(), 
-    						image.getWidth()
-    					);
-            	}
-            }
+            image = Utils.squareImage(image);
                         
             fotoImageView.setImageBitmap(image);
         }
 		
 	}	
-	
-	/**
-     * helper to retrieve the path of an image URI
-     */
-    public String getPath(Uri uri) {
-            // just some safety built in 
-            if( uri == null ) {
-                // TODO perform some logging or show user feedback
-                return null;
-            }
-            // try to retrieve the image from the media store first
-            // this will only work for images selected from gallery
-            String[] projection = { MediaStore.Images.Media.DATA };
-            Cursor cursor = managedQuery(uri, projection, null, null, null);
-            if( cursor != null ){
-                int column_index = cursor
-                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                cursor.moveToFirst();
-                return cursor.getString(column_index);
-            }
-            // this is our fallback here
-            return uri.getPath();
-    }
-
 	
 
 	/**

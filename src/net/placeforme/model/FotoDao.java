@@ -17,7 +17,7 @@ public class FotoDao {
     private SQLiteDatabase database;
     private DbHelper dbHelper;
     private String[] ALLCOLUMNS = new String[]{DbHelper.TABLE_FOTO_ID,
-    		DbHelper.TABLE_FOTO_LEGENDA,DbHelper.TABLE_FOTO_FOTO, DbHelper.TABLE_FOTO_EVENTO_ID,
+    		DbHelper.TABLE_FOTO_FOTO, DbHelper.TABLE_FOTO_EVENTO_ID,
             DbHelper.TABLE_FOTO_STATUS};
 
 
@@ -30,7 +30,6 @@ public class FotoDao {
 
         database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DbHelper.TABLE_FOTO_LEGENDA, foto.getLegenda());
         values.put(DbHelper.TABLE_FOTO_FOTO, Utils.BitMapToString(foto.getFoto()));
         values.put(DbHelper.TABLE_FOTO_EVENTO_ID, foto.getEventoId());
         values.put(DbHelper.TABLE_FOTO_STATUS, foto.getStatus());
@@ -50,10 +49,9 @@ public class FotoDao {
 
         Foto foto = new Foto();
         foto.setFotoId(cursor.getInt(0));
-        foto.setLegenda(cursor.getString(1));
-        foto.setFoto(Utils.StringToBitMap(cursor.getString(2)));
-        foto.setEventoId(cursor.getInt(3));
-        foto.setStatus(cursor.getInt(4));
+        foto.setFoto(Utils.StringToBitMap(cursor.getString(1)));
+        foto.setEventoId(cursor.getInt(2));
+        foto.setStatus(cursor.getInt(3));
 
         dbHelper.close();
         return foto;
@@ -63,17 +61,16 @@ public class FotoDao {
     public List<Foto> getAll() {
         List<Foto> fotoList = new ArrayList<Foto>();
         database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.query(DbHelper.TABLE_ATRIBUTO,
+        Cursor cursor = database.query(DbHelper.TABLE_FOTO,
                 ALLCOLUMNS, null, null, null, null, null);
         
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             	Foto foto = new Foto();
                 foto.setFotoId(cursor.getInt(0));
-                foto.setLegenda(cursor.getString(1));
-                foto.setFoto(Utils.StringToBitMap(cursor.getString(2)));
-                foto.setEventoId(cursor.getInt(3));
-                foto.setStatus(cursor.getInt(4));
+                foto.setFoto(Utils.StringToBitMap(cursor.getString(1)));
+                foto.setEventoId(cursor.getInt(2));
+                foto.setStatus(cursor.getInt(3));
                 fotoList.add(foto);
             	cursor.moveToNext();
         }
@@ -85,7 +82,7 @@ public class FotoDao {
     public ArrayList<Foto> getAllByEvento(int evento_id) {
     	ArrayList<Foto> fotoList = new ArrayList<Foto>();
         database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.query(DbHelper.TABLE_ATRIBUTO,
+        Cursor cursor = database.query(DbHelper.TABLE_FOTO,
                 ALLCOLUMNS, DbHelper.TABLE_FOTO_EVENTO_ID + "=?",
                 new String[]{String.valueOf(evento_id)}, null, null, null, null);
         
@@ -93,10 +90,9 @@ public class FotoDao {
         while (!cursor.isAfterLast()) {
             	Foto foto = new Foto();
                 foto.setFotoId(cursor.getInt(0));
-                foto.setLegenda(cursor.getString(1));
-                foto.setFoto(Utils.StringToBitMap(cursor.getString(2)));
-                foto.setEventoId(cursor.getInt(3));
-                foto.setStatus(cursor.getInt(4));
+                foto.setFoto(Utils.StringToBitMap(cursor.getString(1)));
+                foto.setEventoId(cursor.getInt(2));
+                foto.setStatus(cursor.getInt(3));
                 fotoList.add(foto);
             	cursor.moveToNext();
         }
@@ -109,7 +105,6 @@ public class FotoDao {
     public int update(Foto foto) {
         database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DbHelper.TABLE_FOTO_LEGENDA, foto.getLegenda());
         values.put(DbHelper.TABLE_FOTO_FOTO, Utils.BitMapToString(foto.getFoto()));
         values.put(DbHelper.TABLE_FOTO_EVENTO_ID, foto.getEventoId());
         values.put(DbHelper.TABLE_FOTO_STATUS, foto.getStatus());

@@ -1,8 +1,5 @@
 package net.placeforme;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.placeforme.model.Usuario;
 import net.placeforme.model.UsuarioDao;
 import net.placeforme.util.Utils;
@@ -15,17 +12,12 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v4.app.FragmentActivity;
-import android.text.GetChars;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +26,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 
 public class TabTreeActivity extends Fragment {
@@ -148,35 +139,6 @@ public String PREF_NAME = "PlaceforMePreferences";
 	    
 	}
 	
-	/**
-     * helper to retrieve the path of an image URI
-     */
-    public static String getPath(Uri uri) {
-            // just some safety built in 
-            if( uri == null ) {
-                // TODO perform some logging or show user feedback
-                return null;
-            }
-            // try to retrieve the image from the media store first
-            // this will only work for images selected from gallery
-            String[] projection = { MediaStore.Images.Media.DATA };
-            Cursor cursor = managedQuery(uri, projection, null, null, null);
-            if( cursor != null ){
-                int column_index = cursor
-                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                cursor.moveToFirst();
-                return cursor.getString(column_index);
-            }
-            // this is our fallback here
-            return uri.getPath();
-    }
-	
-
-	private static Cursor managedQuery(Uri uri, String[] projection,
-			Object object, Object object2, Object object3) {
-		// TODO Auto-generated method stub
-		return activityStatic.managedQuery(uri, projection, null, null, null);
-	}
 
 	public static void result(int requestCode, int resultCode, Intent data) {
 		
@@ -195,7 +157,7 @@ public String PREF_NAME = "PlaceforMePreferences";
             String filemanagerstring = selectedImageUri.getPath();
 
             //MEDIA GALLERY
-            String selectedImagePath = getPath(selectedImageUri);
+            String selectedImagePath = Utils.getPathImage(selectedImageUri);
 
             Bitmap image = null;
             
@@ -205,26 +167,7 @@ public String PREF_NAME = "PlaceforMePreferences";
             	image = Utils.ShrinkBitmap(filemanagerstring,300,300);
             }
             
-            if(image.getWidth() != image.getHeight()){
-            	if(image.getWidth()>image.getHeight()){
-            		image = Bitmap.createBitmap(
-						image, 
-						image.getHeight()/2 ,
-						0,
-						image.getHeight(), 
-						image.getHeight()
-					);
-
-            	}else{
-            		image = Bitmap.createBitmap(
-    						image, 
-    						0 ,
-    						image.getWidth()/2,
-    						image.getWidth(), 
-    						image.getWidth()
-    					);
-            	}
-            }
+            image = Utils.squareImage(image);
                         
             fotoImageView.setImageBitmap(image);
         }

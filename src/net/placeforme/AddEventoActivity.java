@@ -143,7 +143,7 @@ public class AddEventoActivity extends FragmentActivity implements
 				// TODO Auto-generated method stub
 				final Dialog dialog = new Dialog(
 						AddEventoActivity.addEventoActivity);
-				dialog.setContentView(R.layout.dialog_add_evento_atributo);
+				dialog.setContentView(R.layout.dialog_evento_add_atributo);
 				dialog.setTitle("Adicionar atributos");
 
 				arrayListStringAtributos = new ArrayList<String>();

@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 public class Foto {
 
     private int foto_id;
-    private String legenda;
     private Bitmap foto;
     private int evento_id;
     private int status;
@@ -20,14 +19,6 @@ public class Foto {
 
     public void setFotoId(int foto_id) {
         this.foto_id = foto_id;
-    }
-
-    public String getLegenda() {
-        return legenda;
-    }
-
-    public void setLegenda(String legenda) {
-        this.legenda = legenda;
     }
 
     public Bitmap getFoto() {
