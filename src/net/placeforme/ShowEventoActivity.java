@@ -3,6 +3,8 @@ package net.placeforme;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import net.placeforme.model.Atributo;
+import net.placeforme.model.Avaliacao;
 import net.placeforme.model.AvaliacaoDao;
 import net.placeforme.model.Evento;
 import net.placeforme.model.EventoAtributo;
@@ -13,6 +15,7 @@ import net.placeforme.model.FotoDao;
 import net.placeforme.model.UsuarioDao;
 import net.placeforme.model.AtributoDao;
 import net.placeforme.util.AdapterListAtributos;
+import net.placeforme.util.AdapterListAvaliacoes;
 import net.placeforme.util.ExpandableHeightGridView;
 import net.placeforme.util.ExpandableHeightListView;
 import net.placeforme.util.AdapterGridViewFotos;
@@ -31,16 +34,23 @@ import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class ShowEventoActivity extends Activity {
@@ -61,9 +71,19 @@ public class ShowEventoActivity extends Activity {
 	private TextView usuarioText;
 	private TextView dataText;
 	private TextView horarioText;
+	
+	private Button buttonAddAvaliacao;
+	private Button buttonDialogAddAvaliacao;
+	
+	private SeekBar avaliacaoNota;
+	private TextView notaText;
+	private EditText avaliacaoTexto;
+	
 	private ExpandableHeightListView eventoAtributosList;
-
 	private ArrayList<EventoAtributo> eventoAtributos;
+	
+	private ExpandableHeightListView eventoAvaliacoesList;
+	private ArrayList<Avaliacao> eventoAvaliacoes; 
 	
 	private ArrayList<Foto> fotos;
 	
@@ -95,6 +115,7 @@ public class ShowEventoActivity extends Activity {
 		dataText = (TextView) findViewById(R.id.evento_data);
 		horarioText = (TextView) findViewById(R.id.evento_horario);
 		eventoAtributosList = (ExpandableHeightListView) findViewById(R.id.evento_atributos);
+		eventoAvaliacoesList = (ExpandableHeightListView) findViewById(R.id.list_evento_avaliacoes);
 
 		try {
 			evento = eventoDao.get(evento_id);
@@ -112,17 +133,87 @@ public class ShowEventoActivity extends Activity {
 			horarioText.setText("Ás: "
 					+ Utils.sqlTimeToString(evento.getHorario()) + " hs");
 
-			eventoAtributos = eventoAtributoDao.getAllByEvento(evento);
-
 			populaListAtributos();
 
 			populaGridViewFotos();
+			
+			populaListAvaliacoes();
 
 		}
+		
+		buttonAddAvaliacao = (Button) findViewById(R.id.button_add_avaliacao);
+		buttonAddAvaliacao.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				final Dialog dialog = new Dialog(
+						showEventoActivity);
+				dialog.setContentView(R.layout.dialog_evento_add_avaliacao);
+				dialog.setTitle("Avaliar");
+				
+				notaText = (TextView) dialog.findViewById(R.id.nota_text);
+
+				avaliacaoNota = (SeekBar) dialog.findViewById(R.id.avaliacao_nota);
+				avaliacaoNota.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+					
+					@Override
+					public void onStopTrackingTouch(SeekBar seekBar) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void onStartTrackingTouch(SeekBar seekBar) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void onProgressChanged(SeekBar seekBar, int progress,
+							boolean fromUser) {
+						// TODO Auto-generated method stub
+						notaText.setText("Nota: "+seekBar.getProgress());
+						
+					}
+				});
+				
+				avaliacaoTexto = (EditText)dialog.findViewById(R.id.evento_avaliacao_texto);
+				
+				buttonDialogAddAvaliacao = (Button) dialog.findViewById(R.id.button_dialog_add_avaliacao);
+				
+				buttonDialogAddAvaliacao.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Avaliacao avaliacao = new Avaliacao();
+						avaliacao.setEventoId(evento_id);
+						avaliacao.setNota(avaliacaoNota.getProgress());
+						avaliacao.setTexto(avaliacaoTexto.getText().toString());
+						avaliacao.setStatus(1);
+						avaliacao.setUsuarioId(MainActivity.usuarioLogado.getUsuarioId());
+						
+						avaliacaoDao.add(avaliacao);
+						populaListAvaliacoes();
+						eventoAvaliacoesList.requestFocus();
+						dialog.dismiss();
+					}
+				});
+				
+				dialog.show();
+
+			}
+		});
 
 	}
 
 	private void populaListAtributos() {
+		
+		eventoAtributos = new ArrayList<EventoAtributo>();
+		
+		eventoAtributos = eventoAtributoDao.getAllByEvento(evento);
+		
 		AdapterListAtributos adapter = new AdapterListAtributos(this,
 				eventoAtributos);
 		eventoAtributosList.setAdapter(adapter);
@@ -130,6 +221,7 @@ public class ShowEventoActivity extends Activity {
 	}
 	
 	private void populaGridViewFotos(){
+		
 		fotos = new ArrayList<Foto>();
 		 
 		fotos = fotoDao.getAllByEvento(evento.getEventoId());
@@ -169,6 +261,18 @@ public class ShowEventoActivity extends Activity {
 		});
 
 		gridview.setExpanded(true);
+	}
+	
+	private void populaListAvaliacoes() {
+		
+		eventoAvaliacoes = new ArrayList<Avaliacao>();
+		
+		eventoAvaliacoes = avaliacaoDao.getAllByEvento(evento); 
+		AdapterListAvaliacoes adapter = new AdapterListAvaliacoes(this, eventoAvaliacoes);
+		
+		eventoAvaliacoesList.setAdapter(adapter);
+		eventoAvaliacoesList.setExpanded(true);
+		
 	}
 
 	@Override

@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical" >
+	
+    <TextView android:id="@+id/nota_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nota: 3"/>
+    
+    <SeekBar android:id="@+id/avaliacao_nota"
+        android:layout_width="match_parent"
+        android:layout_below="@id/nota_text"
+        android:layout_height="wrap_content"
+        android:progress="3"
+        android:max="5"/>  
+        
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/nota_text"
+        android:layout_marginTop="30sp"
+        android:src="@drawable/avaliacao_nota_0"
+        android:contentDescription="1"/>
+    
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/nota_text"
+        android:layout_marginTop="30sp"
+        android:src="@drawable/avaliacao_nota_5"
+        android:contentDescription="2"/>
+    
+    <TextView android:id="@+id/teste"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35sp"
+        android:layout_below="@id/avaliacao_nota"
+        android:text="Sua opinião"/>
+    
+    <EditText android:id="@+id/evento_avaliacao_texto"
+        android:inputType="textMultiLine"
+        android:layout_width="match_parent"
+		android:minLines="2"
+        android:layout_below="@id/teste"
+        android:layout_height="wrap_content"/>
+    
+    <Button android:id="@+id/button_dialog_add_avaliacao"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35sp"
+        android:text="Salvar atributo"
+        android:layout_below="@id/evento_avaliacao_texto"
+	    android:background="@drawable/buttons"
+	    android:textColor="@color/buttons_text_color"/>
+    
+</RelativeLayout>
+

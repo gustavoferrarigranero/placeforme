@@ -118,6 +118,31 @@ public class AvaliacaoDao {
         dbHelper.close();
         return cursor.getCount();
     }
+    
+    
+
+	public ArrayList<Avaliacao> getAllByEvento(Evento evento) { 
+		ArrayList<Avaliacao> avaliacaoList = new ArrayList<Avaliacao>();
+        database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.query(DbHelper.TABLE_AVALIACAO, ALLCOLUMNS, DbHelper.TABLE_AVALIACAO_EVENTO_ID + "=?",
+                new String[]{String.valueOf(evento.getEventoId())}, null, null, null, null);
+        
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            	Avaliacao avaliacao = new Avaliacao();
+                avaliacao.setAvaliacaoId(cursor.getInt(0));
+                avaliacao.setNota(cursor.getInt(1));
+                avaliacao.setTexto(cursor.getString(2));
+                avaliacao.setEventoId(cursor.getInt(3));
+                avaliacao.setUsuarioId(cursor.getInt(4));
+                avaliacao.setStatus(cursor.getInt(5));
+                avaliacaoList.add(avaliacao);
+                cursor.moveToNext();
+        }
+        cursor.close();
+        dbHelper.close();
+        return avaliacaoList;
+	}
 
 
 }

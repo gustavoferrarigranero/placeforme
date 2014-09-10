@@ -87,7 +87,32 @@
 			    android:gravity="center"/>
 	    
 		</LinearLayout>
-	    
+	    <LinearLayout android:orientation="vertical"
+	        android:layout_width="fill_parent"
+	        android:layout_height="match_parent"
+	        android:padding="10sp"
+	        android:layout_marginLeft="10sp"
+	        android:layout_marginRight="10sp"
+	        android:layout_marginBottom="10sp"
+	        android:background="@drawable/evento_head_shape">
+		    
+		    <Button android:id="@+id/button_add_avaliacao"
+		        android:layout_width="wrap_content"
+		        android:layout_height="30sp"
+		        android:padding="5sp"
+		        android:layout_marginBottom="10sp"
+		        android:textSize="12sp"
+		        android:text="avaliar"
+		        android:drawableLeft="@drawable/button_add_attr"
+		        android:textColor="@color/buttons_text_color"
+		        android:background="@drawable/buttons"
+		        android:layout_gravity="right"/>
+		    
+		    <net.placeforme.util.ExpandableHeightListView android:id="@+id/list_evento_avaliacoes"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"/>
+		    
+	    </LinearLayout>
 	    
 	</LinearLayout>
 </ScrollView>
