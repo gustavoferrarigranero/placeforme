@@ -49,13 +49,14 @@ public final class R {
         public static final int buttons_shape_default=0x7f02000c;
         public static final int buttons_shape_hover=0x7f02000d;
         public static final int evento_head_shape=0x7f02000e;
-        public static final int ic_launcher_icon=0x7f02000f;
-        public static final int ic_launcher_logo_blue=0x7f020010;
-        public static final int ic_launcher_logo_white=0x7f020011;
-        public static final int login_back_blue=0x7f020012;
-        public static final int login_back_green=0x7f020013;
-        public static final int login_back_orange=0x7f020014;
-        public static final int no_image=0x7f020015;
+        public static final int ic_action_share=0x7f02000f;
+        public static final int ic_launcher_icon=0x7f020010;
+        public static final int ic_launcher_logo_blue=0x7f020011;
+        public static final int ic_launcher_logo_white=0x7f020012;
+        public static final int login_back_blue=0x7f020013;
+        public static final int login_back_green=0x7f020014;
+        public static final int login_back_orange=0x7f020015;
+        public static final int no_image=0x7f020016;
     }
     public static final class id {
         public static final int action_logout=0x7f0a0035;
@@ -103,6 +104,7 @@ public final class R {
         public static final int login=0x7f0a000e;
         public static final int login_form=0x7f0a0009;
         public static final int login_progress=0x7f0a0008;
+        public static final int menu_item_share=0x7f0a0036;
         public static final int nome=0x7f0a0014;
         public static final int nota_text=0x7f0a0020;
         public static final int pager=0x7f0a0011;
@@ -135,6 +137,7 @@ public final class R {
         public static final int criar_evento=0x7f090000;
         public static final int edit_evento=0x7f090001;
         public static final int main=0x7f090002;
+        public static final int show_evento=0x7f090003;
     }
     public static final class string {
         public static final int action_logoff=0x7f060006;
