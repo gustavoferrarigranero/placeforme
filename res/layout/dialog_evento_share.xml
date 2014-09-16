@@ -1,0 +1,116 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical" >
+	
+    <LinearLayout android:id="@+id/share_facebook" 
+        android:layout_marginBottom="15sp"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        
+        <ImageView android:layout_width="50sp"
+            android:layout_marginRight="10sp"
+            android:layout_height="50sp"
+            android:src="@drawable/icon_facebook"
+            android:contentDescription="facebook"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_gravity="center_vertical"
+            android:text="Facebook"/>
+        
+    </LinearLayout>
+    
+    <LinearLayout android:id="@+id/share_whatsapp" 
+        android:layout_marginBottom="15sp"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        
+        <ImageView android:layout_width="50sp"
+            android:layout_marginRight="10sp"
+            android:layout_height="50sp"
+            android:src="@drawable/icon_whatsapp"
+            android:contentDescription="whatsapp"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_gravity="center_vertical"
+            android:text="Whatsapp"/>
+        
+    </LinearLayout>
+    
+    <LinearLayout android:id="@+id/share_swarm" 
+        android:layout_marginBottom="15sp"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        
+        <ImageView android:layout_width="50sp"
+            android:layout_marginRight="10sp"
+            android:layout_height="50sp"
+            android:src="@drawable/icon_swarm"
+            android:contentDescription="swarm"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_gravity="center_vertical"
+            android:text="Swarm"/>
+        
+    </LinearLayout>
+    
+    <LinearLayout android:id="@+id/share_gmail" 
+        android:layout_marginBottom="15sp"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        
+        <ImageView android:layout_width="50sp"
+            android:layout_marginRight="10sp"
+            android:layout_height="50sp"
+            android:src="@drawable/icon_gmail"
+            android:contentDescription="gmail"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_gravity="center_vertical"
+            android:text="Gmail"/>
+        
+    </LinearLayout>
+    
+    <LinearLayout android:id="@+id/share_twitter" 
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        
+        <ImageView android:layout_width="50sp"
+            android:layout_marginRight="10sp"
+            android:layout_height="50sp"
+            android:src="@drawable/icon_twitter"
+            android:contentDescription="twitter"/>
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_gravity="center_vertical"
+            android:text="Twitter"/>
+        
+    </LinearLayout>
+    
+</LinearLayout>
+

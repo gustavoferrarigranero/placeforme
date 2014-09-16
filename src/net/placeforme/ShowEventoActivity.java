@@ -43,6 +43,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.ShareActionProvider;
@@ -213,7 +214,6 @@ public class ShowEventoActivity extends Activity {
 		
 		shareIntent = new Intent();
 		shareIntent.setAction(Intent.ACTION_SEND);
-		shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
 		shareIntent.setType("text/plain");
 
 	}
@@ -368,7 +368,6 @@ public class ShowEventoActivity extends Activity {
 		// Inflate menu resource file.
 		getMenuInflater().inflate(R.menu.show_evento, menu);
 
-		// Locate MenuItem with ShareActionProvider
 		MenuItem item = menu.findItem(R.id.menu_item_share);
 		
 		item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
@@ -376,8 +375,61 @@ public class ShowEventoActivity extends Activity {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				// TODO Auto-generated method stub
-				shareIntent.setPackage("com.facebook.katana");
-				startActivity(shareIntent);
+				///shareIntent.setPackage("com.facebook.katana");
+				
+				final Dialog shareDialog = new Dialog(showEventoActivity);
+				shareDialog.setContentView(R.layout.dialog_evento_share);
+				shareDialog.setTitle("Compartilhar no");
+				
+
+				shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send. "+evento.getTitulo());
+				
+				LinearLayout s_facebook = (LinearLayout)shareDialog.findViewById(R.id.share_facebook);
+				LinearLayout s_whatsapp = (LinearLayout)shareDialog.findViewById(R.id.share_whatsapp);
+				LinearLayout s_swarm = (LinearLayout)shareDialog.findViewById(R.id.share_swarm);
+				LinearLayout s_gmail = (LinearLayout)shareDialog.findViewById(R.id.share_gmail);
+				LinearLayout s_twitter = (LinearLayout)shareDialog.findViewById(R.id.share_twitter);
+				
+				s_facebook.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						//integrar facebook
+					}
+				});
+				
+				s_whatsapp.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						shareIntent.setPackage("com.whatsapp");
+						startActivity(shareIntent);
+					}
+				});
+				
+				s_swarm.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						//integrar com swarm
+					}
+				});
+				
+				s_gmail.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						shareIntent.setPackage("com.google.android.gm");
+						startActivity(shareIntent);
+					}
+				});
+				
+				s_twitter.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						shareIntent.setPackage("com.twitter.android");
+						startActivity(shareIntent);
+					}
+				});
+				
+				shareDialog.show();
+				
 				return false;
 			}
 		});
@@ -385,6 +437,8 @@ public class ShowEventoActivity extends Activity {
 		// Return true to display menu
 		return true;
 	}
+	
+	
 
 
 }
