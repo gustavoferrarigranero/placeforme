@@ -3,7 +3,9 @@ package net.placeforme;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import net.placeforme.model.Atributo;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.FacebookDialog;
+
 import net.placeforme.model.Avaliacao;
 import net.placeforme.model.AvaliacaoDao;
 import net.placeforme.model.Evento;
@@ -24,13 +26,10 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ShareCompat;
-import android.support.v4.view.ActionProvider;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,7 +45,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 public class ShowEventoActivity extends Activity {
@@ -86,6 +84,10 @@ public class ShowEventoActivity extends Activity {
 	private int REQUEST_IMAGE_CAPTURE = 1;
 
 	private Intent shareIntent;
+	
+	private Dialog shareDialog;
+	
+	private UiLifecycleHelper uiHelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +110,9 @@ public class ShowEventoActivity extends Activity {
 		avaliacaoDao = new AvaliacaoDao(this);
 		eventoAtributoDao = new EventoAtributoDao(this);
 		atributoDao = new AtributoDao(this);
+		
+		uiHelper = new UiLifecycleHelper(this, null);
+	    uiHelper.onCreate(savedInstanceState);
 
 		usuarioText = (TextView) findViewById(R.id.evento_usuario);
 		dataText = (TextView) findViewById(R.id.evento_data);
@@ -303,6 +308,18 @@ public class ShowEventoActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
+		
+		uiHelper.onActivityResult(requestCode, resultCode, data, new FacebookDialog.Callback() {
+	        @Override
+	        public void onError(FacebookDialog.PendingCall pendingCall, Exception error, Bundle data) {
+	            
+	        }
+
+	        @Override
+	        public void onComplete(FacebookDialog.PendingCall pendingCall, Bundle data) {
+	            shareDialog.dismiss();
+	        }
+	    });
 
 		// para tirar foto
 		/*
@@ -377,7 +394,7 @@ public class ShowEventoActivity extends Activity {
 				// TODO Auto-generated method stub
 				///shareIntent.setPackage("com.facebook.katana");
 				
-				final Dialog shareDialog = new Dialog(showEventoActivity);
+				shareDialog = new Dialog(showEventoActivity);
 				shareDialog.setContentView(R.layout.dialog_evento_share);
 				shareDialog.setTitle("Compartilhar no");
 				
@@ -393,7 +410,10 @@ public class ShowEventoActivity extends Activity {
 				s_facebook.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						//integrar facebook
+						FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(showEventoActivity)
+				        .setLink("https://developers.facebook.com/android")
+				        .build();
+				uiHelper.trackPendingDialogCall(shareDialog.present());
 					}
 				});
 				
@@ -438,7 +458,29 @@ public class ShowEventoActivity extends Activity {
 		return true;
 	}
 	
-	
+	@Override
+	protected void onResume() {
+	    super.onResume();
+	    uiHelper.onResume();
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+	    super.onSaveInstanceState(outState);
+	    uiHelper.onSaveInstanceState(outState);
+	}
+
+	@Override
+	public void onPause() {
+	    super.onPause();
+	    uiHelper.onPause();
+	}
+
+	@Override
+	public void onDestroy() {
+	    super.onDestroy();
+	    uiHelper.onDestroy();
+	}
 
 
 }
