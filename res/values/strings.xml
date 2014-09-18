@@ -24,5 +24,6 @@
 
     <string name="title_activity_edit_evento">EditEventoActivity</string>
     <string name="title_activity_show_evento">Evento</string>
+    <string name="facebook_app_id">278854725655693</string>
 
 </resources>

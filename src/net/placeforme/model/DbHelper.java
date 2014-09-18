@@ -155,22 +155,58 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static final String INITIAL_ADD_GRUPO = " INSERT INTO " + TABLE_GRUPO  + 
     		" (" + TABLE_GRUPO_TITULO + ", " + TABLE_GRUPO_STATUS + ") VALUES " +
-    		"('Festa', 1),"+ 
-    		"('Show', 1)," +
-    		"('Encontro', 1)," +
+    		"('Festa', 1)";
+    
+    private static final String INITIAL_ADD_GRUPO2 = " INSERT INTO " + TABLE_GRUPO  + 
+    		" (" + TABLE_GRUPO_TITULO + ", " + TABLE_GRUPO_STATUS + ") VALUES " +
+    		"('Show', 1)";
+    
+    private static final String INITIAL_ADD_GRUPO3 = " INSERT INTO " + TABLE_GRUPO  + 
+    		" (" + TABLE_GRUPO_TITULO + ", " + TABLE_GRUPO_STATUS + ") VALUES " +
+    		"('Encontro', 1)";
+    
+    private static final String INITIAL_ADD_GRUPO4 = " INSERT INTO " + TABLE_GRUPO  + 
+    		" (" + TABLE_GRUPO_TITULO + ", " + TABLE_GRUPO_STATUS + ") VALUES " +
     		"('Bar', 1)";
     
     private static final String INITIAL_ADD_ATRIBUTO = " INSERT INTO " + TABLE_ATRIBUTO  + 
     		" (" + TABLE_ATRIBUTO_TITULO + ", " + TABLE_ATRIBUTO_PADRAO + ", " + TABLE_ATRIBUTO_STATUS + ") VALUES " +
-    		"('Endereço', 1, 1)," +
-    		"('Bairro', 1, 1)," +
-    		"('Cidade', 1, 1)," +
-    		"('Local', 1, 1)," +
-    		"('Ambiente', 1, 1)," +
-    		"('Buffet', 1, 1)," +
-    		"('Bebidas', 1, 1)," +
-    		"('Duração', 1, 1)," +
-    		"('Atração', 1, 1)," +
+    		"('Endereço', 1, 1)";
+    
+    private static final String INITIAL_ADD_ATRIBUTO2 = " INSERT INTO " + TABLE_ATRIBUTO  + 
+    		" (" + TABLE_ATRIBUTO_TITULO + ", " + TABLE_ATRIBUTO_PADRAO + ", " + TABLE_ATRIBUTO_STATUS + ") VALUES " +
+    		"('Bairro', 1, 1)";
+    
+    private static final String INITIAL_ADD_ATRIBUTO3 = " INSERT INTO " + TABLE_ATRIBUTO  + 
+    		" (" + TABLE_ATRIBUTO_TITULO + ", " + TABLE_ATRIBUTO_PADRAO + ", " + TABLE_ATRIBUTO_STATUS + ") VALUES " +
+    		"('Cidade', 1, 1)";
+    
+    private static final String INITIAL_ADD_ATRIBUTO4 = " INSERT INTO " + TABLE_ATRIBUTO  + 
+    		" (" + TABLE_ATRIBUTO_TITULO + ", " + TABLE_ATRIBUTO_PADRAO + ", " + TABLE_ATRIBUTO_STATUS + ") VALUES " +
+    		"('Local', 1, 1)";
+    
+    private static final String INITIAL_ADD_ATRIBUTO5 = " INSERT INTO " + TABLE_ATRIBUTO  + 
+    		" (" + TABLE_ATRIBUTO_TITULO + ", " + TABLE_ATRIBUTO_PADRAO + ", " + TABLE_ATRIBUTO_STATUS + ") VALUES " +
+    		"('Ambiente', 1, 1)";
+    
+    private static final String INITIAL_ADD_ATRIBUTO6 = " INSERT INTO " + TABLE_ATRIBUTO  + 
+    		" (" + TABLE_ATRIBUTO_TITULO + ", " + TABLE_ATRIBUTO_PADRAO + ", " + TABLE_ATRIBUTO_STATUS + ") VALUES " +
+    		"('Buffet', 1, 1)";
+    
+    private static final String INITIAL_ADD_ATRIBUTO7 = " INSERT INTO " + TABLE_ATRIBUTO  + 
+    		" (" + TABLE_ATRIBUTO_TITULO + ", " + TABLE_ATRIBUTO_PADRAO + ", " + TABLE_ATRIBUTO_STATUS + ") VALUES " +
+    		"('Bebidas', 1, 1)";
+    
+    private static final String INITIAL_ADD_ATRIBUTO8 = " INSERT INTO " + TABLE_ATRIBUTO  + 
+    		" (" + TABLE_ATRIBUTO_TITULO + ", " + TABLE_ATRIBUTO_PADRAO + ", " + TABLE_ATRIBUTO_STATUS + ") VALUES " +
+    		"('Duração', 1, 1)";
+    
+    private static final String INITIAL_ADD_ATRIBUTO9 = " INSERT INTO " + TABLE_ATRIBUTO  + 
+    		" (" + TABLE_ATRIBUTO_TITULO + ", " + TABLE_ATRIBUTO_PADRAO + ", " + TABLE_ATRIBUTO_STATUS + ") VALUES " +
+    		"('Atração', 1, 1)";
+    
+    private static final String INITIAL_ADD_ATRIBUTO10 = " INSERT INTO " + TABLE_ATRIBUTO  + 
+    		" (" + TABLE_ATRIBUTO_TITULO + ", " + TABLE_ATRIBUTO_PADRAO + ", " + TABLE_ATRIBUTO_STATUS + ") VALUES " +
        		"('Estacionamento', 1, 1)";
     
     
@@ -191,7 +227,19 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_USUARIO);
         //add initial itens
         db.execSQL(INITIAL_ADD_GRUPO);
+        db.execSQL(INITIAL_ADD_GRUPO2);
+        db.execSQL(INITIAL_ADD_GRUPO3);
+        db.execSQL(INITIAL_ADD_GRUPO4);
         db.execSQL(INITIAL_ADD_ATRIBUTO);
+        db.execSQL(INITIAL_ADD_ATRIBUTO2);
+        db.execSQL(INITIAL_ADD_ATRIBUTO3);
+        db.execSQL(INITIAL_ADD_ATRIBUTO4);
+        db.execSQL(INITIAL_ADD_ATRIBUTO5);
+        db.execSQL(INITIAL_ADD_ATRIBUTO6);
+        db.execSQL(INITIAL_ADD_ATRIBUTO7);
+        db.execSQL(INITIAL_ADD_ATRIBUTO8);
+        db.execSQL(INITIAL_ADD_ATRIBUTO9);
+        db.execSQL(INITIAL_ADD_ATRIBUTO10);
     }
 
     @Override
