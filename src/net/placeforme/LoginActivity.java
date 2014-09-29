@@ -1,19 +1,5 @@
 package net.placeforme;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Arrays;
-
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.model.GraphUser;
-import com.facebook.widget.LoginButton;
-import com.facebook.widget.ProfilePictureView;
-
 import net.placeforme.model.Usuario;
 import net.placeforme.model.UsuarioDao;
 import android.animation.Animator;
@@ -22,14 +8,11 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,35 +28,19 @@ import android.widget.TextView;
 public class LoginActivity extends Activity {
 
 	public static LoginActivity loginActivity;
-	
+
 	public String PREF_NAME = "PlaceforMePreferences";
 
-    public static SharedPreferences settings;
-	
+	public static SharedPreferences settings;
+
 	private String email = null;
-    private String senha = null;
-    
-    private String emailFacebook = null;
-    private String senhaFacebook = null;
-    private String nameFacebook = null;
-    private Bitmap fotoFacebook = null;
-    
-    private Usuario usuario;
-    private UsuarioDao usuarioDao;
-    
-    private static final String TAG = "LoginActivity";
-    
-    private Session.StatusCallback callback = new Session.StatusCallback() {
-        @Override
-        public void call(Session session, SessionState state, Exception exception) {
-            onSessionStateChange(session, state, exception);            
-        }
-    };
-    
-    private UiLifecycleHelper uiHelper;
-    
-    private boolean facebookLogged = false;
-	
+	private String senha = null;
+
+	private Usuario usuario;
+	private UsuarioDao usuarioDao;
+
+	private static final String TAG = "LoginActivity";
+
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
@@ -89,28 +56,21 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-		
+
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+				.permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+
 		this.usuarioDao = new UsuarioDao(this);
-		
+
 		settings = getSharedPreferences(PREF_NAME, 0);
-  		
-	    email = settings.getString("Email",null);
-	    senha = settings.getString("Senha",null);
-	    
-	    loginActivity = this;
-	    
-	    LoginButton authButton = (LoginButton) findViewById(R.id.authButton);
-	    authButton.clearPermissions();
-	    authButton.setReadPermissions(Arrays.asList("public_profile","publish_actions","email","basic_info"));
-	    
-	    uiHelper = new UiLifecycleHelper(this, callback);
-	    uiHelper.onCreate(savedInstanceState);
-	    
-	    facebookLogged();
-	    logged();
+
+		email = settings.getString("Email", null);
+		senha = settings.getString("Senha", null);
+
+		loginActivity = this;
+
+		logged();
 
 		// Set up the login form.
 		mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -124,11 +84,11 @@ public class LoginActivity extends Activity {
 						if (id == R.id.login) {
 							attemptLogin();
 							return true;
-						}else if(id == R.id.prox){
+						} else if (id == R.id.prox) {
 							AutoCompleteTextView pass = (AutoCompleteTextView) findViewById(R.id.login);
 							pass.requestFocus();
-							return true;					
-						}else if(id == EditorInfo.IME_NULL){
+							return true;
+						} else if (id == EditorInfo.IME_NULL) {
 							attemptLogin();
 							return true;
 						}
@@ -143,12 +103,13 @@ public class LoginActivity extends Activity {
 				attemptLogin();
 			}
 		});
-		
+
 		Button mCadastrarButton = (Button) findViewById(R.id.cadastrar);
 		mCadastrarButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent register = new Intent(loginActivity, RegisterActivity.class);
+				Intent register = new Intent(loginActivity,
+						RegisterActivity.class);
 				startActivity(register);
 			}
 		});
@@ -158,18 +119,21 @@ public class LoginActivity extends Activity {
 	}
 
 	private boolean logged() {
-		
-		if(null==email||null==senha){return false;}
-		
+
+		if (null == email || null == senha) {
+			return false;
+		}
+
 		usuario = usuarioDao.login(email, senha);
 
-		if (null!=usuario) {
+		if (null != usuario) {
 			MainActivity.usuarioLogado = usuario;
-			Intent main = new Intent(getApplicationContext(),MainActivity.class);
+			Intent main = new Intent(getApplicationContext(),
+					MainActivity.class);
 			startActivity(main);
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -200,7 +164,7 @@ public class LoginActivity extends Activity {
 			focusView = mPasswordView;
 			cancel = true;
 		}
-		
+
 		// Check for a valid password address.
 		if (TextUtils.isEmpty(password)) {
 			mPasswordView.setError(getString(R.string.error_field_required));
@@ -238,12 +202,12 @@ public class LoginActivity extends Activity {
 
 	private boolean isEmailValid(String email) {
 		// TODO: Replace this with your own logic
-		return true; //email.contains("@");
+		return true; // email.contains("@");
 	}
 
 	private boolean isPasswordValid(String password) {
 		// TODO: Replace this with your own logic
-		return true ;// password.length() > 4;
+		return true;// password.length() > 4;
 	}
 
 	/**
@@ -286,7 +250,7 @@ public class LoginActivity extends Activity {
 			mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
-	
+
 	/**
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
@@ -311,12 +275,14 @@ public class LoginActivity extends Activity {
 			} catch (InterruptedException e) {
 				return false;
 			}
-			
-			if(null==mEmail||null==mPassword){return false;}
-			
+
+			if (null == mEmail || null == mPassword) {
+				return false;
+			}
+
 			usuario = usuarioDao.login(mEmail, mPassword);
 
-			if (null!=usuario) {
+			if (null != usuario) {
 				MainActivity.usuarioLogado = usuario;
 				// Account exists, return true if the password matches.
 				return true;
@@ -332,16 +298,18 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
-				
-				SharedPreferences.Editor editor = settings.edit();
-			      
-			    editor.putString("Email", mEmail);
-			    editor.putString("Senha", mPassword);
 
-			    editor.commit();
-				
-				Intent main = new Intent(getApplicationContext(),MainActivity.class);
+				SharedPreferences.Editor editor = settings.edit();
+
+				editor.putString("Email", mEmail);
+				editor.putString("Senha", mPassword);
+
+				editor.commit();
+
+				Intent main = new Intent(getApplicationContext(),
+						MainActivity.class);
 				startActivity(main);
+
 			} else {
 				mPasswordView
 						.setError(getString(R.string.error_incorrect_password));
@@ -355,115 +323,33 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 		}
 	}
-	
-	
-	
-	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-		if (session != null && state.isOpened()) {
-	        facebookLogged = true;	      
-	        makeMeRequest(session);
-	    } else if (state.isClosed()) {
-	    	facebookLogged = false;
-	    }
-	}
-	
-	
+
 	@Override
 	public void onResume() {
-	    super.onResume();
-
+		super.onResume();
 		// For scenarios where the main activity is launched and user
 		// session is not null, the session state change notification
 		// may not be triggered. Trigger it if it's open/closed.
-		Session session = Session.getActiveSession();
-		if (session != null && (session.isOpened() || session.isClosed())) {
-			onSessionStateChange(session, session.getState(), null);
-		}
-
-		uiHelper.onResume();
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    super.onActivityResult(requestCode, resultCode, data);
-	    uiHelper.onActivityResult(requestCode, resultCode, data);
-	    
-	    //Log.d("asdad", emailFacebook);
-	    
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
 	public void onPause() {
-	    super.onPause();
-	    uiHelper.onPause();
+		super.onPause();
 	}
 
 	@Override
 	public void onDestroy() {
-	    super.onDestroy();
-	    uiHelper.onDestroy();
+		super.onDestroy();
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-	    super.onSaveInstanceState(outState);
-	    uiHelper.onSaveInstanceState(outState);
+		super.onSaveInstanceState(outState);
 	}
-	
-	public boolean isLoggedIn() {
-	    return facebookLogged;
-	}
-	
-	private void makeMeRequest(final Session session) {
-	    // Make an API call to get user data and define a 
-	    // new callback to handle the response.
-	    Request.newMeRequest(session, 
-	            new Request.GraphUserCallback() {
-	        @Override
-	        public void onCompleted(GraphUser user, Response response) {
-	            // If the response is successful
-	            if (session == Session.getActiveSession()) {
-	                if (user != null) {
-	                	nameFacebook = user.getName();
-	                	//emailFacebook = user.asMap().toString();
-	                	senhaFacebook = user.getId();
-	                	
-	                	Log.d("teste",user.asMap().toString());
-	                
-	                	ProfilePictureView p = new ProfilePictureView(loginActivity);
-	                	p.setProfileId(user.getId());
-	                	
-	                	URL image_value = null;
-						try {
-							image_value = new URL("https://graph.facebook.com/"+user.getId()+"/picture" );
-						} catch (MalformedURLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-	                	try {
-							fotoFacebook = BitmapFactory.decodeStream(image_value.openConnection().getInputStream());
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-	                	
-	                }
-	            }
-	            if (response.getError() != null) {
-	                // Handle errors, will do so later.
-	            }
-	        }
-	    }).executeAsync();
-	} 
-	
-	private void facebookLogged(){
-	
-		if (isLoggedIn()) {
-			//MainActivity.usuarioLogado = usuario;
-			Intent main = new Intent(getApplicationContext(),MainActivity.class);
-			startActivity(main);			
-		}
-	
-	}
-	
+
 }

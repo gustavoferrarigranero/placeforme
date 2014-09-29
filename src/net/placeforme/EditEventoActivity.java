@@ -12,15 +12,15 @@ public class EditEventoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_evento);
-		
-		if(null!=AddEventoActivity.addEventoActivity)
+
+		if (null != AddEventoActivity.addEventoActivity)
 			AddEventoActivity.addEventoActivity.finish();
-		
+
 		Bundle b = getIntent().getExtras();
-		
+
 		int evento_id = (int) b.getLong("evento_id");
-		
-		Log.d("evento_id",String.valueOf(evento_id));
+
+		Log.d("evento_id", String.valueOf(evento_id));
 	}
 
 	@Override
@@ -41,5 +41,5 @@ public class EditEventoActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 }

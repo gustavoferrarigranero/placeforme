@@ -11,10 +11,10 @@ public final class R {
 		public static final int foursquare_icon = 0x7f020037;
 	}
 	public static final class id {
-		public static final int webview = 0x7f050048;
+		public static final int webview = 0x7f050047;
 	}
 	public static final class layout {
-		public static final int dialog_layout = 0x7f030019;
+		public static final int dialog_layout = 0x7f03001a;
 	}
 	public static final class string {
 		public static final int app_name = 0x7f040001;

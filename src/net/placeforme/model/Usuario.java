@@ -7,31 +7,31 @@ import android.graphics.Bitmap;
  */
 public class Usuario {
 
-    private int usuario_id;
-    private String nome;
-    private Bitmap foto;
-    private String email;
-    private String senha;
-    private int tipo;
-    private int status;
+	private int usuario_id;
+	private String nome;
+	private Bitmap foto;
+	private String email;
+	private String senha;
+	private int tipo;
+	private int status;
 
-    public int getUsuarioId() {
-        return usuario_id;
-    }
+	public int getUsuarioId() {
+		return usuario_id;
+	}
 
-    public void setUsuarioId(int usuario_id) {
-        this.usuario_id = usuario_id;
-    }
+	public void setUsuarioId(int usuario_id) {
+		this.usuario_id = usuario_id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    
-    public Bitmap getFoto() {
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Bitmap getFoto() {
 		return foto;
 	}
 
@@ -39,35 +39,35 @@ public class Usuario {
 		this.foto = foto;
 	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
 	public void setEmail(String email) {
-        this.email = email;
-    }
+		this.email = email;
+	}
 
-    public String getSenha() {
-        return senha;
-    }
+	public String getSenha() {
+		return senha;
+	}
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
-    public int getTipo() {
-        return tipo;
-    }
+	public int getTipo() {
+		return tipo;
+	}
 
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
-    }
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
 
-    public int getStatus() {
-        return status;
-    }
+	public int getStatus() {
+		return status;
+	}
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
+	public void setStatus(int status) {
+		this.status = status;
+	}
 }

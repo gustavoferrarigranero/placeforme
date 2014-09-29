@@ -11,11 +11,11 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 public class AdapterGridViewFotos extends BaseAdapter {
-	
+
 	private Context mContext;
 	private ArrayList<Foto> fotos;
 
-	public AdapterGridViewFotos(Context c,ArrayList<Foto> fotos){
+	public AdapterGridViewFotos(Context c, ArrayList<Foto> fotos) {
 		mContext = c;
 		this.fotos = fotos;
 	}
@@ -44,9 +44,9 @@ public class AdapterGridViewFotos extends BaseAdapter {
 		} else {
 			imageView = (ImageView) convertView;
 		}
-		
+
 		imageView.setImageBitmap(fotos.get(position).getFoto());
-		
+
 		return imageView;
 	}
 

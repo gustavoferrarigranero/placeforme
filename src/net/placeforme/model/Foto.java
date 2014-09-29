@@ -7,29 +7,28 @@ import android.graphics.Bitmap;
  */
 public class Foto {
 
-    private int foto_id;
-    private Bitmap foto;
-    private int evento_id;
-    private int status;
+	private int foto_id;
+	private Bitmap foto;
+	private int evento_id;
+	private int status;
 
+	public int getFotoId() {
+		return foto_id;
+	}
 
-    public int getFotoId() {
-        return foto_id;
-    }
+	public void setFotoId(int foto_id) {
+		this.foto_id = foto_id;
+	}
 
-    public void setFotoId(int foto_id) {
-        this.foto_id = foto_id;
-    }
+	public Bitmap getFoto() {
+		return foto;
+	}
 
-    public Bitmap getFoto() {
-        return foto;
-    }
+	public void setFoto(Bitmap foto) {
+		this.foto = foto;
+	}
 
-    public void setFoto(Bitmap foto) {
-        this.foto = foto;
-    }
-
-    public int getEventoId() {
+	public int getEventoId() {
 		return evento_id;
 	}
 
@@ -38,10 +37,10 @@ public class Foto {
 	}
 
 	public int getStatus() {
-        return status;
-    }
+		return status;
+	}
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
+	public void setStatus(int status) {
+		this.status = status;
+	}
 }

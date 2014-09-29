@@ -12,7 +12,7 @@ import android.widget.TimePicker;
 
 public class TimePickerFragment extends DialogFragment implements
 		TimePickerDialog.OnTimeSetListener {
-	
+
 	private EditText editText;
 
 	public TimePickerFragment(EditText edittext) {
@@ -37,14 +37,14 @@ public class TimePickerFragment extends DialogFragment implements
 		// TODO Auto-generated method stub
 		String hour = String.valueOf(hourOfDay);
 		String minu = String.valueOf(minute);
-		
-		if(hour.length() == 1){
-			hour = "0"+hour;
+
+		if (hour.length() == 1) {
+			hour = "0" + hour;
 		}
-		if(minu.length() == 1){
-			minu = "0"+minu;
+		if (minu.length() == 1) {
+			minu = "0" + minu;
 		}
-		this.editText.setText(hour+":"+minu);
+		this.editText.setText(hour + ":" + minu);
 
 	}
 }

@@ -72,21 +72,6 @@
                 android:layout_marginBottom="15sp"
                 android:text="OU"/>
             
-            <com.facebook.widget.LoginButton
-		        android:id="@+id/authButton"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center_horizontal"
-		        android:layout_marginTop="30dp"
-		        />
-            
-            <TextView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15sp"
-                android:layout_marginBottom="15sp"
-                android:text="OU"/>
-            
             <Button
                 android:id="@+id/cadastrar"
                 android:layout_width="wrap_content"

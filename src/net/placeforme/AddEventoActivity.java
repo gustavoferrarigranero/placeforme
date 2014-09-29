@@ -33,7 +33,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 public class AddEventoActivity extends FragmentActivity implements
@@ -71,9 +70,9 @@ public class AddEventoActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_add_evento);
 
 		// Set up the action bar.
-        final ActionBar actionBar = this.getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-		
+		final ActionBar actionBar = this.getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+
 		addEventoActivity = this;
 
 		newEvento = new Evento();
@@ -162,29 +161,37 @@ public class AddEventoActivity extends FragmentActivity implements
 						android.R.layout.simple_spinner_item,
 						arrayListStringAtributos);
 
-				arrayAdapterAtributo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				arrayAdapterAtributo
+						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 				atributoSpinner.setAdapter(arrayAdapterAtributo);
 
-				eventoAtributosValorText = (EditText) dialog.findViewById(R.id.evento_atributos_valor);
+				eventoAtributosValorText = (EditText) dialog
+						.findViewById(R.id.evento_atributos_valor);
 
-				buttonDialogAddAtributo = (Button) dialog.findViewById(R.id.button_dialog_add_atributo);
+				buttonDialogAddAtributo = (Button) dialog
+						.findViewById(R.id.button_dialog_add_atributo);
 
-				buttonDialogAddAtributo.setOnClickListener(new OnClickListener() {
+				buttonDialogAddAtributo
+						.setOnClickListener(new OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						EventoAtributo eventoAtributo = new EventoAtributo();
-						eventoAtributo.setAtributoId(arrayListAtributos.get(atributoSpinner.getSelectedItemPosition())
-								.getAtributoId());
-						eventoAtributo.setTexto(eventoAtributosValorText.getText().toString());
-						arrayListEventoAtributos.add(eventoAtributo);
-						populaAtributosList();
-						listaAtributosScreen.requestFocus();
-						dialog.dismiss();
-					}
-				});
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								EventoAtributo eventoAtributo = new EventoAtributo();
+								eventoAtributo.setAtributoId(arrayListAtributos
+										.get(atributoSpinner
+												.getSelectedItemPosition())
+										.getAtributoId());
+								eventoAtributo
+										.setTexto(eventoAtributosValorText
+												.getText().toString());
+								arrayListEventoAtributos.add(eventoAtributo);
+								populaAtributosList();
+								listaAtributosScreen.requestFocus();
+								dialog.dismiss();
+							}
+						});
 
 				dialog.show();
 
@@ -222,9 +229,10 @@ public class AddEventoActivity extends FragmentActivity implements
 		});
 
 	}
-	
-	private void populaAtributosList(){
-		AdapterListAtributos adapter = new AdapterListAtributos(this, arrayListEventoAtributos);
+
+	private void populaAtributosList() {
+		AdapterListAtributos adapter = new AdapterListAtributos(this,
+				arrayListEventoAtributos);
 		listaAtributosScreen.setAdapter(adapter);
 		listaAtributosScreen.setExpanded(true);
 	}
@@ -241,7 +249,6 @@ public class AddEventoActivity extends FragmentActivity implements
 		// Another interface callback
 	}
 
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -250,11 +257,11 @@ public class AddEventoActivity extends FragmentActivity implements
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
-		}else if(id == android.R.id.home){
+		} else if (id == android.R.id.home) {
 			this.finish();
-	        return true;
+			return true;
 		}
-			
+
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -279,7 +286,7 @@ public class AddEventoActivity extends FragmentActivity implements
 		newEvento.setUsuarioId(MainActivity.usuarioLogado.getUsuarioId());
 		newEvento.setStatus(1);
 
-		long evento_id = eventoDao.add(newEvento);		
+		long evento_id = eventoDao.add(newEvento);
 
 		if (evento_id > 0) {
 			if (!arrayListEventoAtributos.isEmpty()) {
@@ -287,13 +294,15 @@ public class AddEventoActivity extends FragmentActivity implements
 				for (EventoAtributo ea : arrayListEventoAtributos) {
 					ea.setEventoId((int) evento_id);
 					eventoAtributoDao.add(ea);
-					Log.d("ATTR+", atributoDao.get(ea.getAtributoId()).getTitulo());
+					Log.d("ATTR+", atributoDao.get(ea.getAtributoId())
+							.getTitulo());
 				}
 			}
 			TabTwoActivity.populaListaStatic();
+			TabTreeActivity.populaListaStatic();
 			addEventoActivity.finish();
 		}
 
 	}
-	
+
 }

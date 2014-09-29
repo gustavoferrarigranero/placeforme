@@ -13,106 +13,105 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class AtributoDao {
 
-    private SQLiteDatabase database;
-    private DbHelper dbHelper;
-    private String[] ALLCOLUMNS = new String[] { DbHelper.TABLE_ATRIBUTO_ID,
-            DbHelper.TABLE_ATRIBUTO_TITULO, DbHelper.TABLE_ATRIBUTO_PADRAO,DbHelper.TABLE_ATRIBUTO_STATUS };
+	private SQLiteDatabase database;
+	private DbHelper dbHelper;
+	private String[] ALLCOLUMNS = new String[] { DbHelper.TABLE_ATRIBUTO_ID,
+			DbHelper.TABLE_ATRIBUTO_TITULO, DbHelper.TABLE_ATRIBUTO_PADRAO,
+			DbHelper.TABLE_ATRIBUTO_STATUS };
 
+	public AtributoDao(Context ctx) {
+		this.dbHelper = new DbHelper(ctx);
+	}
 
-    public AtributoDao(Context ctx) {
-        this.dbHelper = new DbHelper(ctx);
-    }
+	public void add(Atributo atributo) {
 
-    public void add(Atributo atributo) {
+		database = dbHelper.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(DbHelper.TABLE_ATRIBUTO_TITULO, atributo.getTitulo());
+		values.put(DbHelper.TABLE_ATRIBUTO_PADRAO, atributo.getPadrao());
+		values.put(DbHelper.TABLE_ATRIBUTO_STATUS, atributo.getStatus());
+		database.insert(DbHelper.TABLE_ATRIBUTO, null, values);
+		dbHelper.close();
 
-        database = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DbHelper.TABLE_ATRIBUTO_TITULO,atributo.getTitulo());
-        values.put(DbHelper.TABLE_ATRIBUTO_PADRAO,atributo.getPadrao());
-        values.put(DbHelper.TABLE_ATRIBUTO_STATUS,atributo.getStatus());
-        database.insert(DbHelper.TABLE_ATRIBUTO,null,values);
-        dbHelper.close();
+	}
 
-    }
+	public Atributo get(int id) {
 
-    public Atributo get(int id) {
+		database = dbHelper.getReadableDatabase();
+		Cursor cursor = database.query(DbHelper.TABLE_ATRIBUTO,
+				new String[] { DbHelper.TABLE_ATRIBUTO_ID,
+						DbHelper.TABLE_ATRIBUTO_TITULO,
+						DbHelper.TABLE_ATRIBUTO_PADRAO,
+						DbHelper.TABLE_ATRIBUTO_STATUS },
+				DbHelper.TABLE_ATRIBUTO_ID + "=?",
+				new String[] { String.valueOf(id) }, null, null, null, null);
 
-        database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.query(DbHelper.TABLE_ATRIBUTO, new String[] { DbHelper.TABLE_ATRIBUTO_ID,
-                        DbHelper.TABLE_ATRIBUTO_TITULO, DbHelper.TABLE_ATRIBUTO_PADRAO,DbHelper.TABLE_ATRIBUTO_STATUS }, DbHelper.TABLE_ATRIBUTO_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
+		if (cursor != null)
+			cursor.moveToFirst();
 
-        if (cursor != null)
-            cursor.moveToFirst();
+		Atributo atributo = new Atributo();
+		atributo.setAtributoId(cursor.getInt(0));
+		atributo.setTitulo(cursor.getString(1));
+		atributo.setPadrao(cursor.getInt(2));
+		atributo.setStatus(cursor.getInt(3));
 
-        Atributo atributo = new Atributo();
-        atributo.setAtributoId(cursor.getInt(0));
-        atributo.setTitulo(cursor.getString(1));
-        atributo.setPadrao(cursor.getInt(2));
-        atributo.setStatus(cursor.getInt(3));
+		dbHelper.close();
+		return atributo;
+	}
 
-        dbHelper.close();
-        return atributo;
-    }
+	public List<Atributo> getAll() {
+		List<Atributo> atributoList = new ArrayList<Atributo>();
+		database = dbHelper.getReadableDatabase();
+		Cursor cursor = database.query(DbHelper.TABLE_ATRIBUTO, ALLCOLUMNS,
+				null, null, null, null, null);
 
-    
-    
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Atributo atributo = new Atributo();
+			atributo.setAtributoId(cursor.getInt(0));
+			atributo.setTitulo(cursor.getString(1));
+			atributo.setPadrao(cursor.getInt(2));
+			atributo.setStatus(cursor.getInt(3));
+			atributoList.add(atributo);
+			cursor.moveToNext();
+		}
+		cursor.close();
+		dbHelper.close();
 
-    public List<Atributo> getAll() {
-        List<Atributo> atributoList = new ArrayList<Atributo>();
-        database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.query(DbHelper.TABLE_ATRIBUTO,
-                ALLCOLUMNS, null, null, null, null, null);
-        
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Atributo atributo = new Atributo();
-            atributo.setAtributoId(cursor.getInt(0));
-            atributo.setTitulo(cursor.getString(1));
-            atributo.setPadrao(cursor.getInt(2));
-            atributo.setStatus(cursor.getInt(3));
-            atributoList.add(atributo);  
-            cursor.moveToNext();
-        }
-        cursor.close();
-        dbHelper.close();
-        
-        return atributoList;
-    }
+		return atributoList;
+	}
 
+	public int update(Atributo atributo) {
+		database = dbHelper.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(DbHelper.TABLE_ATRIBUTO_TITULO, atributo.getTitulo());
+		values.put(DbHelper.TABLE_ATRIBUTO_PADRAO, atributo.getPadrao());
+		values.put(DbHelper.TABLE_ATRIBUTO_STATUS, atributo.getStatus());
+		int ret = database.update(DbHelper.TABLE_ATRIBUTO, values,
+				DbHelper.TABLE_ATRIBUTO_ID + " = ?",
+				new String[] { String.valueOf(atributo.getAtributoId()) });
 
-    public int update(Atributo atributo) {
-        database = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DbHelper.TABLE_ATRIBUTO_TITULO, atributo.getTitulo());
-        values.put(DbHelper.TABLE_ATRIBUTO_PADRAO, atributo.getPadrao());
-        values.put(DbHelper.TABLE_ATRIBUTO_STATUS, atributo.getStatus());
-        int ret = database.update(DbHelper.TABLE_ATRIBUTO, values, DbHelper.TABLE_ATRIBUTO_ID + " = ?",
-                new String[] { String.valueOf(atributo.getAtributoId()) });
+		dbHelper.close();
 
-        dbHelper.close();
+		return ret;
+	}
 
-        return ret;
-    }
+	public void delete(Atributo atributo) {
 
+		database = dbHelper.getWritableDatabase();
+		database.delete(DbHelper.TABLE_ATRIBUTO, DbHelper.TABLE_ATRIBUTO_ID
+				+ " = ?",
+				new String[] { String.valueOf(atributo.getAtributoId()) });
+		dbHelper.close();
+	}
 
-    public void delete(Atributo atributo) {
-
-        database = dbHelper.getWritableDatabase();
-        database.delete(DbHelper.TABLE_ATRIBUTO, DbHelper.TABLE_ATRIBUTO_ID + " = ?",
-                new String[] { String.valueOf(atributo.getAtributoId()) });
-        dbHelper.close();
-    }
-
-
-    public int count() {
-        String countQuery = "SELECT  * FROM " + DbHelper.TABLE_ATRIBUTO;
-        database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.rawQuery(countQuery, null);
-        cursor.close();
-        dbHelper.close();
-        return cursor.getCount();
-    }
-
+	public int count() {
+		String countQuery = "SELECT  * FROM " + DbHelper.TABLE_ATRIBUTO;
+		database = dbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(countQuery, null);
+		cursor.close();
+		dbHelper.close();
+		return cursor.getCount();
+	}
 
 }

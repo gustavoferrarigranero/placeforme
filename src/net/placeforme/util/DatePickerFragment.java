@@ -6,12 +6,13 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
 public class DatePickerFragment extends DialogFragment implements
 		DatePickerDialog.OnDateSetListener {
-	
+
 	private EditText editText;
 
 	public DatePickerFragment(EditText edittext) {
@@ -25,7 +26,7 @@ public class DatePickerFragment extends DialogFragment implements
 		final Calendar c = Calendar.getInstance();
 		int year = c.get(Calendar.YEAR);
 		int month = c.get(Calendar.MONTH);
-		int day = c.get(Calendar.DAY_OF_MONTH)+1;
+		int day = c.get(Calendar.DAY_OF_MONTH) + 1;
 
 		// Create a new instance of DatePickerDialog and return it
 		return new DatePickerDialog(getActivity(), this, year, month, day);
@@ -34,18 +35,17 @@ public class DatePickerFragment extends DialogFragment implements
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear,
 			int dayOfMonth) {
-		// TODO Auto-generated method stub
-		
+
 		String day = String.valueOf(dayOfMonth);
-		String month = String.valueOf(monthOfYear);
-		
-		if(day.length() == 1){
-			day = "0"+day;
+		String month = String.valueOf(monthOfYear+1);
+
+		if (day.length() == 1) {
+			day = "0" + day;
 		}
-		if(month.length() == 1){
-			month = "0"+month;
+		if (month.length() == 1) {
+			month = "0" + month;
 		}
-		this.editText.setText(day+"/"+month+"/"+year);
-		
+		this.editText.setText(day + "/" + month + "/" + year);
+
 	}
 }

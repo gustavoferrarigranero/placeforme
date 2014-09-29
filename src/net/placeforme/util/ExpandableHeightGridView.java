@@ -1,9 +1,9 @@
 package net.placeforme.util;
 
+import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.content.Context;
 
 public class ExpandableHeightGridView extends GridView {
 

@@ -5,110 +5,148 @@ import java.util.List;
 import net.placeforme.MainActivity;
 import net.placeforme.R;
 import net.placeforme.ShowEventoActivity;
+import net.placeforme.TabTreeActivity;
+import net.placeforme.TabTwoActivity;
 import net.placeforme.model.Evento;
+import net.placeforme.model.EventoDao;
 import net.placeforme.model.Usuario;
 import net.placeforme.model.UsuarioDao;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.sax.StartElementListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class AdapterListEventos extends BaseAdapter {
 
-    private LayoutInflater inflater;
-    
-    private List<Evento> eventos;
-    private UsuarioDao usuarioDao;
-    private Usuario usuarioEvento;
-    
-    private TextView campotitulo ;
-    private TextView campoData;
-    private ImageView campoFoto;
-    
+	private LayoutInflater inflater;
 
-    public AdapterListEventos(Context context, List<Evento> eventos){
+	private List<Evento> eventos;
+	private UsuarioDao usuarioDao;
+	private Usuario usuarioEvento;
 
-        this.eventos = eventos;
+	private TextView campotitulo;
+	private TextView campoData;
+	private ImageView campoFoto;
 
-    }
+	public AdapterListEventos(Context context, List<Evento> eventos) {
 
-    @Override
+		this.eventos = eventos;
 
-    public int getCount() {
+	}
 
-        return eventos.size();
+	@Override
+	public int getCount() {
 
-    }
+		return eventos.size();
 
+	}
 
-    @Override
+	@Override
+	public Object getItem(int position) {
 
-    public Object getItem(int position) {
+		return eventos.get(position);
 
-        return eventos.get(position);
+	}
 
-    }
+	@Override
+	public long getItemId(int position) {
 
-    @Override
+		return position;
 
-    public long getItemId(int position) {
+	}
 
-        return position;
+	@Override
+	public View getView(int position, View convertView, final ViewGroup parent) {
 
-    }
+		inflater = (LayoutInflater) parent.getContext().getSystemService(
+				Context.LAYOUT_INFLATER_SERVICE);
 
-    @Override
+		convertView = inflater.inflate(R.layout.list_eventos, null);
 
-    public View getView(int position, View convertView, final ViewGroup parent) {
+		final Evento evento = eventos.get(position);
 
-        inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		usuarioDao = new UsuarioDao(parent.getContext());
+		usuarioEvento = new Usuario();
+		usuarioEvento = usuarioDao.get(evento.getUsuarioId());
 
-        convertView = inflater.inflate(R.layout.list_eventos, null);
+		campotitulo = (TextView) convertView.findViewById(R.id.text);
+		campoFoto = (ImageView) convertView.findViewById(R.id.imageUsuario);
 
-        final Evento evento = eventos.get(position);
-        
-        usuarioDao = new UsuarioDao(parent.getContext());
-        usuarioEvento = new Usuario();
-        usuarioEvento = usuarioDao.get(evento.getUsuarioId());
-                
-        campotitulo = (TextView) convertView.findViewById(R.id.text);
-        campoFoto = (ImageView) convertView.findViewById(R.id.imageUsuario);
+		campotitulo.setText(evento.getTitulo());
 
-        campotitulo.setText(evento.getTitulo());
-        
-        campoData = (TextView) convertView.findViewById(R.id.datainicio);
+		campoData = (TextView) convertView.findViewById(R.id.datainicio);
 
-        campoData.setText("Data: "+Utils.sqlDateToString(evento.getDataInicio()) + 
-        		" - Horário: "+Utils.sqlTimeToString(evento.getHorario())+"hs");
+		if (null != evento.getDataInicio()) {
+			campoData.setText("Data: "
+					+ Utils.sqlDateToString(evento.getDataInicio())
+					+ " - Horário: "
+					+ Utils.sqlTimeToString(evento.getHorario()) + "hs");
+		}
+		if (null != usuarioEvento.getFoto()) {
+			campoFoto
+					.setImageBitmap(Utils.circleImage(usuarioEvento.getFoto()));
+		}
 
-        if(null!=usuarioEvento.getFoto()){
-        	campoFoto.setImageBitmap(Utils.circleImage(usuarioEvento.getFoto()));
-        }
-        
-        convertView.setOnClickListener(new OnClickListener() {
-			
+		convertView.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent show = new Intent(parent.getContext(), ShowEventoActivity.class);
+				Intent show = new Intent(parent.getContext(),
+						ShowEventoActivity.class);
 				Bundle params = new Bundle();
-				params.putInt("evento_id",evento.getEventoId());
+				params.putInt("evento_id", evento.getEventoId());
 				show.putExtras(params);
 				parent.getContext().startActivity(show);
 			}
 		});
-        
-        return convertView;
-        
-    }
 
-	
+		convertView.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View v) {
+				// TODO Auto-generated method stub
+
+				if (evento.getUsuarioId() == MainActivity.usuarioLogado
+						.getUsuarioId()) {
+					new AlertDialog.Builder(MainActivity.mainActivity)
+							.setTitle("Excluir")
+							.setMessage("Você deseja excluir este evento?")
+							.setIcon(android.R.drawable.ic_menu_delete)
+							.setPositiveButton(android.R.string.yes,
+									new DialogInterface.OnClickListener() {
+
+										public void onClick(
+												DialogInterface dialog,
+												int whichButton) {
+											EventoDao eventoDao = new EventoDao(
+													parent.getContext());
+											eventoDao.delete(evento);
+											MainActivity.mainActivity
+													.recreate();
+										}
+									})
+							.setNegativeButton(android.R.string.no, null)
+							.show();
+
+				}
+
+				return false;
+			}
+		});
+
+		return convertView;
+
+	}
+
 }

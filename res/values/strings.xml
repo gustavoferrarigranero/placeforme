@@ -4,9 +4,10 @@
     <string name="app_name">Place for Me</string>
     <string name="title_section1">Busca</string>
     <string name="title_section2">Eventos</string>
-    <string name="title_section3">Minha Conta</string>
+    <string name="title_section3">Antigos</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Opções</string>
+    <string name="action_my_account">Minha Conta</string>
     <string name="action_logoff">Sair da conta</string>
     <string name="imagemUsuario">Imagem usuário</string>
     <string name="title_activity_criar_evento">Criar Evento</string>
@@ -24,6 +25,7 @@
 
     <string name="title_activity_edit_evento">EditEventoActivity</string>
     <string name="title_activity_show_evento">Evento</string>
+    <string name="title_activity_my_account">Minha Conta</string>
     <string name="facebook_app_id">278854725655693</string>
 
 </resources>

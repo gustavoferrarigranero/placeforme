@@ -3,25 +3,7 @@ package net.placeforme;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import br.com.condesales.EasyFoursquareAsync;
-import br.com.condesales.criterias.CheckInCriteria;
-import br.com.condesales.criterias.TipsCriteria;
-import br.com.condesales.criterias.VenuesCriteria;
-import br.com.condesales.listeners.AccessTokenRequestListener;
-import br.com.condesales.listeners.CheckInListener;
-import br.com.condesales.listeners.FoursquareVenuesRequestListener;
-import br.com.condesales.listeners.ImageRequestListener;
-import br.com.condesales.listeners.TipsRequestListener;
-import br.com.condesales.listeners.UserInfoRequestListener;
-import br.com.condesales.models.Checkin;
-import br.com.condesales.models.Tip;
-import br.com.condesales.models.User;
-import br.com.condesales.models.Venue;
-import br.com.condesales.tasks.users.UserImageRequest;
-
-import com.facebook.UiLifecycleHelper;
-import com.facebook.widget.FacebookDialog;
-
+import net.placeforme.model.AtributoDao;
 import net.placeforme.model.Avaliacao;
 import net.placeforme.model.AvaliacaoDao;
 import net.placeforme.model.Evento;
@@ -31,12 +13,11 @@ import net.placeforme.model.EventoDao;
 import net.placeforme.model.Foto;
 import net.placeforme.model.FotoDao;
 import net.placeforme.model.UsuarioDao;
-import net.placeforme.model.AtributoDao;
+import net.placeforme.util.AdapterGridViewFotos;
 import net.placeforme.util.AdapterListAtributos;
 import net.placeforme.util.AdapterListAvaliacoes;
 import net.placeforme.util.ExpandableHeightGridView;
 import net.placeforme.util.ExpandableHeightListView;
-import net.placeforme.util.AdapterGridViewFotos;
 import net.placeforme.util.Utils;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -50,7 +31,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
@@ -67,8 +47,20 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
+import br.com.condesales.EasyFoursquareAsync;
+import br.com.condesales.criterias.CheckInCriteria;
+import br.com.condesales.criterias.VenuesCriteria;
+import br.com.condesales.listeners.AccessTokenRequestListener;
+import br.com.condesales.listeners.CheckInListener;
+import br.com.condesales.listeners.FoursquareVenuesRequestListener;
+import br.com.condesales.models.Checkin;
+import br.com.condesales.models.Venue;
 
-public class ShowEventoActivity extends Activity implements AccessTokenRequestListener {
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.FacebookDialog;
+
+public class ShowEventoActivity extends Activity implements
+		AccessTokenRequestListener {
 
 	public static ShowEventoActivity showEventoActivity;
 
@@ -105,17 +97,17 @@ public class ShowEventoActivity extends Activity implements AccessTokenRequestLi
 	private int REQUEST_IMAGE_CAPTURE = 1;
 
 	private Intent shareIntent;
-	
+
 	private Dialog shareDialog;
-	
+
 	private UiLifecycleHelper uiHelper;
-	
+
 	private EasyFoursquareAsync async;
-	
+
 	private Location userLocation;
-	
+
 	private LocationListener locationListener;
-	
+
 	private LocationManager locationManager;
 
 	@Override
@@ -139,11 +131,11 @@ public class ShowEventoActivity extends Activity implements AccessTokenRequestLi
 		avaliacaoDao = new AvaliacaoDao(this);
 		eventoAtributoDao = new EventoAtributoDao(this);
 		atributoDao = new AtributoDao(this);
-		
+
 		uiHelper = new UiLifecycleHelper(this, null);
-	    uiHelper.onCreate(savedInstanceState);
-	    
-	    locationManager = (LocationManager) this
+		uiHelper.onCreate(savedInstanceState);
+
+		locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);
 
 		locationListener = new LocationListener() {
@@ -163,10 +155,10 @@ public class ShowEventoActivity extends Activity implements AccessTokenRequestLi
 			public void onProviderDisabled(String provider) {
 			}
 		};
-		
-		locationManager.requestLocationUpdates( LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-		
-	     
+
+		locationManager.requestLocationUpdates(
+				LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+
 		usuarioText = (TextView) findViewById(R.id.evento_usuario);
 		dataText = (TextView) findViewById(R.id.evento_data);
 		horarioText = (TextView) findViewById(R.id.evento_horario);
@@ -269,7 +261,7 @@ public class ShowEventoActivity extends Activity implements AccessTokenRequestLi
 
 			}
 		});
-		
+
 		shareIntent = new Intent();
 		shareIntent.setAction(Intent.ACTION_SEND);
 		shareIntent.setType("text/plain");
@@ -361,18 +353,21 @@ public class ShowEventoActivity extends Activity implements AccessTokenRequestLi
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		
-		uiHelper.onActivityResult(requestCode, resultCode, data, new FacebookDialog.Callback() {
-	        @Override
-	        public void onError(FacebookDialog.PendingCall pendingCall, Exception error, Bundle data) {
-	            
-	        }
 
-	        @Override
-	        public void onComplete(FacebookDialog.PendingCall pendingCall, Bundle data) {
-	            shareDialog.dismiss();
-	        }
-	    });
+		uiHelper.onActivityResult(requestCode, resultCode, data,
+				new FacebookDialog.Callback() {
+					@Override
+					public void onError(FacebookDialog.PendingCall pendingCall,
+							Exception error, Bundle data) {
+
+					}
+
+					@Override
+					public void onComplete(
+							FacebookDialog.PendingCall pendingCall, Bundle data) {
+						shareDialog.dismiss();
+					}
+				});
 
 		// para tirar foto
 		/*
@@ -439,37 +434,43 @@ public class ShowEventoActivity extends Activity implements AccessTokenRequestLi
 		getMenuInflater().inflate(R.menu.show_evento, menu);
 
 		MenuItem item = menu.findItem(R.id.menu_item_share);
-		
+
 		item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-			
+
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				// TODO Auto-generated method stub
-				///shareIntent.setPackage("com.facebook.katana");
-				
+				// /shareIntent.setPackage("com.facebook.katana");
+
 				shareDialog = new Dialog(showEventoActivity);
 				shareDialog.setContentView(R.layout.dialog_evento_share);
 				shareDialog.setTitle("Compartilhar no");
-				
 
-				shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send. "+evento.getTitulo());
-				
-				LinearLayout s_facebook = (LinearLayout)shareDialog.findViewById(R.id.share_facebook);
-				LinearLayout s_whatsapp = (LinearLayout)shareDialog.findViewById(R.id.share_whatsapp);
-				LinearLayout s_swarm = (LinearLayout)shareDialog.findViewById(R.id.share_swarm);
-				LinearLayout s_gmail = (LinearLayout)shareDialog.findViewById(R.id.share_gmail);
-				LinearLayout s_twitter = (LinearLayout)shareDialog.findViewById(R.id.share_twitter);
-				
+				shareIntent.putExtra(Intent.EXTRA_TEXT,
+						"This is my text to send. " + evento.getTitulo());
+
+				LinearLayout s_facebook = (LinearLayout) shareDialog
+						.findViewById(R.id.share_facebook);
+				LinearLayout s_whatsapp = (LinearLayout) shareDialog
+						.findViewById(R.id.share_whatsapp);
+				LinearLayout s_swarm = (LinearLayout) shareDialog
+						.findViewById(R.id.share_swarm);
+				LinearLayout s_gmail = (LinearLayout) shareDialog
+						.findViewById(R.id.share_gmail);
+				LinearLayout s_twitter = (LinearLayout) shareDialog
+						.findViewById(R.id.share_twitter);
+
 				s_facebook.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(showEventoActivity)
-				        .setLink("https://developers.facebook.com/android")
-				        .build();
-				uiHelper.trackPendingDialogCall(shareDialog.present());
+						FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(
+								showEventoActivity).setLink(
+								"https://developers.facebook.com/android")
+								.build();
+						uiHelper.trackPendingDialogCall(shareDialog.present());
 					}
 				});
-				
+
 				s_whatsapp.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -477,16 +478,16 @@ public class ShowEventoActivity extends Activity implements AccessTokenRequestLi
 						startActivity(shareIntent);
 					}
 				});
-				
+
 				s_swarm.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						async = new EasyFoursquareAsync(showEventoActivity);
-					    async.requestAccess(showEventoActivity);
+						async.requestAccess(showEventoActivity);
 					}
 
 				});
-				
+
 				s_gmail.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -494,7 +495,7 @@ public class ShowEventoActivity extends Activity implements AccessTokenRequestLi
 						startActivity(shareIntent);
 					}
 				});
-				
+
 				s_twitter.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -502,9 +503,9 @@ public class ShowEventoActivity extends Activity implements AccessTokenRequestLi
 						startActivity(shareIntent);
 					}
 				});
-				
+
 				shareDialog.show();
-				
+
 				return false;
 			}
 		});
@@ -512,91 +513,92 @@ public class ShowEventoActivity extends Activity implements AccessTokenRequestLi
 		// Return true to display menu
 		return true;
 	}
-	
+
 	@Override
 	protected void onResume() {
-	    super.onResume();
-	    uiHelper.onResume();
+		super.onResume();
+		uiHelper.onResume();
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-	    super.onSaveInstanceState(outState);
-	    uiHelper.onSaveInstanceState(outState);
+		super.onSaveInstanceState(outState);
+		uiHelper.onSaveInstanceState(outState);
 	}
 
 	@Override
 	public void onPause() {
-	    super.onPause();
-	    uiHelper.onPause();
+		super.onPause();
+		uiHelper.onPause();
 	}
 
 	@Override
 	public void onDestroy() {
-	    super.onDestroy();
-	    uiHelper.onDestroy();
+		super.onDestroy();
+		uiHelper.onDestroy();
 	}
-	
+
 	@Override
-    public void onError(String errorMsg) {
-        // Do something with the error message
-        Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
-    }
+	public void onError(String errorMsg) {
+		// Do something with the error message
+		Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+	}
 
-    @Override
-    public void onAccessGrant(String accessToken) {
-        requestTipsNearby();
-    }
+	@Override
+	public void onAccessGrant(String accessToken) {
+		requestTipsNearby();
+	}
 
-    private void checkin(Venue venue) {
-    	    	
-    	CheckInCriteria criteria = new CheckInCriteria();
+	private void checkin(Venue venue) {
 
-        criteria.setVenueId(venue.getId());
-        
-        criteria.setBroadcast(CheckInCriteria.BroadCastType.PUBLIC);
+		CheckInCriteria criteria = new CheckInCriteria();
 
-        async.checkIn(new CheckInListener() {
-            @Override
-            public void onCheckInDone(Checkin checkin) {
-                shareDialog.dismiss();
-                Toast.makeText(showEventoActivity, "Check-in feito!", Toast.LENGTH_LONG).show();
-            }
+		criteria.setVenueId(venue.getId());
 
-            @Override
-            public void onError(String errorMsg) {
-                Toast.makeText(showEventoActivity, "error", Toast.LENGTH_LONG).show();
-            }
-        }, criteria);
-    	
-        
-    }
-    
-    private void requestTipsNearby() {
-    	
-    	Location loc = new Location("");
-        loc.setLatitude(userLocation.getLatitude());
-    	loc.setLongitude(userLocation.getLongitude());
+		criteria.setBroadcast(CheckInCriteria.BroadCastType.PUBLIC);
 
-        VenuesCriteria criteria = new VenuesCriteria();
-        criteria.setLocation(loc);
+		async.checkIn(new CheckInListener() {
+			@Override
+			public void onCheckInDone(Checkin checkin) {
+				shareDialog.dismiss();
+				Toast.makeText(showEventoActivity, "Check-in feito!",
+						Toast.LENGTH_LONG).show();
+			}
 
-        async.getVenuesNearby(new FoursquareVenuesRequestListener() {
-			
+			@Override
+			public void onError(String errorMsg) {
+				Toast.makeText(showEventoActivity, "error", Toast.LENGTH_LONG)
+						.show();
+			}
+		}, criteria);
+
+	}
+
+	private void requestTipsNearby() {
+
+		Location loc = new Location("");
+		loc.setLatitude(userLocation.getLatitude());
+		loc.setLongitude(userLocation.getLongitude());
+
+		VenuesCriteria criteria = new VenuesCriteria();
+		criteria.setLocation(loc);
+
+		async.getVenuesNearby(new FoursquareVenuesRequestListener() {
+
 			@Override
 			public void onError(String errorMsg) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onVenuesFetched(ArrayList<Venue> venues) {
 				// TODO Auto-generated method stub
 				checkin(venues.get(0));
-				
+
 			}
-		},criteria);
-        
-    }
+		}, criteria);
+
+	}
 
 }
